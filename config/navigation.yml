@@ -1,0 +1,24 @@
+:navigation:
+  :about:
+    :name: 'navigation.about'
+    :url: '#'
+    :links:
+      :faq:
+        :name: 'navigation.faq'
+        :url: '#'
+  :wine:
+    :name: 'navigation.wine'
+    :url: '#'
+    :links:
+      :products:
+        :name: 'navigation.products'
+        :url: '#'
+      :producers:
+        :name: 'navigation.producers'
+        :url: '#'
+      :sellers:
+        :name: 'navigation.sellers'
+        :url: '#'
+  :blog:
+    :name: 'navigation.blog'
+    :url: '#'

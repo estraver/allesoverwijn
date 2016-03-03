@@ -1,0 +1,5 @@
+%html
+  %body
+    %h1="#{AppConfig.confirmation.email_user % {email: @name}}!"
+    %p=AppConfig.confirmation.email_body
+    %p=link_to AppConfig.confirmation.email_confirm, user_confirmation_url(@user, confirmation_token: @token)

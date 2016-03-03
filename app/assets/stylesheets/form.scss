@@ -1,0 +1,16 @@
+// Generic form styles
+.form-group {
+  &.required {
+    .control-label:after {
+      color: red;
+      content: "*";
+      position: absolute;
+      top: 7px;
+      font: {
+        family: 'Glyphicons Halflings';
+        weight: normal;
+        size: 8px;
+      }
+    }
+  }
+}

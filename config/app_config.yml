@@ -1,0 +1,57 @@
+welcome:
+  title:
+    nl: 'Welkom'
+    en: 'Welcome'
+  content:
+    nl: 'Inhoud op de eerste pagina'
+    en: 'Content on first page'
+  statement:
+    nl: 'Website statement'
+    en: 'Website statement'
+  wineries:
+    nl: '-- Wijnhuizen --'
+    en: '-- Wineries --'
+  wines:
+    nl: '-- Wijnen --'
+    en: '-- Wines --'
+  wine_producers:
+    nl: '-- Wijn producenten --'
+    en: '-- Wine producers --'
+confirmation:
+  email_user:
+    nl: 'Welkom %{email}'
+    en: 'Welcome %{email}'
+  email_body:
+    nl: 'Je kan je account bevestigen door de onderstaande link:'
+    en: 'You can confirm your account email through the link below:'
+  email_confirm:
+    nl: 'Bevestig mijn account'
+    en: 'Confirm my account'
+registration:
+  new_account:
+    nl: 'Om gebruik te maken van de volledige functionaliteit, kan je een account aanmaken. Vul hieronder je naam, e-mailadres en wachtwoord in. Gebruik daarna de link die gestuurd wordt naar je e-mailadres om je account te activeren.'
+    en: 'Create an account to use all functions. Fill in the form with your name (alias), e-mail and password. Use the link in the e-mail to activate your account.'
+  already_account:
+    nl: 'Heb je al een account, dan kan hieronder gelijk in loggen'
+    en: 'Already an account? Use the form the login.'
+  confirmation_subject:
+    nl: "Instructies voor de bevestiging van je account op %{site} (%{domain})"
+    en: "Confirmation instructions %{site} (%{domain})"
+session:
+  new:
+    nl: 'Door het creëren van een account met onze site, zult u in staat om wijnen waarderen, bijhouden van je favoriete wijnen, ruilen van wijnen, geef commentaar en nog veel meer.'
+    en: 'By creating an account with our site, you will be able to rate wines, keep track of your favorite wines, trade wines and leave comments and many more.'
+site:
+  title:
+    nl: 'Alles over wijn'
+    en: 'All about wine'
+date:
+  short:
+    nl: '%e %b'
+    en: '%b %d'
+  default:
+    nl: '%d-%m-%Y'
+    en: '%Y-%m-%d'
+  long:
+    nl: '%e %B %Y'
+    en: '%B %d, %Y'

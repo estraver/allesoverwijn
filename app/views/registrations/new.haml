@@ -1,0 +1,22 @@
+-#= concept('registration/cell/sign_up', @model, form: @form)
+-#= form_concept 'registration'
+- provide :title, _('registration.create')
+%section
+  .column
+    .well
+      %h4= _('registration.already_account')
+      %p= AppConfig.registration.already_account
+      = link_to _('registration.login'), new_session_path, class: :button, role: :button
+  .column
+    .well
+      %h4= _('registration.new_account')
+      %p= AppConfig.registration.new_account
+      = simple_form_for(@form, url: registration_path,  html: {class: 'form-horizontal'},
+                        wrapper: :horizontal_prepend_input) do  |f|
+        = f.input :name, icon_prepend: 'user'
+        = f.input :email, icon_prepend: 'envelope'
+        = f.input :password, icon_prepend: 'lock'
+        = f.input :confirm_password, icon_prepend: 'lock'
+        = f.button :submit, _('registration.new')
+
+

@@ -1,0 +1,37 @@
+.col-lg-3.col-md-4.col-sm-4
+  .main-box.clearfix
+    %h2= name
+
+    .profile-status
+      %i.fa.fa-check-circle
+      - if online?
+        %span= _('views.users.sidebar.online')
+      - else
+        %span.offline= _('views.users.sidebar.offline')
+
+    =image_tag('assets/unknown.jpg', :class => %w(profile-img img-responsive centerblock))
+
+    .profile-label
+      %span.label.label-danger= roles.first.name
+
+    .profile-since= "#{_('views.users.sidebar.member_since')} #{created_at}"
+
+    .profile-details
+      %ul.list-group
+        %li.list-group-item
+          %i.fa.fa-glass
+            %span= "#{_('wines')}:"
+          %span.badge 12
+        %li.list-group-item
+          %i.fa.fa-comment
+            %span= "#{_('posts')}:"
+          %span.badge 23
+        %li.list-group-item
+          %i.fa.fa-thumbs-o-up
+            %span= "#{_('favorites')}:"
+          %span.badge 56
+
+    .profile-message-btn.center-block.text-center
+      %a.btn.btn-success
+        %i.fa.fa-envelope
+        %span= _('views.users.sidebar.send_message')

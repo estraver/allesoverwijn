@@ -1,0 +1,5 @@
+- if has_links?
+  = navigate_to model do
+    = concept('navigation_link/cell', collection: links)
+- else
+  = navigate_to model

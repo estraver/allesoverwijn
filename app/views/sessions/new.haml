@@ -1,0 +1,22 @@
+- provide :title, _('session.new')
+%section
+  .column
+    .well
+      %h4= _('session.new')
+      %p= AppConfig.session.new
+      = link_to _('session.sign_up'), new_registration_path, class: :button, role: :button
+  .column
+    .well
+      %h4= _('session.registered_member')
+      %p= _('session.login')
+      = simple_form_for @form, url: session_path, html: {class: 'form-horizontal'},
+          wrapper: :horizontal_form,
+                        wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes,
+                                            radio_buttons: :horizontal_radio_and_checkboxes,
+                                            file: :horizontal_file_input,
+                                            boolean: :horizontal_boolean} do |f|
+        = f.input :email, icon_prepend: 'envelope', wrapper: :horizontal_prepend_input
+        = f.input :password, icon_prepend: 'lock', wrapper: :horizontal_prepend_input
+        = f.input :remember_me, inline_label: _('session.remember_me'), as: :boolean
+        %p= link_to _('session.forgot_password'), '#', class: 'right'
+        = f.button :submit, _('registration.sign_in')

@@ -1,0 +1,17 @@
+@import 'bootstrap/bootstrap.custom';
+@import 'bootstrap/variables';
+@import 'bootstrap/mixins';
+@import 'bootstrap/wells';
+
+// Theme functions
+@mixin rounded-bg() {
+  @extend .well;
+
+  height: 100%;
+  margin: {
+    bottom: 0;
+    top: 0;
+  }
+  padding: 15px;
+  position: relative;
+}

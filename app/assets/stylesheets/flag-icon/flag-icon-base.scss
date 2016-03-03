@@ -1,0 +1,21 @@
+@import 'flag-icon-mixin';
+
+.flag-icon {
+  @include flag-icon-background();
+  position: relative;
+  display: inline-block;
+  width: (4 / 3) * 1em;
+  line-height: 1em;
+  &:before {
+    content: '\00a0';
+  }
+  &.flag-icon-squared {
+    width: 1em;
+  }
+}
+
+span {
+  &.flag-icon {
+    padding-left: (4 / 3) * 1em;
+  }
+}

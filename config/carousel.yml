@@ -1,0 +1,29 @@
+:carousel:
+  :welcome:
+    :slides:
+      -
+        :image: 'slide1.jpg'
+        :title: 'carousel_slide.slide.wineries'
+        :note: 'AppConfig.welcome.wineries'
+        :url: '#'
+      -
+        :image: 'slide2.jpg'
+        :title: 'carousel_slide.slide.wines'
+        :url: '#'
+        :note: 'AppConfig.welcome.wines'
+      -
+        :image: 'slide3.jpg'
+        :title: 'carousel_slide.slide.wine_producers'
+        :url: '#'
+        :note: 'AppConfig.welcome.wine_producers'
+    :controls:
+      -
+        :position: 'left'
+        :slide: 'prev'
+        :icon: 'chevron-left'
+        :caption: 'carousel_slide.previous'
+      -
+        :position: 'right'
+        :slide: 'next'
+        :icon: 'chevron-right'
+        :caption: 'carousel_slide.next'

@@ -1,0 +1,5 @@
+nl:
+  date:
+    formats:
+      datepicker:
+        format: 'dd-mm-yyyy'

@@ -1,0 +1,26 @@
+//wine colors
+$burgundy-red:                rgb(128,0,32);
+$bordeaux-red:                rgb(114,47,55);
+$claret:                      rgb(127,23,52);
+$champagne:                   rgb(247,231,206);
+$wine-dregs:                  rgb(103,49,71);
+$yellow-green:                rgb(223,254,174);
+$straw:                       rgb(248,246,195);
+
+// theme colors
+$risps:                       rgb(218,211,139);
+$hay:                         rgb(192,184,95);
+$grass-stalks:                rgb(119,115,74);
+$mulled-wine:                 rgb(119,74,74);
+$bordeaux:                    rgb(167,73,73);
+$dreadwings:                  rgb(91,81,84);
+$rosemary:                    rgb(99,147,131);
+
+$theme-text:         $dreadwings;
+$theme-nav-bg:       $straw;
+$theme-link-text:    $rosemary;
+$theme-nav-text:     $rosemary;
+$theme-well-bg:      $risps;
+$theme-jumbotron-bg: $mulled-wine;
+$theme-bg:           $straw;
+$theme-button-bg:    $dreadwings;

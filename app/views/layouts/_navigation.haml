@@ -1,0 +1,15 @@
+%nav.main-nav{role: :navigation}
+  .header
+    .logo
+      = link_to root_path do
+        = image_tag 'logo.png'
+    .navbar-header
+      %button.navbar-toggle{'data-target': '.navbar-collapse', 'data-toggle': 'collapse', type: 'button'}
+        %span.sr-only= _('navigation.toggle')
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to _('navigation.home'), root_path, class: 'navbar-brand'
+    #navbar-collapse.collapse.navbar-collapse
+      = concept('navigation_link/cell/navigation', NavigationLink)
+      = concept('user/cell/navigation', tyrant.current_user, tyrant: tyrant)

@@ -1,0 +1,334 @@
+// import customizes bootstrap variables
+@import 'theme/colors';
+@import 'theme/mixins';
+@import 'bootstrap/bootstrap.custom';
+@import 'bootstrap/variables';
+@import 'bootstrap/mixins';
+
+// import the CSS framework
+@import 'font-awesome';
+//@import 'flexslider';
+//@import 'prettyphoto-rails';
+
+// make all images responsive by default
+img {
+  //@include img-responsive;
+  @extend .img-responsive;
+  margin: 0 auto;
+}
+
+// override for the 'Home' navigation link
+.navbar-brand {
+  font-size: inherit;
+}
+
+// THESE ARE EXAMPLES YOU CAN MODIFY
+// create your own classes
+// to make views framework-neutral
+.column {
+  @include make-md-column(6);
+}
+
+//.form-centered {
+//  @include make-md-column(6);
+//  @extend .text-center;
+//}
+
+section {
+  //@extend .row;
+  @include make-row;
+  margin-bottom: 20px;
+}
+
+// header styles
+h1 {
+  clear: both;
+  padding-left: 30px;
+
+  span {
+    border-bottom: 8px solid $page-header-border-color;
+  }
+}
+
+h2 {
+  clear: both;
+  margin: {
+    bottom: 10px;
+  }
+  padding: {
+    top: 10px;
+    right: 0;
+    bottom: 10px;
+    left: 30px;
+  }
+}
+
+h3 {
+  border: {
+    bottom: 1px solid $page-header-border-color;
+  }
+  margin: {
+    bottom: 20px;
+    top: 40px;
+  }
+  padding: {
+    left: 5px;
+  }
+
+  span {
+    border-bottom: 2px solid $page-header-border-color;
+    display: inline-block;
+    padding: 0 5px 5px;
+  }
+}
+
+.page {
+  @include make-lg-column(12);
+  @include rounded-bg();
+}
+
+.content-wrapper {
+  height: 100%;
+  margin: {
+    bottom: 0;
+    top: 0;
+  }
+  min-height: 100%;
+  padding: 15px;
+  position: relative;
+}
+
+.widget-box {
+  border: {
+    top: 1px solid $page-header-border-color;
+    bottom: 1px solid $page-header-border-color;
+  }
+
+  font: {
+    size: 36px;
+  }
+}
+
+.main-box {
+  background: {
+    image: none;
+    repeat: repeat;
+    position: 0 0;
+    attachment: scroll;
+    color: $theme-bg;
+  }
+
+  @include box-shadow(1px 1px 2px 0 $theme-jumbotron-bg);
+
+  margin: {
+    bottom: 16px;
+  }
+  padding: 20px;
+
+  h2 {
+    border-left: 10px solid $theme-jumbotron-bg;
+    margin: {
+      top: 0;
+      right: 0;
+      bottom: 15px;
+      left: -20px;
+    }
+    padding: {
+      top: 5px;
+      right: 0;
+      bottom: 5px;
+      left: 20px;
+    }
+  }
+}
+
+//#error_explanation {
+//  @extend .alert;
+//  @extend .alert-danger;
+//}
+//
+//#error_explanation h2 {
+//  font-size: 16px;
+//}
+
+//.button-xs {
+//  @extend .btn;
+//  @extend .btn-primary;
+//  @extend .btn-xs;
+//}
+
+.button {
+  @extend .btn;
+  @extend .btn-primary;
+}
+
+// ***** Body & defaults
+body {
+  background: {
+    repeat: repeat;
+    position: 50% 0;
+  }
+}
+
+// ******* Main
+// apply styles to HTML elements
+// to make views framework-neutral
+main {
+  //@extend .container;
+  @include container-fixed;
+
+  @media (min-width: $screen-sm-min) {
+    width: $container-sm;
+  }
+  @media (min-width: $screen-md-min) {
+    width: $container-md;
+  }
+  @media (min-width: $screen-lg-min) {
+    width: $container-lg;
+  }
+
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}
+
+a {
+  &.button {
+    color: $theme-text;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+// ****** Header
+
+.header {
+  @include container-fixed;
+
+  @media (min-width: $screen-sm-min) {
+    width: $container-sm;
+  }
+  @media (min-width: $screen-md-min) {
+    width: $container-md;
+  }
+  @media (min-width: $screen-lg-min) {
+    width: $container-lg;
+  }
+}
+
+header {
+  background: {
+    position: 50% 0;
+    repeat: repeat-x;
+  }
+  position: relative;
+  z-index: 99;
+}
+
+// ****** Navigation
+$font-size-nav-item: 18px;
+
+.main-nav {
+
+  %navitem {
+    font: {
+      weight: 300;
+      size: $font-size-nav-item;
+    }
+    text-transform: uppercase;
+    z-index: auto;
+
+    a {
+      span {
+        padding: {
+          right: .2em;
+        }
+      }
+    }
+  }
+
+  .nav {
+    .nav-item {
+      @extend %navitem;
+
+      span {
+        &.flag-icon {
+          line-height: 0.8em;
+        }
+      }
+    }
+  }
+
+  .navbar-header {
+    @extend %navitem;
+    margin: {
+      //left: image-width('logo.png');
+      left: 130px;
+    }
+  }
+
+  .logo {
+    position: absolute;
+    top: 0;
+  }
+
+  li {
+    &.vertical-bar {
+      @extend .nav-item;
+      color: $theme-link-text;
+      font: {
+        weight: 300;
+      }
+
+    }
+
+    > span {
+      padding: {
+        top:    10px;
+        bottom: 10px;
+      }
+
+      display: inline-block;
+    }
+  }
+
+  .btn-link {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+footer {
+  @extend .header;
+
+  border: {
+    top: 1px solid $page-header-border-color;
+  }
+
+  .social-networks {
+    @extend .list-inline;
+    padding: 22px 0 19px;
+    display: inline-block;
+  }
+
+  .copyright {
+    font-size: $font-size-small;
+    display: inline-block;
+    float: right;
+    text-transform: uppercase;
+    text-align: right;
+    padding: 22px 0 19px;
+
+    a {
+      color: $theme-text;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

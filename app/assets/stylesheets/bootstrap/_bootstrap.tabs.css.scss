@@ -1,0 +1,14 @@
+@import 'theme/colors';
+@import 'bootstrap.scaffolding';
+
+//== Tabs
+$nav-tabs-border-color:                     $theme-button-bg;
+
+$nav-tabs-link-hover-border-color:          $theme-link-text;
+
+$nav-tabs-active-link-hover-bg:             $body-bg;
+$nav-tabs-active-link-hover-color:          $theme-text;
+$nav-tabs-active-link-hover-border-color:   $theme-button-bg;
+
+$nav-tabs-justified-link-border-color:            $theme-button-bg;
+$nav-tabs-justified-active-link-border-color:     $body-bg;
