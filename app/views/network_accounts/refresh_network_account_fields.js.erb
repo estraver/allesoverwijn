@@ -1,0 +1,6 @@
+$('<%= "#network_accounts_edit_profile_#{@model.id}" %> > #network_account_list').empty();
+<% @model.network_accounts.each do | network_account | %>
+    $('<%= "#network_accounts_edit_profile_#{@model.id}" %> > #network_account_list').append($("<%= escape_javascript(render 'network_accounts/network_account_fields', network_account: network_account) %>"));
+<% end %>
+
+new App.Form.Select('<%= "#network_accounts_edit_profile_#{@model.id}" %> > #network_account_list select.form-control');

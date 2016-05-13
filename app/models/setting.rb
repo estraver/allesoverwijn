@@ -16,7 +16,6 @@ class Setting < ActiveRecord::Base
   validates_associated :setting_content
 
   after_initialize do |setting|
-    Rails.logger.info "after_initialize"
     setting.build_setting_content if setting.new_record?
     if setting.setting_content.nil? && !setting.new_record?
       @@locale = setting.setting_contents.first.locale
@@ -27,7 +26,6 @@ class Setting < ActiveRecord::Base
   after_validation :propagate_setting_content_errors
 
   def locale=(new_locale)
-    Rails.logger.info "locale"
     unless setting_content.locale.eql?(new_locale)
       @new_locale = new_locale
       if new_record?

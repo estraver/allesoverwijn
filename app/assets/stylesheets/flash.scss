@@ -1,0 +1,42 @@
+
+.alert {
+  margin: {
+    top: 20px;
+    bottom: 0;
+  }
+
+  padding: {
+    bottom: 8px;
+    top: 8px;
+  }
+
+  border-image: none;
+  border-radius: 0;
+  border-style: none none none solid;
+  border-width: 0 0 0 4px;
+
+  &.alert-danger {
+    border-color: #dd504c;
+  }
+
+  &.alert-warning {
+    border-color: #d5ac08;
+  }
+
+  &.alert-info {
+    background-color: #e9fdfb;
+    border-color: #c6eae6;
+    color: #2bb6a3;
+  }
+
+  &.alert-success {
+    border-color: #77ab49;
+  }
+
+  > .message {
+    padding: {
+      left: 5px;
+    }
+    display: inline-block;
+  }
+}

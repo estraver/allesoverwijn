@@ -13,7 +13,9 @@ module Permission
     property :role_meta_data, default: Hash.new
 
     def allow?(concept, operation)
-      !role_meta_data.try(:[], concept).try(:[], operation).nil?
+      return true unless role_meta_data.try(:[], concept).try(:[], operation).nil?
+      return true unless role_meta_data.try(:[], concept).try(:[], :all).nil?
+      false
     end
 
     class Admin < self

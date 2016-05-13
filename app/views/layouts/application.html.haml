@@ -3,11 +3,11 @@
   %head
     %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
     %title= content_for?(:title) ?  "#{yield(:title)} |  Alles over wijn" : 'Alles over wijn'
-    %meta{:name => 'description', :content => "#{content_for?(:description) ? yield(:description) : 'Allesoverwijn'}"}
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    %meta{:name => 'description', content: "#{content_for?(:description) ? yield(:description) : 'Allesoverwijn'}"}
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': true
+    = javascript_include_tag 'application', 'data-turbolinks-track': true
     = csrf_meta_tags
-  %body{:class => content_for?(:view) ? "#{yield(:view)}" : ''}
+  %body{class: @preview ? :overlay : nil}
     .wrapper
       %header
         = render 'layouts/navigation'
@@ -16,7 +16,7 @@
       - else
         %section
           .header-bg= image_tag 'header.png'
-      %main{role: 'main', data: {'appearing-on': "#{Time.now}"}}
+      %main{role: 'main', data: {'appearing-on': "#{Time.now}", controller: page_controller_name, action: page_action_name}, class: page_class}
         = render 'layouts/messages'
         - if content_for?(:title)
           .page-header
@@ -40,5 +40,8 @@
         .copyright
           =link_to 'Alles over wijn', '#'
           %span.glyphicon.glyphicon-copyright-mark
-          %span 2015 All rights reserved ||
+          %span= "#{Date.today.year} All rights reserved ||"
           =link_to 'Privacy policy', '#'
+
+    - if @preview
+      = concept('post/cell/preview')

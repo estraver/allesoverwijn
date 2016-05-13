@@ -15,5 +15,11 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
-//= require bootstrap-datepicker-rails
+//= require jquery-fileupload/basic
+//= require select2
+//= require summernote
+//= require init
+//= require post
+//= require_self
 //= require_tree .
+

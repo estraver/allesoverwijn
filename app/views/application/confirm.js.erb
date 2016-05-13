@@ -1,0 +1,8 @@
+var confirmFn = function(e) {
+    var $closeBtn= $('form').find('button[formaction=close]');
+    $closeBtn.data({params: {confirmed: true}});
+    this.dialog.modal('hide');
+    $closeBtn.click();
+};
+
+new App.Confirm('<%= @title %>', '<%= @message %>', confirmFn, function() {}).render();

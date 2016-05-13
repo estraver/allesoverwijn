@@ -1,0 +1,11 @@
+%section.content-wrapper
+
+  #edit-post.row
+    .col-md-9
+      .main-box.clearfix
+        .profile-header.title-header
+          %h3
+            %span= yield :header
+        .profile-body= yield
+    .sidebar.col-sm-3
+      =yield :sidebar

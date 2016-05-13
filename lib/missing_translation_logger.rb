@@ -1,7 +1,5 @@
 class MissingTranslationLogger
   def call(unfound)
-    # Rails.logger.info 'app'
-    # Rails.logger.info logger.inspect
     logger.warn "#{FastGettext.locale}: #{unfound}"
   end
 

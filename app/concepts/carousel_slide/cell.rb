@@ -8,7 +8,7 @@ class CarouselSlide::Cell < Cell::Concept
   end
 
   class Carousel < Cell::Concept
-    include CarouselCell
+    include Cell::CarouselCell
 
     inherit_views CarouselSlide::Cell
 

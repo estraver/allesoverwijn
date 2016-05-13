@@ -1,0 +1,7 @@
+var $form_fields = $("<%= escape_javascript(render 'network_account_fields') %>")
+$('<%= "#network_accounts_edit_profile_#{@model.id}" %> > #network_account_list').append($form_fields);
+new App.Form.Select($form_fields.find('select.form-control'));
+
+if (!$('<%= "#network_accounts_edit_profile_#{@model.id}" %> input[type=submit]').is(':visible')) {
+    $('<%= "#network_accounts_edit_profile_#{@model.id}" %> input[type=submit]').toggleClass('hide');
+}

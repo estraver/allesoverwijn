@@ -19,4 +19,12 @@ module ApplicationHelper
     }[flash_type.to_sym] || ''
   end
 
+  def page_controller_name
+    controller.class.to_s.gsub('Controller', '')
+  end
+
+  def page_action_name
+    controller.action_name
+  end
+
 end

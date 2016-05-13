@@ -1,3 +1,5 @@
+require_dependency 'profile/operations'
+
 class User < ActiveRecord::Base
   class SignIn < Trailblazer::Operation
     include Model
@@ -28,5 +30,36 @@ class User < ActiveRecord::Base
       contract.last_sign_in_at = user.last_sign_in_at
       contract.current_sign_in_at  = user.current_sign_in_at
     end
+  end
+
+  class Show < Trailblazer::Operation
+    include Model
+    model User, :find
+
+    @new_profile = false
+
+    def setup_model!(params)
+      unless has_profile?
+        @new_profile = true
+        model.create_profile
+      end
+      # model.create_profile unless has_profile?
+    end
+
+    # def process(params)
+    #
+    # end
+
+    def has_profile?
+      !model.profile.nil?
+    end
+
+    def new_profile?
+      # model.profile.new_record?
+      @new_profile
+    end
+
+    private
+
   end
 end

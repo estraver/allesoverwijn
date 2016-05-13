@@ -1,4 +1,6 @@
 class NavigationLink
+  # FIXME: Like to use url routes, but it sucks to include the right modules
+
   attr_reader :name, :links, :url, :url_options, :icon
   # cattr_accessor :navigation_links
 
@@ -30,6 +32,7 @@ class NavigationLink
   def initialize(name, url, links = [], url_options = {}, icon = [])
     @name = name
     @url = url
+    # @url = url_for(url.eql?('#') ? url : url.to_sym)
     @links = links
     @icon = icon
     @url_options = url_options

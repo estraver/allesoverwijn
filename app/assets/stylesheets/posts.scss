@@ -1,0 +1,5 @@
+@import 'theme/mixins';
+
+.sidebar {
+  @include upload('blog-picture');
+}

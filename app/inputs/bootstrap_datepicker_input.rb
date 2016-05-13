@@ -12,6 +12,7 @@ class BootstrapDatepickerInput < SimpleForm::Inputs::Base
     set_data_option text_field_options, 'date-format', _('date.formats.default').delete('%')
     default_data_option text_field_options, 'provide', 'datepicker'
 
+
     "#{@builder.text_field(attribute_name.to_s+'_box', text_field_options.to_hash)}\n" +
         "#{@builder.hidden_field(attribute_name, hidden_field_options.to_hash)}\n".html_safe
   end

@@ -1,0 +1,31 @@
+.blog-post
+  .blog-header.title-header
+    %h3.blog-post-title
+      %span= title
+    - if policy?(model, :edit_and_owner?) and !preview?
+      = link_to(edit_blog_path(model.id), class: %w(button edit blog-edit), role: :button) do
+        %i.fa.fa-pencil-square
+        %span= _('views.blog.show.edit')
+
+  %p.blog-post-meta
+    %span.blog-post-meta-item
+      = _('views.blog.posted')
+      = published_on
+    %span.blog-post-meta-item
+      = _('views.blog.by')
+      %a{href: '#'}= author_name
+    %span.blog-post-meta-item
+      %i.fa.fa-eye.fa-fw
+      &nbsp;
+      = views_count
+    %span.blog-post-meta-item
+      %i.fa.fa-comments.fa-fw
+      &nbsp;
+      = comments_count
+
+  = article_summary
+
+  .read-more
+    = link_to(blog_path(model), class: %w(button blog-read-more), role: :button) do
+      %i.fa.fa-chevron-circle-right
+      %span= _('views.blog.read_more')

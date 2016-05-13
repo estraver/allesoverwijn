@@ -15,14 +15,6 @@ module Session
       validates :email, :password, presence: true
       validate :password_ok?
 
-      # def self.to_s
-      #   'Session'
-      # end
-      #
-      # def self.base_class
-      #   'Session'
-      # end
-
       private
 
       def password_ok?

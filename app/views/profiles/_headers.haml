@@ -1,0 +1,6 @@
+- if page_action_name.eql? 'edit'
+  - provide :page_header, _('views.profile.edit.header')
+  - provide :profile_header, _('views.profile.edit.info')
+- else
+  - provide :page_header, _('views.profile.show.header')
+  - provide :profile_header, _('views.profile.show.info')

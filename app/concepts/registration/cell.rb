@@ -4,7 +4,7 @@ class Registration::Cell < Cell::Concept
   end
 
   class Form < Cell::Concept
-    include SimpleFormForCell
+    # include ::Cell::SimpleFormForCell
 
   end
 end

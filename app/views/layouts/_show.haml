@@ -1,0 +1,18 @@
+%section.content-wrapper.post=yield
+= concept('post/cell/author', @model, operation: @operation)
+-#%section.content-wrapper.author
+-#  .author
+%section.content-wrapper.related-posts
+  .related-post.col-sm-6
+    Related Post 1
+  .related-post.col-sm-6
+    Related Post 2
+%section.content-wrapper.post-comments
+  Add Comment
+%section.content-wrapper.post-footer
+  .recent-posts.col-sm-4
+    %h5.title Recent posts
+  .tag-cloud.col-sm-4
+    %h5.title Tags
+  .recent-comments.col-sm-4
+    %h5.title Comments

@@ -1,0 +1,60 @@
+= simple_form_for(@form, as: :blog, url: blog_path(@model), remote: true, data: {type: :json}, class: 'content-wrapper') do |f|
+  %section
+    .profile-header.title-header
+      %h3
+        %span= _('blog.edit')
+        .form-actions.pull-right
+          = f.button :submit, _('blog.save')
+          = f.button :submit, _('blog.publish'), formaction: :publish
+          = f.button :button, _('blog.preview'), formaction: :preview, formtarget: '_blank', type: :button
+          = f.button :button, _('blog.close'), formaction: :close, type: :button
+  %section.border-between
+    .col-md-9.edit.well
+      = f.simple_fields_for :post do | post |
+        = post.input :title, wrapper: :horizontal_form
+        = post.input :article, label: false, as: :summernote
+    .col-md-3.sidebar
+      .sidebar-wrapper
+        %ul.nav.sidebar-nav
+          %li.sidebar-brand
+            %a{href: '#'}= _('blog.settings')
+          %li.dropdown
+            %a{href: '#', data: {toggle: :dropdown}}
+              %i.fa.fa-file-picture-o.fa-fw
+              = _('blog.settings.picture.menu')
+            .dropdown-menu{role: :menu}
+              .blog-picture
+                .blog-picture-edit
+                  %a{href: '#', data: {upload: true, 'upload-field': 'picture[file]', url: upload_picture_blog_path(@model)}}
+                    .progress
+                      .progress-bar.progress-bar-striped.active{role: :progressbar, aria: {valuemin: 0, valuemax: 100, valuenow: 0}} 0%
+                    .girder
+                      %i.fa.fa-camera-retro.fa-lg
+                      .edit= _('blog.settings.picture.edit')
+                    =concept('post/cell/picture', @model.post).(:post_edit_picture)
+          %li.dropdown
+            %a{href: '#', data: {toggle: :dropdown}}
+              %i.fa.fa-tags.fa-fw
+              = _('blog.settings.tags')
+            .dropdown-menu{role: :menu}
+          %li.dropdown
+            %a{href: '#', data: {toggle: :dropdown}}
+              %i.fa.fa-map-marker.fa-fw
+              = _('blog.settings.location')
+            .dropdown-menu{role: :menu}
+          %li.dropdown
+            %a{href: '#', data: {toggle: :dropdown}}
+              %i.fa.fa-calendar.fa-fw
+              = _('blog.settings.published_on')
+            #published_on.dropdown-menu{role: :menu}
+              = f.collection_radio_buttons :post_schedule, [['auto', _('blog.schedule.auto')], ['manual', _('blog.schedule.manual')]], :first, :last, item_wrapper_tag: :div, item_wrapper_class: 'radio'
+              = f.simple_fields_for :post do | post |
+                = post.input :published_on, as: :hidden
+              %div{data: {provide: :datepicker, 'date-format': 'yyyy-mm-dd'}}
+          %li.dropdown
+            %a.dropdown-toggle{href: '#', data: {toggle: :dropdown}}
+              %i.fa.fa-cogs.fa-fw
+              = _('blog.settings.properties')
+            .dropdown-menu{role: :menu}
+              .header= _('blog.settings.properties.comments_allowed')
+              =check_box_tag :allowed

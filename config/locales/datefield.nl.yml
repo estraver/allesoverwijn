@@ -1,4 +1,4 @@
-en:
+nl:
   date:
     formats:
-      separator: '/'
+      separator: '-'

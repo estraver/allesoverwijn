@@ -15,7 +15,7 @@ class NavigationLink::Cell < Cell::Concept
   end
 
   class Navigation < Cell::Concept
-    include NavigationCell
+    include Cell::NavigationCell
 
     inherit_views NavigationLink::Cell
 

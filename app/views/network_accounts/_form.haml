@@ -1,0 +1,15 @@
+= simple_form_for(@form, url: user_profile_network_accounts_path(@user, @profile), namespace: :network_accounts, remote: true, html: {class: 'form-horizontal'},
+                     wrapper: :horizontal_form,
+                     wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes,
+                                         radio_buttons: :horizontal_radio_and_checkboxes,
+                                         file: :horizontal_file_input,
+                                         boolean: :horizontal_boolean}) do |f|
+
+  %h4= _('profile.network_accounts')
+  #network_account_list
+    - @profile.network_accounts.each do | network_account |
+      = render 'network_accounts/network_account_fields', network_account: network_account
+  = render 'network_accounts/add'
+
+  = f.button :submit, _('profile.network_accounts.save'), classes: "#{@profile.network_accounts.size > 0 ? nil : 'hide'} col-sm-offset-2 col-sm-10", spinner: true
+

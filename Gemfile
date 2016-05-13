@@ -19,6 +19,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+# gem 'jquery-turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -31,6 +32,9 @@ gem 'bootstrap-datepicker-rails'
 gem 'font-awesome-rails'
 gem 'font-awesome-sass'
 gem 'gettext_i18n_rails', path: 'vendor/gems/gettext_i18n_rails'
+# gem 'dry-validation'
+# gem 'dry-types'
+gem 'summernote-rails'
 
 group :development do
 	gem 'capistrano-rails'
@@ -66,9 +70,9 @@ group :production do
 end
 
 gem 'virtus'
-# gem 'reform', github: 'apotonick/reform'
+#gem 'reform', github: 'apotonick/reform'
 gem 'reform'
-# gem 'disposable', github: 'apotonick/disposable'
+#gem 'disposable', github: 'apotonick/disposable'
 gem 'disposable'
 gem 'cells'
 gem 'trailblazer'
@@ -80,3 +84,8 @@ gem 'responders'
 gem 'roar'
 # gem 'monban'
 gem 'tyrant', github: 'apotonick/tyrant'
+gem 'ya2yaml'
+gem 'paperdragon'
+gem 'file_validators'
+gem 'jquery-fileupload-rails'
+gem 'select2-rails'

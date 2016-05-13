@@ -9,7 +9,18 @@
       - else
         %span.offline= _('views.users.sidebar.offline')
 
-    =image_tag('assets/unknown.jpg', :class => %w(profile-img img-responsive centerblock))
+    .profile-picture
+      - if editable?
+        .profile-picture-edit
+          %a{href: '#', data: {upload: true, 'upload-field': 'photo[file]', url: user_profile_photo_path(model, profile)}}
+            .progress
+              .progress-bar.progress-bar-striped.active{role: :progressbar, aria: {valuemin: 0, valuemax: 100, valuenow: 0}} 0%
+            .girder
+              %i.fa.fa-camera-retro.fa-lg
+              .edit= _('views.users.sidebar.photo.edit')
+            =concept('profile/cell/photo', profile).(:profile_picture)
+      - else
+        =concept('profile/cell/photo', profile).(:profile_picture)
 
     .profile-label
       %span.label.label-danger= roles.first.name

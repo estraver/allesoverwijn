@@ -11,10 +11,11 @@ class User::Cell < Cell::Concept
     property :name
     property :created_at
     property :roles
+    property :profile
 
     inherit_views User::Cell
 
-    include CreatedAtCell
+    include ::Cell::CreatedAtCell
 
     def show
       render :sidebar
@@ -24,13 +25,17 @@ class User::Cell < Cell::Concept
       true # FIXME:
     end
 
+    def editable?
+      parent_controller.send(:action_name).eql? 'edit'
+    end
+
 
   end
 
   class Navigation < Cell::Concept
     inherit_views User::Cell
 
-    include NavigationCell
+    include Cell::NavigationCell
 
     self.classes = ['navbar-right']
 

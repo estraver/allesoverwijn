@@ -2,8 +2,8 @@
 
 - flash.each do |type, msg|
   - if msg.is_a?(String)
-    %div.alert.fade.in{:class => alert_class(type), :role => :alert, :data => {:alert => type}}
-      %span.glyphicon{:class => glyphicon_class(type)}
+    %div.alert.fade.in{class: alert_class(type), role: :alert, data: {alert: type}}
+      %span.glyphicon{class: glyphicon_class(type)}
       %span.sr-only= "#{type.to_s == 'notice' ? 'Info:' : 'Error:'}"
-      %button.close{"aria-hidden" => 'true', "data-dismiss" => 'alert', :type => 'button'} &times;
-      = msg
+      %button.close{'aria-hidden': 'true', 'data-dismiss': 'alert', type: 'button'} &times;
+      %span.message= msg

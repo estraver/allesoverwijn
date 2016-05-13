@@ -1,0 +1,10 @@
+:post:
+  :types:
+    -
+      :name: :published
+      :type: 'Virtus::Attribute::Boolean'
+    -
+      :name: :published_on
+      :type: 'Date'
+:blog:
+  :inherit: :post

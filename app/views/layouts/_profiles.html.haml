@@ -1,16 +1,12 @@
 %section.content-wrapper
-  .page
-    .page-header
-      %h1
-        %span= _('views.profile.edit.header')
-    #user-profile.row
-      .col-lg-9.col-md-8.col-sm-8
-        .main-box.clearfix
-          .profile-header
-            %h3
-              %span= _('views.profile.edit.info')
-          %section.edit
-            .col-lg-3= concept('profile/cell', @model, section: @profile_section)
-            .col-lg-9.change= yield
+  #user-profile.row
+    .col-lg-9.col-md-8.col-sm-8
+      .main-box.clearfix
+        .profile-header.title-header
+          %h3
+            %span= yield :profile_header
+          - if content_for? :profile_edit
+            = yield :profile_edit
+        .profile-body= yield
 
-      =concept('user/cell/sidebar', @user)
+    =concept('user/cell/sidebar', @user)

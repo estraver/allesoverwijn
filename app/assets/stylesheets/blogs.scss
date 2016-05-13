@@ -1,0 +1,28 @@
+// Place all the styles related to the blogs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'theme/colors';
+
+.blog-post {
+  .blog-post-meta {
+    color: $theme-nav-text;
+
+    .blog-post-meta-item {
+      &+.blog-post-meta-item {
+        &::before {
+          content: "|";
+          display: inline-block;
+          margin: 0 1em;
+          vertical-align: top;
+        }
+      }
+    }
+  }
+
+  .read-more {
+    margin: {
+      top: 5px;
+    }
+  }
+}
+

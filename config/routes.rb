@@ -4,10 +4,26 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'home#index'
-  resources :users do
+  resources :users, only: [:show, :edit, :update, :index] do
     resource :confirmation, only: [:show]
-    resource :profile
+    resources :profiles, only: [:show, :edit] do
+      scope module: :profiles do
+        resource :bio, only: [:edit, :update, :show]
+        resource :contact, only: [:edit, :update, :show]
+        resource :activities, only: [:show]
+        resource :favorites, only: [:edit, :update, :show]
+        resource :friends, only: [:edit, :update, :show]
+        resource :photo, only: [:create]
+      end
+      resource :network_accounts
+    end
   end
+  resources :blogs do
+    patch :publish, on: :member
+    post :upload, on: :member, as: :upload_picture
+    get :close, :preview, on: :member
+  end
+
   resource :session, only: [:new, :create, :destroy]
   resource :registration
 

@@ -1,31 +1,47 @@
 require_dependency 'permission'
 
 class ApplicationPolicy
-  def initialize(user, model)
-    @user, @model = user, model
+  alias_method :call, :send
+
+  def initialize(user_id, model)
+    @user_id, @model = user_id, model
+    @concept = self.class.name.deconstantize.constantize.model_name.singular
   end
 
   def operation_allowed?(concept, operation)
-    user = User.find(@user)
-    permissions = user.roles.collect { |role| ::Permission::Authorisation.new(role) }
+    user = User.find(@user_id)
+    permissions = user.roles.collect { |role| ::Permission::Authorisation.build(role) }
     permissions.collect { | permission | permission.allow?(concept.to_sym, operation.to_sym) }.any?
   end
 
   def owner?
-    return @user.id == @model.id if @user.class.name.eql? @model.class.name
-    return @user.id == @model.user_id if @model.respond_to? :user_id
+    owner_of? @model
+  end
+
+  def owner_of?(model)
+    return @user_id == model.id if User.name.eql? model.class.name
+    return @user_id == model.user_id if model.respond_to? :user_id
     false
   end
 
-  def method_missing(method_sym, *args, &block)
-    operation = method_sym.to_s.delete('?')
-    self.instance_eval <<-END
-        def #{method_sym}
-          operation_allowed? self.class.name.deconstantize.downcase, '#{operation}'
-        end
-    END
+  def create?
+    operation_allowed? @concept, :create
+  end
 
-    send(method_sym, *args, &block)
+  def update?
+    operation_allowed? @concept, :update
+  end
+
+  def edit?
+    update?
+  end
+
+  def edit_and_owner?
+    edit? and owner?
+  end
+
+  def show?
+    edit_and_owner? || operation_allowed?(@concept, :show)
   end
 
 end

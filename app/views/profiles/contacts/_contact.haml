@@ -1,0 +1,20 @@
+#tab-bio.tab-pane.fade.active.in
+  .row.profile-user-info
+    .col-sm-8= concept('profile/contact/cell', @user)
+    .col-sm-4.profile-social
+      %ul.fa-ul= concept('network_account/cell', collection: @user.profile.network_accounts)
+
+    -#.col-sm-4.profile-social
+    -#  %ul.fa-ul
+    -#    %li
+    -#      %i.fa-li.fa.fa-twitter-square
+    -#      %a @stravert
+    -#    %li
+    -#      %i.fa-li.fa.fa-linkedin-square
+    -#      %a Erwin Straver
+    -#    %li
+    -#      %i.fa-li.fa.fa-facebook-square
+    -#      %a Erwin Straver
+    -#    %li
+    -#      %i.fa-li.fa.fa-skype
+    -#      %a Erwin Straver

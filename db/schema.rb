@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151219195318) do
+ActiveRecord::Schema.define(version: 20160512075336) do
 
   create_table "address_profiles", force: :cascade do |t|
     t.integer  "address_id"
@@ -52,22 +52,72 @@ ActiveRecord::Schema.define(version: 20151219195318) do
     t.datetime "updated_at",                           null: false
   end
 
-  create_table "profiles", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "middle_name"
-    t.string   "last_name"
-    t.date     "date_of_birth"
-    t.string   "birth_place"
-    t.string   "home",          limit: 3
-    t.integer  "gender",                  default: 0
-    t.text     "bio"
-    t.string   "country",       limit: 3
-    t.string   "language",      limit: 2
-    t.binary   "photo"
-    t.integer  "user_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+  create_table "blogs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
+
+  create_table "network_accounts", force: :cascade do |t|
+    t.string   "account",      null: false
+    t.integer  "account_type", null: false
+    t.integer  "profile_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "network_accounts", ["profile_id"], name: "index_network_accounts_on_profile_id"
+
+  create_table "post_contents", force: :cascade do |t|
+    t.string   "title",                                  null: false
+    t.text     "article",                                null: false
+    t.boolean  "published",              default: false
+    t.date     "published_on"
+    t.integer  "post_id"
+    t.integer  "author_id"
+    t.string   "locale",       limit: 2,                 null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  add_index "post_contents", ["author_id"], name: "index_post_contents_on_author_id"
+  add_index "post_contents", ["post_id"], name: "index_post_contents_on_post_id"
+
+  create_table "posts", force: :cascade do |t|
+    t.integer  "page_id",                           null: false
+    t.string   "page_type",                         null: false
+    t.boolean  "features",          default: false
+    t.boolean  "comment_allowed",   default: true
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.binary   "picture_meta_data"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.text    "first_name"
+    t.text    "middle_name"
+    t.text    "last_name"
+    t.text    "date_of_birth"
+    t.text    "birth_place"
+    t.text    "home"
+    t.integer "gender",          default: 0
+    t.text    "bio"
+    t.text    "country"
+    t.text    "language"
+    t.text    "photo_meta_data"
+    t.integer "user_id"
+    t.text    "created_at",                  null: false
+    t.text    "updated_at",                  null: false
+  end
+
+  create_table "properties", force: :cascade do |t|
+    t.string   "value"
+    t.integer  "post_content_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "name"
+  end
+
+  add_index "properties", ["post_content_id"], name: "index_properties_on_post_content_id"
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -131,6 +181,7 @@ ActiveRecord::Schema.define(version: 20151219195318) do
     t.text     "auth_meta_data"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.integer  "posts_count"
   end
 
 end

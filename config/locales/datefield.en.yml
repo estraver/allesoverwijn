@@ -1,0 +1,5 @@
+en:
+  date:
+    formats:
+      separator: '/'
+      placeholder: 'YYYY/MM/DD'

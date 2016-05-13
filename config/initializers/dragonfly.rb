@@ -4,12 +4,12 @@ require 'dragonfly'
 Dragonfly.app.configure do
   plugin :imagemagick
 
-  secret "39919d694629630cc818fcb6a23adb31fa3475bdb19e941a6187fb8ca06eedff"
+  secret '39919d694629630cc818fcb6a23adb31fa3475bdb19e941a6187fb8ca06eedff'
 
-  url_format "/media/:job/:name"
+  url_format '/media/:job/:uid'
 
   datastore :file,
-    root_path: Rails.root.join('public/system/dragonfly', Rails.env),
+    root_path: Rails.root.join('public/system/images', Rails.env),
     server_root: Rails.root.join('public')
 end
 
