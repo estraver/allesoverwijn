@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     get :close, :preview, on: :member
   end
 
+  resource :categories, only: [:new, :create]
+
   resource :session, only: [:new, :create, :destroy]
   resource :registration
 

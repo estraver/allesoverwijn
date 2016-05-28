@@ -26,7 +26,7 @@ confirmation:
     en: 'You can confirm your account email through the link below:'
   email_confirm:
     nl: 'Bevestig mijn account'
-    en: 'Confirm my account'
+    en: 'Dialog my account'
 registration:
   new_account:
     nl: 'Om gebruik te maken van de volledige functionaliteit, kan je een account aanmaken. Vul hieronder je naam, e-mailadres en wachtwoord in. Gebruik daarna de link die gestuurd wordt naar je e-mailadres om je account te activeren.'

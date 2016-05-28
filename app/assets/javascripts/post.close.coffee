@@ -28,7 +28,7 @@ class Post.Close
             @dialog.modal('hide')
             $closeBtn.click()
 
-          new App.Confirm(data.title, data.message, confirmFn, ->).render();
+          new App.Dialog(data.title, data.message, confirmFn, ->).render();
         when 'redirect'
           window.location.href = data.location
         else

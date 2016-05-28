@@ -1,3 +1,6 @@
+require_dependency 'uber/delegates'
+require_dependency 'lib/attachment/post_attachment'
+
 class Post::Cell < Cell::Concept
   def show
     render
@@ -34,22 +37,11 @@ class Post::Cell < Cell::Concept
   end
 
   class Picture < Cell::Concept
-    extend Paperdragon::Model::Reader
-    processable_reader :picture
-    property :picture_meta_data
+    extend Uber::Delegates
+    delegates :model, :post
+    delegates :post, :picture_meta_data
 
-    def thumb
-      image_tag picture[:thumb].url if picture.exists?
-    end
-
-    def original
-      image_tag picture[:original].url if picture.exists?
-    end
-
-    def post_edit_picture
-      img = picture.exists? ? picture[:post_edit_picture].url : image_url('/assets/empty-post-picture.png')
-      image_tag img, class: %w(profile-img img-responsive centerblock)
-    end
+    include Cell::ImageCell.attachments :picture, %w(original sidebar header)
 
   end
 end

@@ -1,16 +1,16 @@
 class App.Form.Select
   constructor: (@el) ->
+    @iconCls = $(@el).data('icon')
     $(@el).select2
       theme: 'bootstrap',
       minimumResultsForSearch: Infinity,
       templateResult: (el) ->
+        console.dir $(el)
+        console.dir $(el).data()
         return if !el.id
-        $('<span><i class="fa fa-' + el.id + ' fa-fw"></i>' + el.id + '</span>')
+        $('<span><i class="' + $(el.element).data('icon') + '"></i>' + el.id + '</span>')
       templateSelection: (data, container) ->
-        $('<span><i class="fa fa-' + data.text + ' fa-fw"></i>' + data.text + '</span>')
-
-#  template: (el) ->
-#    console.dir(el)
+        $('<span><i class="' + $(data.element).data('icon') + '"></i>' + data.text + '</span>')
 
 $(document).on 'page:change', ->
   new App.Form.Select('select.form-control')

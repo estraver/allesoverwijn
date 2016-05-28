@@ -4,7 +4,7 @@ module Cell
   module ContentCell
     extend Uber::Delegates
 
-    delegates :model, :post
+    delegates :model, :post, :picture_meta_data
     delegates :post, :article, :author, :published_on, :title
     delegates :operation, :current_user, :policy?
 

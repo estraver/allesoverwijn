@@ -5,4 +5,4 @@ var confirmFn = function(e) {
     $closeBtn.click();
 };
 
-new App.Confirm('<%= @title %>', '<%= @message %>', confirmFn, function() {}).render();
+new App.Dialog('<%= @title %>', '<%= @message %>', confirmFn, function() {}).render();

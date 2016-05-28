@@ -1,11 +1,14 @@
 require 'reform/form/validation/unique_validator.rb'
 
 module AbstractPost
-  class ContentForm < Reform::Form
+    class ContentForm < Reform::Form
     property :title
     property :author
     property :locale
     property :article
+
+    # FIXME: deserialize picture_meta_data
+    property :picture_meta_data #, deserializer: {writeable: false}
 
     validation :default do
       validates :title,  presence: true, allow_blank: false

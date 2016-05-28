@@ -5,7 +5,6 @@ class Post.Preview
     $(document).off 'click', @form + ' button[formaction=preview]'
     $(document).on 'click', @form + ' button[formaction=preview]', $.proxy(@onClick, @)
 
-
   onClick: (evt) ->
     url = $(@form).prop('action') + '/' + @previewBtn.attr('formaction')
     params = $(@form).serialize()

@@ -1,4 +1,9 @@
 .blog-post
+  -#- if picture.exists?
+  .blog-picture
+    -#= header class: %w(post-image img-responsive centerblock)
+    = concept('post/cell/picture', model).(:header, class: %w(post-image img-responsive centerblock))
+
   .blog-header.title-header
     %h3.blog-post-title
       %span= title
@@ -23,9 +28,10 @@
       &nbsp;
       = comments_count
 
-  = article_summary
+  = if abstract? ? article_summary : article
 
-  .read-more
-    = link_to(blog_path(model), class: %w(button blog-read-more), role: :button) do
-      %i.fa.fa-chevron-circle-right
-      %span= _('views.blog.read_more')
+  - unless abstract?
+    .read-more
+      = link_to(blog_path(model), class: %w(button blog-read-more), role: :button) do
+        %i.fa.fa-chevron-circle-right
+        %span= _('views.blog.read_more')

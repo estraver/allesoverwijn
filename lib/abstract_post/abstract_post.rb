@@ -31,6 +31,7 @@ module AbstractPost
     property :id
     property :post, default: Post.new do
       property :page
+      property :picture_meta_data
 
       collection :post_contents do
         property :title

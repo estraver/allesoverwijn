@@ -1,0 +1,41 @@
+.form-group {
+  &.radio_buttons_tree,
+  &.check_boxes_tree {
+    ul {
+      ul > li {
+        margin: {
+          left: 20px;
+        }
+        position: relative
+      }
+
+      label {
+        vertical-align: middle;
+        margin: {
+          top: -5px;
+        }
+
+        padding: {
+          left: 5px;
+        }
+      }
+    }
+  }
+}
+
+// Sidebar fixes for fontawesome checkbox
+.sidebar {
+  .checkbox {
+    label {
+      &:after {
+        margin: {
+          left: -25px;
+          top: -1px;
+        }
+        padding: {
+          top: 0;
+        }
+      }
+    }
+  }
+}

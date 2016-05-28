@@ -1,4 +1,6 @@
 require_dependency 'post/operations'
+require_dependency 'transfer/operations'
+require_dependency 'lib/attachment/post_attachment'
 
 class Blog < ActiveRecord::Base
   class Create < Post::Create
@@ -106,4 +108,40 @@ class Blog < ActiveRecord::Base
       Blog::Policy.new(current_user.id, model).(operation)
     end
   end
+
+  class Upload < Transfer::Upload
+    contract do
+      processable_writer :image, PostAttachment
+    end
+
+    representer do
+      include Representable::JSON
+
+      property :image_meta_data
+      property :header_url, exec_context: :decorator
+      property :sidebar_url, exec_context: :decorator
+      property :original_url, exec_context: :decorator
+
+      private
+
+      def url_for(style)
+        image = PostAttachment.new represented.image_meta_data
+        image[style].url
+      end
+
+      def header_url
+        url_for(:header)
+      end
+
+      def sidebar_url
+        url_for(:sidebar)
+      end
+
+      def original_url
+        url_for(:original)
+      end
+    end
+
+  end
+
 end

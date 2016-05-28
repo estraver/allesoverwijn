@@ -1,0 +1,10 @@
+.well
+  = simple_form_for(@form, url: categories_path, remote: true, data: {type: :json}, class: 'content-wrapper') do |f|
+    = f.input :name
+    -#= f.input :locale
+    -#= f.input :locale,
+    .form-group
+      =label_tag 'locale', _('category.form.locale'), class: %w(string required control-label)
+      =select_tag 'category[locale]', options_for_select(category_locale_options, @model.locale), class: %w(string required form-control)
+
+    = f.input :parent_category_id, collection: @collection, as: :radio_buttons_tree, value_method: :name, children: :child_categories

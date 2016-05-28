@@ -6,5 +6,8 @@
     -
       :name: :published_on
       :type: 'Date'
+    -
+      :name: :comments
+      :type: 'String'
 :blog:
   :inherit: :post

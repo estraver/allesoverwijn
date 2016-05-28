@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512075336) do
+ActiveRecord::Schema.define(version: 20160523200747) do
 
   create_table "address_profiles", force: :cascade do |t|
     t.integer  "address_id"
@@ -56,6 +56,32 @@ ActiveRecord::Schema.define(version: 20160512075336) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "categories", force: :cascade do |t|
+    t.integer  "parent_category_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "categories", ["parent_category_id"], name: "index_categories_on_parent_category_id"
+
+  create_table "categorization", id: false, force: :cascade do |t|
+    t.integer "post_id",     null: false
+    t.integer "category_id", null: false
+  end
+
+  add_index "categorization", ["category_id", "post_id"], name: "index_categorization_on_category_id_and_post_id"
+  add_index "categorization", ["post_id", "category_id"], name: "index_categorization_on_post_id_and_category_id"
+
+  create_table "category_names", force: :cascade do |t|
+    t.string   "name",                  null: false
+    t.string   "locale",      limit: 2, null: false
+    t.integer  "category_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "category_names", ["category_id"], name: "index_category_names_on_category_id"
 
   create_table "network_accounts", force: :cascade do |t|
     t.string   "account",      null: false

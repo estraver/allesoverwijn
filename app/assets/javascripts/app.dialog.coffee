@@ -1,4 +1,4 @@
-class App.Confirm
+class App.Dialog
   templates:
     dialog:  "<div class='modal fade' tabindex='-1' role='dialog'>" +
              "<div class='modal-dialog'>" +
@@ -17,16 +17,24 @@ class App.Confirm
 
   constructor: (@title, @message, @confirmFn, @cancelFn) ->
 
-  render: ->
-    @dialog = @create_confirm_dialog()
-
-    @dialog.modal('show')
+  render: (options = {})->
+    classes = options.classes || []
+    classes = [classes] if typeof classes is 'string'
+    @dialog = @create_confirm_dialog(classes)
 
     @dialog.on 'hidden.bs.modal', (evt) ->
       $(@).remove()
 
-  create_confirm_dialog: ->
+    if options.afterRender
+      @dialog.on 'shown.bs.modal', (evt) ->
+        options.afterRender.call(this, evt)
+
+    @dialog.modal('show')
+
+
+  create_confirm_dialog: (classes) ->
     $dialog= $(@templates.dialog)
+    $dialog.find('.modal-dialog').addClass(classes.join(' '))
     $header= $(@templates.header)
     $footer= $(@templates.footer)
     $cancelBtn= $(@templates.cancelBtn)

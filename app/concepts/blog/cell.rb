@@ -11,12 +11,18 @@ class Blog::Cell < Cell::Concept
     @options[:preview]
   end
 
+  def abstract?
+    @options[:abstract]
+  end
+
   private
 
+  # TODO: realize comment count
   def comments_count
     0
   end
 
+  # TODO: realize count view
   def views_count
     0
   end
@@ -36,7 +42,7 @@ class Blog::Cell < Cell::Concept
     inherit_views Blog::Cell
 
     def show
-      concept('blog/cell', model, operation: @options[:operation], preview: @options[:preview])
+      concept('blog/cell', model, operation: @options[:operation], preview: @options[:preview], abstract: @options[:abstract])
     end
   end
 

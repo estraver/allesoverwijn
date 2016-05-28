@@ -27,6 +27,7 @@ module Recollect::Collection::Twin
   private
 
   def twin_for(model, options={})
-    self.class.twin_class.build(model, options)
+    return self.class.twin_class.build(model, options) if self.class.twin_class.respond_to? :build
+    self.class.twin_class.new(model, options)
   end
 end

@@ -1,4 +1,5 @@
 require_dependency 'blog/operations'
+require_dependency 'transfer/operations'
 
 class BlogsController < ApplicationController
   respond_to :html, :json, :js
@@ -12,6 +13,8 @@ class BlogsController < ApplicationController
   end
 
   def edit
+    # FIXME: Put category collection in operation
+    @collection = TopCategoryCollection.new(Category).().twinnize(current_user: tyrant.current_user)
     form Blog::Update
   end
 
@@ -58,12 +61,21 @@ class BlogsController < ApplicationController
   end
 
   def upload
-    upload_class = params.key?(:id) ? Blog::Update::Upload : Blog::Create::Upload
-
-    respond upload_class do | op, format |
+    respond Blog::Upload do | op, format |
       format.json { render_json op, 'post.picture.upload' }
       format.html
     end
   end
+
+  # Parse picture_meta_data
+  def process_params!(params)
+    super(params)
+    if params.has_key?(:blog) and params[:blog].has_key?(:post_attributes)
+      picture_meta_data =  params[:blog][:post_attributes].delete(:picture_meta_data)
+      params[:blog][:post_attributes].merge!(picture_meta_data: JSON.parse(picture_meta_data, {:symbolize_names => true}))
+    end
+
+  end
+
 
 end

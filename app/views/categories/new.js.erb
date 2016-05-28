@@ -1,0 +1,10 @@
+var confirmFn = function (e) {
+};
+
+new App.Dialog('<%= _('Category.new') %>', '<%= escape_javascript(render 'form') %>', confirmFn, function () {
+}).render({
+    classes: 'form-dialog',
+    afterRender: function () {
+        new App.Form.Select('select.form-control');
+    }
+});
