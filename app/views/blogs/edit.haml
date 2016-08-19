@@ -43,12 +43,14 @@
                 %i.fa.fa-list-ul
                 %span= _('blog.settings.categories.new')
               = f.simple_fields_for :post do | post |
-                = post.input :categories, collection: @collection, required: false, as: :check_boxes_tree, children: :child_categories, checked: @model.post.categories.map(&:id)
+                = post.input :category_ids, collection: @collection, required: false, as: :check_boxes_tree, children: :child_categories, checked: @model.post.categories.map(&:id)
           %li.dropdown.keep-open
             %a{href: '#', data: {toggle: :dropdown}}
               %i.fa.fa-tags.fa-fw
               = _('blog.settings.tags')
             .dropdown-menu{role: :menu}
+              = f.simple_fields_for :post do | post |
+                = post.input_field :tags, as: :tags, collection: @operation.contract.post.tags, value_metod:  :name
           %li.dropdown.keep-open
             %a{href: '#', data: {toggle: :dropdown}}
               %i.fa.fa-map-marker.fa-fw

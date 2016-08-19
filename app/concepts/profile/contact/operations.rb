@@ -40,9 +40,26 @@ class Profile < ActiveRecord::Base
         property :gender
 
         validation :default do
-          validates :first_name, presence: true, allow_blank: false
-          validates :last_name, presence: true, allow_blank: false
-          validate :date_of_birth_ok?
+          configure do
+            option :form
+
+            config.messages_file = 'config/dry_error_messages.yml'
+
+            def date_of_birth_ok?(date_of_birth)
+              begin
+                Date.parse(date_of_birth).to_s.eql? date_of_birth
+              rescue ArgumentError
+                false
+              end
+            end
+          end
+
+          # validates :first_name, presence: true, allow_blank: false
+          # validates :last_name, presence: true, allow_blank: false
+          key(:first_name).required
+          key(:last_name).required
+          key(:date_of_birth).filled(:date_of_birth_ok?)
+          # validate :date_of_birth_ok?
         end
 
         private
@@ -60,8 +77,8 @@ class Profile < ActiveRecord::Base
       end
 
       def process(params)
-        validate(params[:profile]) do
-          contract.save
+        validate(params[:profile]) do | f |
+          f.save
         end
       end
 

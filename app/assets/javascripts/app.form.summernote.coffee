@@ -3,6 +3,7 @@
 #TODO: Add links too other posts (like @ with users)
 class App.Form.Summernote
   constructor: (@selector) ->
+    $(document).on 'form:error', ':input:hidden' + @selector, $.proxy(@onError, @)
     $(@selector).each ->
       $(@).summernote
         toolbar: [
@@ -15,5 +16,14 @@ class App.Form.Summernote
         ]
         dialogsFade: true
 
-$(document).on 'page:change', ->
+  summernote: ->
+    $(@selector).siblings().find('.note-editable')
+
+  onError: (evt, data) ->
+    $("<span>").addClass('glyphicon glyphicon-remove form-control-feedback').appendTo @summernote()
+    $("<span>").addClass('help-block').html(data.error.join(', ')).appendTo @summernote().parent().parent()
+    false
+
+
+$(document).on 'turbolinks:load', ->
   new App.Form.Summernote('[data-provider="summernote"]')

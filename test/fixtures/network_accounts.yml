@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+#one:
+#  account: MyString
+#  account_type: MyString
+#  user_id:
+#
+#two:
+#  account: MyString
+#  account_type: MyString
+#  user_id:

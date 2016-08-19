@@ -41,6 +41,9 @@ group :development do
 	gem 'html2haml'
 	gem 'quiet_assets'
 	gem 'rails_layout'
+
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console', '~> 2.0'
 end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -55,13 +58,14 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
-
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'minitest-spec-rails'
   gem 'capybara_minitest_spec'
+  gem 'minitest-rails-capybara'
+  gem 'minitest-line'
+  gem 'minitest-metadata'
+  gem 'yaml_db'
 end
 
 group :production do
@@ -69,13 +73,15 @@ group :production do
 	gem 'rails_12factor'
 end
 
-gem 'virtus'
+# gem 'virtus'
 #gem 'reform', github: 'apotonick/reform'
-gem 'reform'
+gem 'reform-rails'
+gem 'dry-validation'
+gem 'dry-types'
 #gem 'disposable', github: 'apotonick/disposable'
 gem 'disposable'
 gem 'cells'
-gem 'trailblazer'
+# gem 'trailblazer'
 gem 'trailblazer-rails'
 gem 'kaminari'
 gem 'kaminari-cells'
@@ -83,7 +89,7 @@ gem 'cells-haml'
 gem 'responders'
 gem 'roar'
 # gem 'monban'
-gem 'tyrant', github: 'apotonick/tyrant'
+gem 'tyrant'#, github: 'apotonick/tyrant'
 gem 'ya2yaml'
 gem 'paperdragon'
 gem 'file_validators'

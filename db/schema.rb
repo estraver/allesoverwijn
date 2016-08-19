@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160523200747) do
+ActiveRecord::Schema.define(version: 20160818054310) do
 
   create_table "address_profiles", force: :cascade do |t|
     t.integer  "address_id"
@@ -178,6 +178,20 @@ ActiveRecord::Schema.define(version: 20160523200747) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "taggings", id: false, force: :cascade do |t|
+    t.integer "post_content_id", null: false
+    t.integer "tag_id",          null: false
+  end
+
+  add_index "taggings", ["post_content_id", "tag_id"], name: "index_taggings_on_post_content_id_and_tag_id"
+  add_index "taggings", ["tag_id", "post_content_id"], name: "index_taggings_on_tag_id_and_post_content_id"
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "tag",        null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "translation_keys", force: :cascade do |t|
     t.string   "key",        null: false
     t.datetime "created_at"
@@ -204,7 +218,6 @@ ActiveRecord::Schema.define(version: 20160523200747) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.text     "auth_meta_data"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.integer  "posts_count"

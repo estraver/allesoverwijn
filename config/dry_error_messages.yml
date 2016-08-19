@@ -1,0 +1,7 @@
+en:
+  errors:
+    token_ok?: 'Token.already.confirmed'
+    token_expired?: 'Token.invalid.or.expired'
+    unique_title?: 'Post.title.not.unique'
+    article_10_words?: 'Post.article.less.than.10.words'
+    article_2_lines?: 'Post.article.less.than.2.lines'

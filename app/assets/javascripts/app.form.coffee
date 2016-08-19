@@ -56,12 +56,13 @@ class App.Form
     App.Flash.clear()
 
   input: (attr) ->
-    @form().find(":input[name*='[" + attr + "]']")
+    attr = attr.replace(/(.*)\.(.*)/,'[\$1_attributes][\$2]')
+    @form().find(":input[name*='" + attr + "']")
 
   fire: (input, name, data) ->
     event = $.Event(name);
     input.trigger event, data
     event.result != false
 
-$(document).on 'page:change', ->
+$(document).on 'turbolinks:load', ->
   new App.Form('form[data-remote]')

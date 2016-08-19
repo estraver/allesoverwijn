@@ -33,7 +33,8 @@ class Category < ActiveRecord::Base
     def process(params)
       validate(params[:category]) do
         dispatch!(:before_save)
-        model.save(params[:category])
+        contract.save
+        # model.save(params[:category])
       end
     end
 

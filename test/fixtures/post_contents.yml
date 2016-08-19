@@ -1,0 +1,26 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+welcome_content:
+  title: Welkom
+  article: Dit is de welkomst blog van allesoverwijn. Allesoverwijn is de community waar je alles over wijn kan vinden en schrijven!
+  author: admin (User)
+  locale: nl
+  post: welcome
+
+#one:
+#  title: MyString
+#  article: MyText
+#  author_id:
+#  published: false
+#  published_on: 2016-03-25
+#  post_id:
+#  locale: MyString
+#
+#two:
+#  title: MyString
+#  article: MyText
+#  author_id:
+#  published: false
+#  published_on: 2016-03-25
+#  post_id:
+#  locale: MyString

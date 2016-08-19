@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  description: MyText
-  role_meta_data: MyText
+admin:
+  name: 'admin'
+  description: 'Super User'
+  users: admin
 
-two:
-  name: MyString
-  description: MyText
-  role_meta_data: MyText
+standard:
+  name: 'standard'
+  description: 'Default role'
+  role_meta_data: <%= { :profile => { :create => true, :update => true }, :role => { :create => false }, :network_account => { :all => true}, :blog => { :create => true, :update => true } }.to_yaml.inspect %>

@@ -28,9 +28,9 @@
       &nbsp;
       = comments_count
 
-  = if abstract? ? article_summary : article
+  = abstract? ? article_summary : article
 
-  - unless abstract?
+  - if abstract?
     .read-more
       = link_to(blog_path(model), class: %w(button blog-read-more), role: :button) do
         %i.fa.fa-chevron-circle-right

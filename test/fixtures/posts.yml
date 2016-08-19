@@ -1,0 +1,12 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+welcome:
+  page: welcome_blog (Blog)
+
+#one:
+#  features: false
+#  comment_allowed: false
+#
+#two:
+#  features: false
+#  comment_allowed: false

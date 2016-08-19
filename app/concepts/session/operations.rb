@@ -12,16 +12,29 @@ module Session
       property :password, virtual: true
       property :remember_me, virtual: true
 
-      validates :email, :password, presence: true
-      validate :password_ok?
+      validation :default do
+        configure do
+          def password_ok?(value)
+            @user = User.find_by(email: email)
+            @user and Tyrant::Authenticatable.new(@user).digest?(value)
+          end
+        end
+
+        key(:email).required
+        key(:password).required(:password_ok?)
+
+        # validate :password_ok?
+      end
+      # validates :email, :password, presence: true
+      # validate :password_ok?
 
       private
 
       def password_ok?
-        return if email.blank? or password.blank?
-
-        @user = User.find_by(email: email)
-        errors.add(:password, _('session.new.no_matching_password')) unless @user and Tyrant::Authenticatable.new(@user).digest?(password)
+        # return if email.blank? or password.blank?
+        #
+        # @user = User.find_by(email: email)
+        # errors.add(:password, _('session.new.no_matching_password')) unless @user and Tyrant::Authenticatable.new(@user).digest?(password)
       end
     end
 

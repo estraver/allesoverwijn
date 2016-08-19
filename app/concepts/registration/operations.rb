@@ -1,5 +1,5 @@
 require_dependency('password_strength')
-require 'reform/form/validation/unique_validator.rb'
+# require 'reform/form/validation/unique_validator.rb'
 
 module Registration
   class SignUp < Trailblazer::Operation
@@ -13,20 +13,35 @@ module Registration
       property :confirm_password, virtual: true
       collection :roles
 
-      validates :name, :email, :password, :confirm_password, presence: true
-      validates :name, unique: true
-      validates :email, unique: true
-      validate :password_ok?
+      validation :default do
+        key(:name).required
+        key(:email).required
+        key(:password).required
+        key(:confirm_passwrod).required
+      end
+
+      validation :unique_name_and_email, if: :default do
+        # FIXME
+        # validates :name, unique: true
+        # validates :email, unique: true
+
+      end
+
+      validation :password_ok, if: :unique_name_and_email do
+        # validate :password_ok?
+        key(:password).required(min_size?: 12).confirmation
+      end
+      # validates :name, :email, :password, :confirm_password, presence: true
 
       private
 
-      def password_ok?
-        return unless email and password
-        password_strength = PasswordStrength::Base.new(name, password)
-        password_strength.test
-        errors.add(:password, _('registration.new.no_matching_password')) if password != confirm_password
-        errors.add(:password, _('registration.new.weak_password')) unless password_strength.valid?
-      end
+      # def password_ok?
+      #   return unless email and password
+      #   password_strength = PasswordStrength::Base.new(name, password)
+      #   password_strength.test
+      #   errors.add(:password, _('registration.new.no_matching_password')) if password != confirm_password
+      #   errors.add(:password, _('registration.new.weak_password')) unless password_strength.valid?
+      # end
     end
 
     def process(params)

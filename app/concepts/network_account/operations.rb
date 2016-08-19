@@ -21,9 +21,14 @@ class NetworkAccount < ActiveRecord::Base
         property :account
         property :account_type, prepopulator: -> (*) { self.account_type = 0 }
 
-        validates :account, presence: true, allow_blank: false
-        validates :account_type, presence: true, allow_blank: false
-        validates :account_type, inclusion: {in: NetworkAccount.account_types.keys }
+        validation :default do
+          key(:account).required
+          key(:account_type).required
+          key(:account_type).inclusion?(NetworkAccount.account_types.keys)
+        end
+        # validates :account, presence: true, allow_blank: false
+        # validates :account_type, presence: true, allow_blank: false
+        # validates :account_type, inclusion: {in: NetworkAccount.account_types.keys }
       end
     end
 

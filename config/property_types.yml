@@ -2,12 +2,12 @@
   :types:
     -
       :name: :published
-      :type: 'Virtus::Attribute::Boolean'
+      :type: 'Types::Form::Bool'
     -
       :name: :published_on
-      :type: 'Date'
+      :type: 'Types::Date'
     -
       :name: :comments
-      :type: 'String'
+      :type: 'Types::Coercible::String'
 :blog:
   :inherit: :post

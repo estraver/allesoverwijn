@@ -1,6 +1,6 @@
 require_dependency 'post/operations'
 require_dependency 'transfer/operations'
-require_dependency 'lib/attachment/post_attachment'
+require_dependency 'attachment/post_attachment'
 
 class Blog < ActiveRecord::Base
   class Create < Post::Create
@@ -11,10 +11,24 @@ class Blog < ActiveRecord::Base
     model Blog, :create
     policy Blog::Policy, :create?
 
+    contract  do
+      property :zxx, virtual: true
+    end
+    # contract do
+    #   property :post, form: AbstractPost::ContentForm, default: Post.new
+      # property :post, default: Post.new do
+      #   property :title, virtual: true
+      #
+      #   validation do
+      #     required(:title).filled
+      #   end
+      # end
+    # end
+
     def process(params)
-      validate(params[:blog]) do
-        dispatch!(:before_save)
-        model.save(params[:blog])
+      validate(params[:blog]) do | contract |
+        # dispatch!(:before_save)
+        contract.save
       end
     end
 
@@ -23,9 +37,9 @@ class Blog < ActiveRecord::Base
     end
 
     class Close < self
-      callback :changed? do
-        on_change :set_content_changed!
-      end
+      # callback :changed? do
+      #   on_change :set_content_changed!
+      # end
 
       def process(params)
         @content_changed = false

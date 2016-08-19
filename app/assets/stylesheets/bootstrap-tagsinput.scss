@@ -1,0 +1,21 @@
+@import 'theme/colors';
+
+.bootstrap-tagsinput {
+  @extend .form-control;
+
+  //line-height: 16px;
+  height: auto;
+
+  &.focus {
+    @extend .form-control:focus;
+  }
+
+  .tag {
+    background: {
+      color: $theme-button-bg;
+    }
+    color: $theme-text;
+
+    line-height: 26px;
+  }
+}

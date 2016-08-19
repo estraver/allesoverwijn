@@ -14,8 +14,9 @@ module Transfer
 
     contract do
       property :file, virtual: true
-      validates :file, file_size: {less_than: 1.megabyte},
-                file_content_type: {allow: %w(image/jpeg image/png)}
+      #FIXME
+      # validates :file, file_size: {less_than: 1.megabyte},
+      #           file_content_type: {allow: %w(image/jpeg image/png)}
 
       extend Paperdragon::Model::Writer
       # processable_writer :image

@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="1295746258">
-    <data-source source="LOCAL" name="SQLite -" uuid="03db1cea-a6c0-4e6f-a3bd-f518ec47f1a1">
+  <component name="DataSourceManagerImpl" format="xml" hash="1409878621">
+    <data-source source="LOCAL" name="Allesoverwijn DEV" uuid="03db1cea-a6c0-4e6f-a3bd-f518ec47f1a1">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/development.sqlite3</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Allesoverwiijn TST" uuid="5b03e2cc-aaf8-47d3-9d3f-0b75be8b8bcb">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/test.sqlite3</jdbc-url>
       <libraries />
     </data-source>
   </component>

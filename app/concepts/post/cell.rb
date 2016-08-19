@@ -1,5 +1,5 @@
 require_dependency 'uber/delegates'
-require_dependency 'lib/attachment/post_attachment'
+require_dependency 'attachment/post_attachment'
 
 class Post::Cell < Cell::Concept
   def show

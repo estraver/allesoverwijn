@@ -50,5 +50,5 @@ class App.Upload
     @input.click()
     evt.preventDefault()
 
-$(document).on 'page:change', ->
+$(document).on 'turbolinks:load', ->
   new App.Upload('a[data-upload]')

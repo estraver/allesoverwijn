@@ -2,7 +2,6 @@ module Tyrant
   class Authenticatable < Disposable::Twin
 
     property :auth_meta_data, default: AuthMetaData.new do
-      # include Struct
       property :confirmation_token
       property :confirmed_at
       property :confirmation_created_at

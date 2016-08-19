@@ -19,13 +19,13 @@ module Permission
     end
 
     class Admin < self
-      def allow?
+      def allow?(concept, operation)
         true
       end
     end
 
     class Moderator < self
-      def allow?(concept)
+      def allow?(concept, operation)
         role_meta_data.try(:[], concept)
       end
     end

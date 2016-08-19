@@ -28,13 +28,14 @@ class Profile < ActiveRecord::Base
         property :bio
 
         validation :default do
-          validates :bio, presence: true, allow_blank: false
+          # validates :bio, presence: true, allow_blank: false
+          key(:bio).required
         end
       end
 
       def process(params)
-        validate(params[:profile]) do
-          contract.save
+        validate(params[:profile]) do |f|
+          f.save
         end
       end
 

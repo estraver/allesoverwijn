@@ -43,12 +43,27 @@ module AbstractPost
           property :name
           property :value
         end
+
+        collection :tags do
+          property :id
+          property :name
+        end
+
       end
 
-      property :title, default: -> { default_content_for(:title) }
-      property :article, default: -> { default_content_for(:article) }
-      property :locale, default: -> { default_content_for(:locale) }
-      property :author, default: -> { default_content_for(:author) }
+      collection :categories do
+        property :id
+      end
+
+      property :title, virtual: true, default: -> { default_content_for(:title) }
+      property :article, virtual: true, default: -> { default_content_for(:article) }
+      property :locale, virtual: true, default: -> { default_content_for(:locale) }
+      property :author, virtual: true, default: -> { default_content_for(:author) }
+
+      property :tags, collection: true, virtual: true, default: -> { default_tags } do
+        property :id
+        property :name
+      end
 
       private
 
@@ -80,52 +95,18 @@ module AbstractPost
         property.nil? ? nil : property.value
       end
 
+      def default_tags
+        get_post.tags.each do | tag |
+          tags << tag
+        end
+      end
     end
-
-
-    # property :content, virtual: true, default: Hash.new do
-    #   include Struct
-    #   property :title, virtual: true, default: -> { default_content_for(:title) }
-    #   property :article, virtual: true, default: -> { default_content_for(:article) }
-    #   property :locale, virtual: true, default: -> { default_content_for(:locale) }
-    #   property :author, virtual: true, default: -> { default_content_for(:author) }
-    #
-    #   private
-    #
-    #   def get_post
-    #     user = parent.current_user
-    #     @post ||= begin
-    #       post = parent.post
-    #       entry = post.post_contents.find_by(locale: locale_for(user))
-    #
-    #       if entry.nil?
-    #         post.post_contents[0]
-    #       else
-    #         entry
-    #       end
-    #     end
-    #   end
-    #
-    #   def default_content_for(prop)
-    #     get_post.nil? ? nil : get_post.send(prop)
-    #   end
-    #
-    #   def locale_for(user)
-    #     user.profile.language || I18n.locale || I18n.default_locale
-    #   end
-    #
-    #   def property_value_for(prop)
-    #     post = get_post
-    #     property = post.properties.find_by(name: prop) unless post.nil?
-    #     property.nil? ? nil : property.value
-    #   end
-
-    # end
 
     module Content
       class ContentChange < Disposable::Callback::Group
         property :post do
           on_change :post_update!
+
           # on_change :post_update!, property: :locale
           # on_change :post_update!, property: :author
           # on_change :post_update!, property: :article
@@ -147,6 +128,8 @@ module AbstractPost
             end
 
             property_update!(twin, entry || twin.parent.class.new_post_content, options)
+
+            tags_update!(twin, entry || twin.parent.class.new_post_content, options)
           end
 
           def property_update!(twin, entry, options)
@@ -159,6 +142,24 @@ module AbstractPost
                   prop.value = twin.send(field.name) if twin.changed?(field.name)
                 end
               end
+            end
+          end
+
+          def tags_update!(twin, entry, options)
+            # Update or add new tag
+            twin.tags.each do | tag |
+              tagged = entry.tags.find_by(id: tag.id)
+              if tagged then
+                tagged.name = tag.name if tag.changed(:name)
+              else
+                entry.tags << tag
+              end
+            end
+
+            # Delete tags
+            entry.tags.each do | tag |
+              tagged = twin.tags.find_by(id: tag.id)
+              entry.tags.delete(tag) unless tagged
             end
           end
 

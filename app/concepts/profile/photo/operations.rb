@@ -23,8 +23,9 @@ class Profile < ActiveRecord::Base
         feature Disposable::Twin::Persisted
 
         property :file, virtual: true
-        validates :file, file_size: {less_than: 1.megabyte},
-                  file_content_type: {allow: ['image/jpeg', 'image/png']}
+        # FIXME
+        # validates :file, file_size: {less_than: 1.megabyte},
+        #           file_content_type: {allow: ['image/jpeg', 'image/png']}
 
         extend Paperdragon::Model::Writer
         processable_writer :photo
