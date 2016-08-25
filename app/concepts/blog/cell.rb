@@ -1,4 +1,4 @@
-require 'abstract_post/abstract_post'
+# require 'abstract_post/abstract_post'
 
 class Blog::Cell < Cell::Concept
   include Cell::ContentCell

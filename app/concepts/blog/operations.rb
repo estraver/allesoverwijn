@@ -1,4 +1,5 @@
 require_dependency 'post/operations'
+require_dependency 'post/post_form'
 require_dependency 'transfer/operations'
 require_dependency 'attachment/post_attachment'
 
@@ -11,23 +12,11 @@ class Blog < ActiveRecord::Base
     model Blog, :create
     policy Blog::Policy, :create?
 
-    contract  do
-      property :zxx, virtual: true
-    end
-    # contract do
-    #   property :post, form: AbstractPost::ContentForm, default: Post.new
-      # property :post, default: Post.new do
-      #   property :title, virtual: true
-      #
-      #   validation do
-      #     required(:title).filled
-      #   end
-      # end
-    # end
+    contract AbstractPost::PostForm
 
     def process(params)
       validate(params[:blog]) do | contract |
-        # dispatch!(:before_save)
+        dispatch!(:before_save)
         contract.save
       end
     end

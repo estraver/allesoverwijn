@@ -109,30 +109,30 @@ ActiveRecord::Schema.define(version: 20160818054310) do
   add_index "post_contents", ["post_id"], name: "index_post_contents_on_post_id"
 
   create_table "posts", force: :cascade do |t|
-    t.integer  "page_id",                           null: false
-    t.string   "page_type",                         null: false
-    t.boolean  "features",          default: false
-    t.boolean  "comment_allowed",   default: true
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.integer  "page_id",           null: false
+    t.string   "page_type",         null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.binary   "picture_meta_data"
   end
 
+  add_index "posts", ["page_type", "page_id"], name: "index_posts_on_page_type_and_page_id"
+
   create_table "profiles", force: :cascade do |t|
-    t.text    "first_name"
-    t.text    "middle_name"
-    t.text    "last_name"
-    t.text    "date_of_birth"
-    t.text    "birth_place"
-    t.text    "home"
-    t.integer "gender",          default: 0
-    t.text    "bio"
-    t.text    "country"
-    t.text    "language"
-    t.text    "photo_meta_data"
-    t.integer "user_id"
-    t.text    "created_at",                  null: false
-    t.text    "updated_at",                  null: false
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.date     "date_of_birth"
+    t.string   "birth_place"
+    t.string   "home",            limit: 3
+    t.integer  "gender",                    default: 0
+    t.text     "bio"
+    t.string   "country",         limit: 3
+    t.string   "language",        limit: 2
+    t.binary   "photo_meta_data"
+    t.integer  "user_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "properties", force: :cascade do |t|

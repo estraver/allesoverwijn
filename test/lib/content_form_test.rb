@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ContentFormTest < MiniTest::Spec
   let (:form) { AbstractPost::ContentForm.new(Post.new) }
-  let (:valid_article) { '<p>Een tekst die lang genoeg is voor validatie. Oftewel minimaal 10 woorden en één regel </p>' }
+  let (:valid_article) { '<p>Een tekst die lang genoeg is voor validatie. Oftewel minimaal 10 woorden en </p><p>twee regels </p>' }
 
   describe 'Content is not valid' do
     it 'when content has empty title' do

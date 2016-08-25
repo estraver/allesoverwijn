@@ -1,15 +1,15 @@
-require_dependency 'abstract_post/abstract_post'
-require_dependency 'abstract_post/content_form'
-require_dependency 'abstract_post/properties'
+# require_dependency 'abstract_post/abstract_post'
+# require_dependency 'abstract_post/content_form'
+# require_dependency 'abstract_post/properties'
 require_dependency 'user_util/current_user'
 require_dependency 'post/published_collection'
 
-# module AbstractPost
+module AbstractPost
   class Post::Create < Trailblazer::Operation
-    include Callback, Representer
+    include Callback#, Representer
     include UserUtil::CurrentUser
-    include AbstractPost::Properties
-    include Representer::Deserializer::Hash
+    # include AbstractPost::Properties
+    # include Representer::Deserializer::Hash
 
     # builds -> (params) do
     #   JSON if params[:format] =~ 'json'
@@ -22,23 +22,16 @@ require_dependency 'post/published_collection'
 
     end
 
-    contract do
-      # feature Disposable::Twin::Persisted
-
-      property :post, form: AbstractPost::ContentForm, default: Post.new
-      # property :post, default: Post.new do
-      #   property :title, virtual: true
-      #
-      #   validation do
-      #     required(:title).filled
-      #   end
-      # end
-      property :post_schedule, virtual: true
-    end
-
-    # properties *PropertyType.find(Post)
-
     private
+
+    def params!(params)
+      model_key = params.first[0]
+      params[model_key][:post].merge! post_contents: {}
+      %w(title article locale author).map do | prop |
+        params[model_key][:post][:post_contents].merge! Hash[prop.to_sym, params[model_key][:post][prop.to_sym] ]
+      end
+      params
+    end
 
     # attr_reader :post
 
@@ -93,30 +86,30 @@ require_dependency 'post/published_collection'
       target_content.locale = base_content.locale
     end
 
-    class JSON < self
-      representer do
-        property :title
-        property :author
-        property :locale
-        property :article
-
-        collection :tags do
-          property :name
-        end
-
-        collection :categories do
-          property :id
-        end
-
-        # FIXME: deserialize picture_meta_data
-        # property :picture_meta_data #, deserializer: {writeable: false}
-
-        property :post_schedule, virtual: true
-        property :category_ids, virtual: true, default: []
-
-        # properties *PropertyType.find(Post)
-      end
-    end
+    # class JSON < self
+    #   representer do
+    #     property :title
+    #     property :author
+    #     property :locale
+    #     property :article
+    #
+    #     collection :tags do
+    #       property :name
+    #     end
+    #
+    #     collection :categories do
+    #       property :id
+    #     end
+    #
+    #     # FIXME: deserialize picture_meta_data
+    #     # property :picture_meta_data #, deserializer: {writeable: false}
+    #
+    #     property :post_schedule, virtual: true
+    #     property :category_ids, virtual: true, default: []
+    #
+    #     # properties *PropertyType.find(Post)
+    #   end
+    # end
 
   end
 
@@ -128,4 +121,4 @@ require_dependency 'post/published_collection'
     collection :published, collection: AbstractPost::PublishedCollection
   end
 
-# end
+end

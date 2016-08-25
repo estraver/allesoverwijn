@@ -1,455 +1,1401 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="Allesoverwijn DEV" uuid="03db1cea-a6c0-4e6f-a3bd-f518ec47f1a1">
-    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
-    <schema name="" catalog=""/>
-    <table name="address_profiles" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="address_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="profile_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="address_type" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="valid_from" sqlType="DATE" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="valid_to" sqlType="DATE" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_address_profiles_on_profile_id" unique="true" columns="profile_id"/>
-      <index name="index_address_profiles_on_address_id" unique="true" columns="address_id"/>
-    </table>
-    <table name="addresses" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="line_1" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="line_2" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="line_3" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="city" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="country_province" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="zip_or_postcode" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="country" sqlType="VARCHAR(3)" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="other_address_details" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="auth_meta_data" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="password_digest" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12" def="Jyc="/>
-      <column name="reset_password_token" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="reset_password_sent_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="confirmation_token" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="confirmation_created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="confirmed_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="confirmation_sent_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="user_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="blogs" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="categories" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="parent_category_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_categories_on_parent_category_id" unique="true" columns="parent_category_id"/>
-    </table>
-    <table name="categorization" schema="" catalog="" type="TABLE">
-      <column name="post_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="category_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <index name="index_categorization_on_category_id_and_post_id" unique="true" columns="category_id,post_id"/>
-      <index name="index_categorization_on_post_id_and_category_id" unique="true" columns="post_id,category_id"/>
-    </table>
-    <table name="category_names" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="name" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="locale" sqlType="VARCHAR(2)" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="category_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_category_names_on_category_id" unique="true" columns="category_id"/>
-    </table>
-    <table name="network_accounts" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="account" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="account_type" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="profile_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_network_accounts_on_profile_id" unique="true" columns="profile_id"/>
-    </table>
-    <table name="post_contents" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="title" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="article" sqlType="TEXT" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="published" sqlType="BOOLEAN" precision="2000000000" scale="10" nullable="true" jdbcType="4" def="J2Yn"/>
-      <column name="published_on" sqlType="DATE" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="post_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="author_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="locale" sqlType="VARCHAR(2)" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_post_contents_on_author_id" unique="true" columns="author_id"/>
-      <index name="index_post_contents_on_post_id" unique="true" columns="post_id"/>
-    </table>
-    <table name="posts" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="page_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="page_type" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="features" sqlType="BOOLEAN" precision="2000000000" scale="10" nullable="true" jdbcType="4" def="J2Yn"/>
-      <column name="comment_allowed" sqlType="BOOLEAN" precision="2000000000" scale="10" nullable="true" jdbcType="4" def="J3Qn"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="picture_meta_data" sqlType="BLOB" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="profiles" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="first_name" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="middle_name" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="last_name" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="date_of_birth" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="birth_place" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="home" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="gender" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4" def="MA=="/>
-      <column name="bio" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="country" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="language" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="photo_meta_data" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="user_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="TEXT" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="TEXT" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="properties" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="value" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="post_content_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="name" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_properties_on_post_content_id" unique="true" columns="post_content_id"/>
-    </table>
-    <table name="roles" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="name" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="description" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="role_meta_data" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="roles_users" schema="" catalog="" type="TABLE">
-      <column name="role_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="user_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <index name="index_roles_users_on_user_id_and_role_id" unique="true" columns="user_id,role_id"/>
-    </table>
-    <table name="schema_migrations" schema="" catalog="" type="TABLE">
-      <column name="version" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <index name="unique_schema_migrations" unique="true" columns="version"/>
-    </table>
-    <table name="setting_contents" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="value" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="locale" sqlType="VARCHAR(2)" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="setting_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_setting_contents_on_setting_id" unique="true" columns="setting_id"/>
-    </table>
-    <table name="settings" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="key" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="namespace" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="value_type" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="sqlite_sequence" schema="" catalog="" type="TABLE">
-      <column name="name" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="seq" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-    </table>
-    <table name="taggings" schema="" catalog="" type="TABLE">
-      <column name="post_content_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="tag_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <index name="index_taggings_on_tag_id_and_post_content_id" unique="true" columns="tag_id,post_content_id"/>
-      <index name="index_taggings_on_post_content_id_and_tag_id" unique="true" columns="post_content_id,tag_id"/>
-    </table>
-    <table name="tags" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="tag" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="translation_keys" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="key" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_translation_keys_on_key" unique="true" columns="key"/>
-    </table>
-    <table name="translation_texts" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="text" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="locale" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="translation_key_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_translation_texts_on_translation_key_id" unique="true" columns="translation_key_id"/>
-    </table>
-    <table name="users" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="name" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="email" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12" def="Jyc="/>
-      <column name="sign_in_count" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="current_sign_in_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="last_sign_in_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="current_sign_in_ip" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="last_sign_in_ip" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="auth_meta_data" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="posts_count" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <primary-key columns="id"/>
-    </table>
-  </data-source>
-  <data-source name="Allesoverwiijn TST" uuid="5b03e2cc-aaf8-47d3-9d3f-0b75be8b8bcb">
-    <database-info product="SQLite" version="3.8.9" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
+  <data-source name="Rails allesoverwijn: development" uuid="de51f792-96f7-4136-853a-0e3833528e10">
+    <database-info product="SQLite" version="3.8.11" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
     <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
-    <schema name="" catalog=""/>
-    <table name="address_profiles" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="address_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="profile_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="address_type" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="valid_from" sqlType="DATE" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="valid_to" sqlType="DATE" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_address_profiles_on_profile_id" unique="true" columns="profile_id"/>
-      <index name="index_address_profiles_on_address_id" unique="true" columns="address_id"/>
-    </table>
-    <table name="addresses" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="line_1" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="line_2" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="line_3" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="city" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="country_province" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="zip_or_postcode" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="country" sqlType="VARCHAR(3)" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="other_address_details" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="auth_meta_data" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="password_digest" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12" def="Jyc="/>
-      <column name="reset_password_token" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="reset_password_sent_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="confirmation_token" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="confirmation_created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="confirmed_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="confirmation_sent_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="user_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="blogs" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="categories" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="parent_category_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_categories_on_parent_category_id" unique="true" columns="parent_category_id"/>
-    </table>
-    <table name="categorization" schema="" catalog="" type="TABLE">
-      <column name="post_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="category_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <index name="index_categorization_on_post_id_and_category_id" unique="true" columns="post_id,category_id"/>
-      <index name="index_categorization_on_category_id_and_post_id" unique="true" columns="category_id,post_id"/>
-    </table>
-    <table name="category_names" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="name" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="locale" sqlType="VARCHAR(2)" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="category_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_category_names_on_category_id" unique="true" columns="category_id"/>
-    </table>
-    <table name="network_accounts" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="account" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="account_type" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="profile_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_network_accounts_on_profile_id" unique="true" columns="profile_id"/>
-    </table>
-    <table name="post_contents" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="title" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="article" sqlType="TEXT" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="published" sqlType="BOOLEAN" precision="2000000000" scale="10" nullable="true" jdbcType="4" def="J2Yn"/>
-      <column name="published_on" sqlType="DATE" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="post_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="author_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="locale" sqlType="VARCHAR(2)" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_post_contents_on_post_id" unique="true" columns="post_id"/>
-      <index name="index_post_contents_on_author_id" unique="true" columns="author_id"/>
-    </table>
-    <table name="posts" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="page_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="page_type" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="features" sqlType="BOOLEAN" precision="2000000000" scale="10" nullable="true" jdbcType="4" def="J2Yn"/>
-      <column name="comment_allowed" sqlType="BOOLEAN" precision="2000000000" scale="10" nullable="true" jdbcType="4" def="J3Qn"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="picture_meta_data" sqlType="BLOB" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="profiles" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="first_name" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="middle_name" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="last_name" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="date_of_birth" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="birth_place" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="home" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="gender" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4" def="MA=="/>
-      <column name="bio" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="country" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="language" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="photo_meta_data" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="user_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="TEXT" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="TEXT" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="properties" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="value" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="post_content_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="name" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_properties_on_post_content_id" unique="true" columns="post_content_id"/>
-    </table>
-    <table name="roles" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="name" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="description" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="role_meta_data" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="roles_users" schema="" catalog="" type="TABLE">
-      <column name="role_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="user_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <index name="index_roles_users_on_user_id_and_role_id" unique="true" columns="user_id,role_id"/>
-    </table>
-    <table name="schema_migrations" schema="" catalog="" type="TABLE">
-      <column name="version" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <index name="unique_schema_migrations" unique="true" columns="version"/>
-    </table>
-    <table name="setting_contents" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="value" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="locale" sqlType="VARCHAR(2)" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="setting_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_setting_contents_on_setting_id" unique="true" columns="setting_id"/>
-    </table>
-    <table name="settings" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="key" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="namespace" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="value_type" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="sqlite_sequence" schema="" catalog="" type="TABLE">
-      <column name="name" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="seq" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-    </table>
-    <table name="taggings" schema="" catalog="" type="TABLE">
-      <column name="post_content_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="tag_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <index name="index_taggings_on_tag_id_and_post_content_id" unique="true" columns="tag_id,post_content_id"/>
-      <index name="index_taggings_on_post_content_id_and_tag_id" unique="true" columns="post_content_id,tag_id"/>
-    </table>
-    <table name="tags" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="tag" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <primary-key columns="id"/>
-    </table>
-    <table name="translation_keys" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="key" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_translation_keys_on_key" unique="true" columns="key"/>
-    </table>
-    <table name="translation_texts" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="text" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="locale" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="translation_key_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <primary-key columns="id"/>
-      <index name="index_translation_texts_on_translation_key_id" unique="true" columns="translation_key_id"/>
-    </table>
-    <table name="users" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
-      <column name="name" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="email" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12" def="Jyc="/>
-      <column name="sign_in_count" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="current_sign_in_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="last_sign_in_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="current_sign_in_ip" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="last_sign_in_ip" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="updated_at" sqlType="DATETIME" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
-      <column name="posts_count" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
-      <primary-key columns="id"/>
-    </table>
+    <database-model serializer="dbm" rdbms="SQLITE" format-version="2.6">
+      <schema id="1">
+        <visible>1</visible>
+      </schema>
+      <table id="2" parent="1" name="address_profiles"/>
+      <table id="3" parent="1" name="addresses"/>
+      <table id="4" parent="1" name="auth_meta_data"/>
+      <table id="5" parent="1" name="blogs"/>
+      <table id="6" parent="1" name="categories"/>
+      <table id="7" parent="1" name="categorization"/>
+      <table id="8" parent="1" name="category_names"/>
+      <table id="9" parent="1" name="network_accounts"/>
+      <table id="10" parent="1" name="post_contents"/>
+      <table id="11" parent="1" name="posts"/>
+      <table id="12" parent="1" name="profiles"/>
+      <table id="13" parent="1" name="properties"/>
+      <table id="14" parent="1" name="roles"/>
+      <table id="15" parent="1" name="roles_users"/>
+      <table id="16" parent="1" name="schema_migrations"/>
+      <table id="17" parent="1" name="setting_contents"/>
+      <table id="18" parent="1" name="settings"/>
+      <table id="19" parent="1" name="sqlite_sequence"/>
+      <table id="20" parent="1" name="taggings"/>
+      <table id="21" parent="1" name="tags"/>
+      <table id="22" parent="1" name="translation_keys"/>
+      <table id="23" parent="1" name="translation_texts"/>
+      <table id="24" parent="1" name="users"/>
+      <column id="25" parent="2" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="26" parent="2" name="address_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="27" parent="2" name="profile_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="28" parent="2" name="address_type">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="29" parent="2" name="valid_from">
+        <data-type>DATE(0,-1)|12</data-type>
+      </column>
+      <column id="30" parent="2" name="valid_to">
+        <data-type>DATE(0,-1)|12</data-type>
+      </column>
+      <column id="31" parent="2" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="32" parent="2" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="33" parent="2" name="index_address_profiles_on_address_id">
+        <columns>address_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="34" parent="2" name="index_address_profiles_on_profile_id">
+        <columns>profile_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="35" parent="2">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="36" parent="3" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="37" parent="3" name="line_1">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="38" parent="3" name="line_2">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="39" parent="3" name="line_3">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="40" parent="3" name="city">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="41" parent="3" name="country_province">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="42" parent="3" name="zip_or_postcode">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="43" parent="3" name="country">
+        <data-type>VARCHAR(3)(0,-1)|12</data-type>
+      </column>
+      <column id="44" parent="3" name="other_address_details">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="45" parent="3" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="46" parent="3" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <key id="47" parent="3">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="48" parent="4" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="49" parent="4" name="password_digest">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="50" parent="4" name="reset_password_token">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="51" parent="4" name="reset_password_sent_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="52" parent="4" name="confirmation_token">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="53" parent="4" name="confirmation_created_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="54" parent="4" name="confirmed_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="55" parent="4" name="confirmation_sent_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="56" parent="4" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="57" parent="4" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="58" parent="4" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <key id="59" parent="4">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="60" parent="5" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="61" parent="5" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="62" parent="5" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <key id="63" parent="5">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="64" parent="6" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="65" parent="6" name="parent_category_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="66" parent="6" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="67" parent="6" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="68" parent="6" name="index_categories_on_parent_category_id">
+        <columns>parent_category_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="69" parent="6">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="70" parent="7" name="post_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="71" parent="7" name="category_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <index id="72" parent="7" name="index_categorization_on_post_id_and_category_id">
+        <columns>post_id
+category_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="73" parent="7" name="index_categorization_on_category_id_and_post_id">
+        <columns>category_id
+post_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <column id="74" parent="8" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="75" parent="8" name="name">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="76" parent="8" name="locale">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(2)(0,-1)|12</data-type>
+      </column>
+      <column id="77" parent="8" name="category_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="78" parent="8" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="79" parent="8" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="80" parent="8" name="index_category_names_on_category_id">
+        <columns>category_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="81" parent="8">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="82" parent="9" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="83" parent="9" name="account">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="84" parent="9" name="account_type">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="85" parent="9" name="profile_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="86" parent="9" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="87" parent="9" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="88" parent="9" name="index_network_accounts_on_profile_id">
+        <columns>profile_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="89" parent="9">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="90" parent="10" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="91" parent="10" name="title">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="92" parent="10" name="article">
+        <mandatory>1</mandatory>
+        <data-type>TEXT(0,-1)|12</data-type>
+      </column>
+      <column id="93" parent="10" name="published">
+        <data-type>BOOLEAN(0,-1)|4</data-type>
+        <default-expression>&apos;f&apos;</default-expression>
+      </column>
+      <column id="94" parent="10" name="published_on">
+        <data-type>DATE(0,-1)|12</data-type>
+      </column>
+      <column id="95" parent="10" name="post_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="96" parent="10" name="author_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="97" parent="10" name="locale">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(2)(0,-1)|12</data-type>
+      </column>
+      <column id="98" parent="10" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="99" parent="10" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="100" parent="10" name="index_post_contents_on_post_id">
+        <columns>post_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="101" parent="10" name="index_post_contents_on_author_id">
+        <columns>author_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="102" parent="10">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="103" parent="11" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="104" parent="11" name="page_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="105" parent="11" name="page_type">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="106" parent="11" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="107" parent="11" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="108" parent="11" name="picture_meta_data">
+        <data-type>BLOB(0,-1)|12</data-type>
+      </column>
+      <index id="109" parent="11" name="index_posts_on_page_type_and_page_id">
+        <columns>page_type
+page_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="110" parent="11">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="111" parent="12" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="112" parent="12" name="first_name">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="113" parent="12" name="middle_name">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="114" parent="12" name="last_name">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="115" parent="12" name="date_of_birth">
+        <data-type>DATE(0,-1)|12</data-type>
+      </column>
+      <column id="116" parent="12" name="birth_place">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="117" parent="12" name="home">
+        <data-type>VARCHAR(3)(0,-1)|12</data-type>
+      </column>
+      <column id="118" parent="12" name="gender">
+        <data-type>INTEGER(0,-1)|4</data-type>
+        <default-expression>0</default-expression>
+      </column>
+      <column id="119" parent="12" name="bio">
+        <data-type>TEXT(0,-1)|12</data-type>
+      </column>
+      <column id="120" parent="12" name="country">
+        <data-type>VARCHAR(3)(0,-1)|12</data-type>
+      </column>
+      <column id="121" parent="12" name="language">
+        <data-type>VARCHAR(2)(0,-1)|12</data-type>
+      </column>
+      <column id="122" parent="12" name="photo_meta_data">
+        <data-type>BLOB(0,-1)|12</data-type>
+      </column>
+      <column id="123" parent="12" name="user_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="124" parent="12" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="125" parent="12" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <key id="126" parent="12">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="127" parent="13" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="128" parent="13" name="value">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="129" parent="13" name="post_content_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="130" parent="13" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="131" parent="13" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="132" parent="13" name="name">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <index id="133" parent="13" name="index_properties_on_post_content_id">
+        <columns>post_content_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="134" parent="13">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="135" parent="14" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="136" parent="14" name="name">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="137" parent="14" name="description">
+        <data-type>TEXT(0,-1)|12</data-type>
+      </column>
+      <column id="138" parent="14" name="role_meta_data">
+        <data-type>TEXT(0,-1)|12</data-type>
+      </column>
+      <column id="139" parent="14" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="140" parent="14" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <key id="141" parent="14">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="142" parent="15" name="role_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="143" parent="15" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <index id="144" parent="15" name="index_roles_users_on_user_id_and_role_id">
+        <columns>user_id
+role_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <column id="145" parent="16" name="version">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <index id="146" parent="16" name="unique_schema_migrations">
+        <columns>version</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <column id="147" parent="17" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="148" parent="17" name="value">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="149" parent="17" name="locale">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(2)(0,-1)|12</data-type>
+      </column>
+      <column id="150" parent="17" name="setting_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="151" parent="17" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="152" parent="17" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="153" parent="17" name="index_setting_contents_on_setting_id">
+        <columns>setting_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="154" parent="17">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="155" parent="18" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="156" parent="18" name="key">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="157" parent="18" name="namespace">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="158" parent="18" name="value_type">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="159" parent="18" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="160" parent="18" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <key id="161" parent="18">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="162" parent="19" name="name">
+        <data-type>(0,-1)|12</data-type>
+      </column>
+      <column id="163" parent="19" name="seq">
+        <data-type>(0,-1)|12</data-type>
+      </column>
+      <column id="164" parent="20" name="post_content_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="165" parent="20" name="tag_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <index id="166" parent="20" name="index_taggings_on_post_content_id_and_tag_id">
+        <columns>post_content_id
+tag_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="167" parent="20" name="index_taggings_on_tag_id_and_post_content_id">
+        <columns>tag_id
+post_content_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <column id="168" parent="21" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="169" parent="21" name="tag">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="170" parent="21" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="171" parent="21" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <key id="172" parent="21">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="173" parent="22" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="174" parent="22" name="key">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="175" parent="22" name="created_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="176" parent="22" name="updated_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="177" parent="22" name="index_translation_keys_on_key">
+        <columns>key</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="178" parent="22">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="179" parent="23" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="180" parent="23" name="text">
+        <data-type>TEXT(0,-1)|12</data-type>
+      </column>
+      <column id="181" parent="23" name="locale">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="182" parent="23" name="translation_key_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="183" parent="23" name="created_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="184" parent="23" name="updated_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="185" parent="23" name="index_translation_texts_on_translation_key_id">
+        <columns>translation_key_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="186" parent="23">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="187" parent="24" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="188" parent="24" name="name">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="189" parent="24" name="email">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="190" parent="24" name="sign_in_count">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+        <default-expression>0</default-expression>
+      </column>
+      <column id="191" parent="24" name="current_sign_in_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="192" parent="24" name="last_sign_in_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="193" parent="24" name="current_sign_in_ip">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="194" parent="24" name="last_sign_in_ip">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="195" parent="24" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="196" parent="24" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="197" parent="24" name="posts_count">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <key id="198" parent="24">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+    </database-model>
+  </data-source>
+  <data-source name="Rails allesoverwijn: test" uuid="b8eecc1c-9ff1-40ad-b924-59d8a1c8b1f0">
+    <database-info product="SQLite" version="3.8.11" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
+    <database-model serializer="dbm" rdbms="SQLITE" format-version="2.6">
+      <schema id="1">
+        <visible>1</visible>
+      </schema>
+      <table id="2" parent="1" name="address_profiles"/>
+      <table id="3" parent="1" name="addresses"/>
+      <table id="4" parent="1" name="auth_meta_data"/>
+      <table id="5" parent="1" name="blogs"/>
+      <table id="6" parent="1" name="categories"/>
+      <table id="7" parent="1" name="categorization"/>
+      <table id="8" parent="1" name="category_names"/>
+      <table id="9" parent="1" name="network_accounts"/>
+      <table id="10" parent="1" name="post_contents"/>
+      <table id="11" parent="1" name="posts"/>
+      <table id="12" parent="1" name="profiles"/>
+      <table id="13" parent="1" name="properties"/>
+      <table id="14" parent="1" name="roles"/>
+      <table id="15" parent="1" name="roles_users"/>
+      <table id="16" parent="1" name="schema_migrations"/>
+      <table id="17" parent="1" name="setting_contents"/>
+      <table id="18" parent="1" name="settings"/>
+      <table id="19" parent="1" name="sqlite_sequence"/>
+      <table id="20" parent="1" name="taggings"/>
+      <table id="21" parent="1" name="tags"/>
+      <table id="22" parent="1" name="translation_keys"/>
+      <table id="23" parent="1" name="translation_texts"/>
+      <table id="24" parent="1" name="users"/>
+      <column id="25" parent="2" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="26" parent="2" name="address_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="27" parent="2" name="profile_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="28" parent="2" name="address_type">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="29" parent="2" name="valid_from">
+        <data-type>DATE(0,-1)|12</data-type>
+      </column>
+      <column id="30" parent="2" name="valid_to">
+        <data-type>DATE(0,-1)|12</data-type>
+      </column>
+      <column id="31" parent="2" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="32" parent="2" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="33" parent="2" name="index_address_profiles_on_address_id">
+        <columns>address_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="34" parent="2" name="index_address_profiles_on_profile_id">
+        <columns>profile_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="35" parent="2">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="36" parent="3" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="37" parent="3" name="line_1">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="38" parent="3" name="line_2">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="39" parent="3" name="line_3">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="40" parent="3" name="city">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="41" parent="3" name="country_province">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="42" parent="3" name="zip_or_postcode">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="43" parent="3" name="country">
+        <data-type>VARCHAR(3)(0,-1)|12</data-type>
+      </column>
+      <column id="44" parent="3" name="other_address_details">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="45" parent="3" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="46" parent="3" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <key id="47" parent="3">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="48" parent="4" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="49" parent="4" name="password_digest">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="50" parent="4" name="reset_password_token">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="51" parent="4" name="reset_password_sent_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="52" parent="4" name="confirmation_token">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="53" parent="4" name="confirmation_created_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="54" parent="4" name="confirmed_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="55" parent="4" name="confirmation_sent_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="56" parent="4" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="57" parent="4" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="58" parent="4" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <key id="59" parent="4">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="60" parent="5" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="61" parent="5" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="62" parent="5" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <key id="63" parent="5">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="64" parent="6" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="65" parent="6" name="parent_category_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="66" parent="6" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="67" parent="6" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="68" parent="6" name="index_categories_on_parent_category_id">
+        <columns>parent_category_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="69" parent="6">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="70" parent="7" name="post_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="71" parent="7" name="category_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <index id="72" parent="7" name="index_categorization_on_post_id_and_category_id">
+        <columns>post_id
+category_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="73" parent="7" name="index_categorization_on_category_id_and_post_id">
+        <columns>category_id
+post_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <column id="74" parent="8" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="75" parent="8" name="name">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="76" parent="8" name="locale">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(2)(0,-1)|12</data-type>
+      </column>
+      <column id="77" parent="8" name="category_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="78" parent="8" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="79" parent="8" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="80" parent="8" name="index_category_names_on_category_id">
+        <columns>category_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="81" parent="8">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="82" parent="9" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="83" parent="9" name="account">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="84" parent="9" name="account_type">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="85" parent="9" name="profile_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="86" parent="9" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="87" parent="9" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="88" parent="9" name="index_network_accounts_on_profile_id">
+        <columns>profile_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="89" parent="9">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="90" parent="10" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="91" parent="10" name="title">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="92" parent="10" name="article">
+        <mandatory>1</mandatory>
+        <data-type>TEXT(0,-1)|12</data-type>
+      </column>
+      <column id="93" parent="10" name="published">
+        <data-type>BOOLEAN(0,-1)|4</data-type>
+        <default-expression>&apos;f&apos;</default-expression>
+      </column>
+      <column id="94" parent="10" name="published_on">
+        <data-type>DATE(0,-1)|12</data-type>
+      </column>
+      <column id="95" parent="10" name="post_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="96" parent="10" name="author_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="97" parent="10" name="locale">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(2)(0,-1)|12</data-type>
+      </column>
+      <column id="98" parent="10" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="99" parent="10" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="100" parent="10" name="index_post_contents_on_post_id">
+        <columns>post_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="101" parent="10" name="index_post_contents_on_author_id">
+        <columns>author_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="102" parent="10">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="103" parent="11" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="104" parent="11" name="page_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="105" parent="11" name="page_type">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="106" parent="11" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="107" parent="11" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="108" parent="11" name="picture_meta_data">
+        <data-type>BLOB(0,-1)|12</data-type>
+      </column>
+      <index id="109" parent="11" name="index_posts_on_page_type_and_page_id">
+        <columns>page_type
+page_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="110" parent="11">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="111" parent="12" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="112" parent="12" name="first_name">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="113" parent="12" name="middle_name">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="114" parent="12" name="last_name">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="115" parent="12" name="date_of_birth">
+        <data-type>DATE(0,-1)|12</data-type>
+      </column>
+      <column id="116" parent="12" name="birth_place">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="117" parent="12" name="home">
+        <data-type>VARCHAR(3)(0,-1)|12</data-type>
+      </column>
+      <column id="118" parent="12" name="gender">
+        <data-type>INTEGER(0,-1)|4</data-type>
+        <default-expression>0</default-expression>
+      </column>
+      <column id="119" parent="12" name="bio">
+        <data-type>TEXT(0,-1)|12</data-type>
+      </column>
+      <column id="120" parent="12" name="country">
+        <data-type>VARCHAR(3)(0,-1)|12</data-type>
+      </column>
+      <column id="121" parent="12" name="language">
+        <data-type>VARCHAR(2)(0,-1)|12</data-type>
+      </column>
+      <column id="122" parent="12" name="photo_meta_data">
+        <data-type>BLOB(0,-1)|12</data-type>
+      </column>
+      <column id="123" parent="12" name="user_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="124" parent="12" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="125" parent="12" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <key id="126" parent="12">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="127" parent="13" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="128" parent="13" name="value">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="129" parent="13" name="post_content_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="130" parent="13" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="131" parent="13" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="132" parent="13" name="name">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <index id="133" parent="13" name="index_properties_on_post_content_id">
+        <columns>post_content_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="134" parent="13">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="135" parent="14" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="136" parent="14" name="name">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="137" parent="14" name="description">
+        <data-type>TEXT(0,-1)|12</data-type>
+      </column>
+      <column id="138" parent="14" name="role_meta_data">
+        <data-type>TEXT(0,-1)|12</data-type>
+      </column>
+      <column id="139" parent="14" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="140" parent="14" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <key id="141" parent="14">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="142" parent="15" name="role_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="143" parent="15" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <index id="144" parent="15" name="index_roles_users_on_user_id_and_role_id">
+        <columns>user_id
+role_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <column id="145" parent="16" name="version">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <index id="146" parent="16" name="unique_schema_migrations">
+        <columns>version</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <column id="147" parent="17" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="148" parent="17" name="value">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="149" parent="17" name="locale">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(2)(0,-1)|12</data-type>
+      </column>
+      <column id="150" parent="17" name="setting_id">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="151" parent="17" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="152" parent="17" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="153" parent="17" name="index_setting_contents_on_setting_id">
+        <columns>setting_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="154" parent="17">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="155" parent="18" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="156" parent="18" name="key">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="157" parent="18" name="namespace">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="158" parent="18" name="value_type">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="159" parent="18" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="160" parent="18" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <key id="161" parent="18">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="162" parent="19" name="name">
+        <data-type>(0,-1)|12</data-type>
+      </column>
+      <column id="163" parent="19" name="seq">
+        <data-type>(0,-1)|12</data-type>
+      </column>
+      <column id="164" parent="20" name="post_content_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="165" parent="20" name="tag_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <index id="166" parent="20" name="index_taggings_on_post_content_id_and_tag_id">
+        <columns>post_content_id
+tag_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="167" parent="20" name="index_taggings_on_tag_id_and_post_content_id">
+        <columns>tag_id
+post_content_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <column id="168" parent="21" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="169" parent="21" name="tag">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="170" parent="21" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="171" parent="21" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <key id="172" parent="21">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="173" parent="22" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="174" parent="22" name="key">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="175" parent="22" name="created_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="176" parent="22" name="updated_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="177" parent="22" name="index_translation_keys_on_key">
+        <columns>key</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="178" parent="22">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="179" parent="23" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="180" parent="23" name="text">
+        <data-type>TEXT(0,-1)|12</data-type>
+      </column>
+      <column id="181" parent="23" name="locale">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="182" parent="23" name="translation_key_id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="183" parent="23" name="created_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="184" parent="23" name="updated_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <index id="185" parent="23" name="index_translation_texts_on_translation_key_id">
+        <columns>translation_key_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="186" parent="23">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="187" parent="24" name="id">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <column id="188" parent="24" name="name">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="189" parent="24" name="email">
+        <mandatory>1</mandatory>
+        <data-type>VARCHAR(0,-1)|12</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="190" parent="24" name="sign_in_count">
+        <mandatory>1</mandatory>
+        <data-type>INTEGER(0,-1)|4</data-type>
+        <default-expression>0</default-expression>
+      </column>
+      <column id="191" parent="24" name="current_sign_in_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="192" parent="24" name="last_sign_in_at">
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="193" parent="24" name="current_sign_in_ip">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="194" parent="24" name="last_sign_in_ip">
+        <data-type>VARCHAR(0,-1)|12</data-type>
+      </column>
+      <column id="195" parent="24" name="created_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="196" parent="24" name="updated_at">
+        <mandatory>1</mandatory>
+        <data-type>DATETIME(0,-1)|12</data-type>
+      </column>
+      <column id="197" parent="24" name="posts_count">
+        <data-type>INTEGER(0,-1)|4</data-type>
+      </column>
+      <key id="198" parent="24">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+    </database-model>
   </data-source>
 </component>
