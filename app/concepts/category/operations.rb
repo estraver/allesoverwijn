@@ -1,66 +1,101 @@
 require_dependency 'user_util/current_user'
 require_dependency 'recollect/twin'
-require_dependency 'abstract_category/abstract_category'
-require_dependency 'category/category_contract'
+# require_dependency 'abstract_category/abstract_category'
+require_dependency 'category/category_form'
 
 class Category < ActiveRecord::Base
   class Create < Trailblazer::Operation
     include Model, Policy, Dispatch
     include UserUtil::CurrentUser
 
-
     model Category, :create
     # policy Category::Policy, :create? TODO
 
-    callback :before_save do
-      on_change :update_category!
-    end
-
-    contract CategoryContract
-
-    # contract do
-    #   property :name
-    #   property :locale
-    #   property :parent_category
-    #   collection :child_categories
-    #
-    #   validation :default do
-    #     validates :name, presence: true, allow_blank: false
-    #     validates :locale, presence: true, allow_blank: false
-    #   end
-    # end
+    contract CategoryForm
 
     def process(params)
-      validate(params[:category]) do
-        dispatch!(:before_save)
+      validate(params[:category]) do | contract |
+        # dispatch!(:before_save)
         contract.save
-        # model.save(params[:category])
       end
     end
 
     private
 
-    attr_reader :category
+    def params!(params)
+      if params.has_key? :category
+        params[:category].merge! category_names: []
 
-    def setup_model!(params)
-      super(params)
-      @category ||= AbstractCategory::Entry.new(model, current_user: current_user)
-      @category.sync # Sync defaults to model
+        category_name = {}
+        %w(name locale).each do | prop |
+          category_name[prop.to_sym] = params[:category][prop.to_sym]
+        end
+
+        params[:category][:category_names].push category_name
+      end
+
+      params
     end
-
-    def update_category!(contract, op)
-      @category.name = contract.name
-      @category.locale = contract.locale
-      @category.parent_category = contract.parent_category
-
-      AbstractCategory::Entry::NameChange.new(@category).()
-      @category.sync
-    end
-
   end
 
   class Update < Create
     action :update
+    # policy Category::Policy, :update? TODO
+  end
+
+  class Delete < Trailblazer::Operation
+    include Model, Policy
+    include UserUtil::CurrentUser
+
+    model Category, :find
+    # policy Category::Policy, :destroy? TODO
+
+    contract do
+      property :id
+
+      validation :default do
+        configure do
+          option :form
+
+          config.messages_file = 'config/dry_error_messages.yml'
+
+          def category_not_used?
+            form.model.posts.empty?
+          end
+
+          def category_childs_not_used?
+            used_categories = []
+            build_used_child_categories(form.model, used_categories)
+
+            used_categories.empty?
+          end
+
+          private
+
+          def build_used_child_categories(category, used_categories = [])
+            return if category.child_categories.size.eql? 0
+
+            category.child_categories.collect do | child_category |
+              used_categories.push child_category unless child_category.posts.empty?
+
+              build_used_child_categories child_category, used_categories
+            end
+
+            used_categories
+          end
+        end
+
+        required(:id).filled(:category_not_used?, :category_childs_not_used?)
+      end
+
+    end
+
+    def process(params)
+      validate(params) do | contract |
+        contract.model.destroy
+      end
+
+    end
   end
 
   class Show < Create
@@ -78,7 +113,7 @@ class Category < ActiveRecord::Base
       include Recollect::Collection::Twin
 
       scope -> { :all }
-      twin AbstractCategory::Entry
+      # twin AbstractCategory::Entry
     end
   end
 end

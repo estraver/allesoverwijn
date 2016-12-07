@@ -1,0 +1,3 @@
+require 'confirmation_mail_observer'
+
+ActionMailer::Base.register_observer(ConfirmationMailObserver)

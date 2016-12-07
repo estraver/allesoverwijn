@@ -4,11 +4,41 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
+# 654321a!
 admin_auth:
-  password_digest: $2a$10$XLJJ7YjOBcEK6nVIQmDdAez..T3EbDJsPhABEVTSXGbUWIdNDb9ri
+  password_digest: $2a$10$NmLIukt46u3bUiy6b8FzVuVqb.dxkl5V2SrqYTPhQEzMtpqq8Ecn2
+  confirmation_token: ncajua7yifuym03nkve3mw732hjdnipsl9tz
   confirmation_created_at: 2015-12-23 20:57:56.528703
   confirmed_at: 2015-12-23 21:02:42.913046
   confirmation_sent_at: 2015-12-23 20:57:59.461403
   user_id: <%= ActiveRecord::FixtureSet.identify(:admin) %>
   created_at: <%= Date.today %>
   updated_at: <%= Date.today %>
+
+user_confirmed_auth:
+  password_digest: $2a$10$UPwWwoUHcbBIcRXqXLLtNeVbi7EdG//BElzV603lkLSA6TAW2hjsm
+  confirmation_token: 9pdXc3_t8sRpXr00Hc4CkA
+  confirmation_created_at: <%= DateTime.now - 10.days %>
+  confirmed_at: <%= DateTime.now - 3.days %>
+  confirmation_sent_at: <%= DateTime.now - 10.days %>
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_confirmed) %>
+  created_at: <%= Date.today - 4.days %>
+  updated_at: <%= Date.today - 4.days %>
+
+user_not_confirmed_auth:
+  password_digest: $2a$10$OmcT.AKSUlZ1/kpfajARpeX6sM770e2QaFJ3ZZ.UBh.y2RxTmSoim
+  confirmation_token: HEM6TBe_h_SeqDddZxWjtg
+  confirmation_created_at: 2016-09-28 20:57:56.528703
+  confirmation_sent_at: 2016-09-28 20:57:59.461403
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_not_confirmed) %>
+  created_at: <%= Date.yesterday %>
+  updated_at: <%= Date.yesterday %>
+
+user_toke_expired_auth:
+  password_digest: $2a$10$K4gr8D6wXcF.qIy97lz1Z.xdBAa91/dct0Efuj.Tjs5s.4zgF.m6G
+  confirmation_token: -vMj-MEAIhruMUtzKX39dw
+  confirmation_created_at: <%= '2016-09-28 20:57:56.528703'.to_date - 3.weeks %>
+  confirmation_sent_at: <%= '2016-09-28 20:57:59.461403'.to_date - 3.weeks %>
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_token_expired) %>
+  created_at: <%= Date.today - 3.weeks %>
+  updated_at: <%= Date.today - 3.weeks %>

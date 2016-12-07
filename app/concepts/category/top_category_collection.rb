@@ -1,10 +1,12 @@
-require_dependency 'abstract_category/abstract_category'
-require_dependency 'recollect/recollect'
-require_dependency 'recollect/twin'
+require 'recollect/recollect'
+require 'recollect/derivative'
+require 'recollect/array'
 
 class TopCategoryCollection < Recollect::Collection
-  include Twin
+  include Derivative, Array
 
   scope -> { where('parent_category_id IS NULL') }
-  twin AbstractCategory::Entry
+  derivative :name do | current_user:, model:, ** |
+    model.category_names.find_by(locale: current_user.profile.language || I18n.locale || I18n.default_locale).name
+  end
 end

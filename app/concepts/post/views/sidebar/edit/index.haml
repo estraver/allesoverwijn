@@ -1,0 +1,6 @@
+.sidebar-wrapper
+  %ul.nav.sidebar-nav
+    %li.sidebar-brand
+      %a{href: '#'}= title
+    - widgets.each do | widget |
+      = concept("post/cell/sidebar/edit/#{widget}", model, context: {widget: params(widget), form: form}, layout: Post::Cell::Sidebar::Edit::Layout)

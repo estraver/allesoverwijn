@@ -11,3 +11,30 @@ admin_profile:
   date_of_birth: 1974-03-22
   gender: 0
   bio: Ik hou van wijn.
+
+user_confirmed_profile:
+  user: user_confirmed
+  first_name: Erwin
+  last_name: Straver
+  date_of_birth: 1974-03-22
+  gender: 0
+  bio: Ik hou van wijn.
+
+user_not_confirmed_profile:
+  user: user_not_confirmed
+  first_name: Erwin
+  last_name: Straver
+  date_of_birth: 1974-03-22
+  gender: 0
+  bio: Ik hou van wijn.
+
+user_token_expired_profile:
+  user: user_token_expired
+  first_name: Erwin
+  last_name: Straver
+  date_of_birth: 1974-03-22
+  gender: 0
+  bio: Ik hou van wijn.
+
+empty_profile:
+  user: user_with_empty_profile

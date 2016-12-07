@@ -1,3 +1,4 @@
-- provide :sidebar, 'TODO'
+- provide :sidebar do
+  = concept('post/cell/sidebar', @operation)
 = render layout: 'layouts/list' do
   = concept('blog/cell/list', @operation)

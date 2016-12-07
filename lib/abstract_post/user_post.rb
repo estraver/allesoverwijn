@@ -7,7 +7,7 @@ module AbstractPost::UserPost
   end
 
   def value_by_model_and_user(model, field, user)
-    content_by_model_and_user(model, user)[field]
+    content_by_model_and_user(model, user).send(field)
   end
 
   def locale_for_user(user)

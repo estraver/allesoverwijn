@@ -1,7 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-#one:
-#  tag:
-#
-#two:
-#  tag:
+tag_wijn:
+  tag: wijn
+
+tag_wine:
+  tag: wine
+
+tag_druiven:
+  tag: druiven
+
+tag_grapes:
+  tag: grapes

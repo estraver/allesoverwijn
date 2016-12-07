@@ -9,3 +9,4 @@ standard:
   name: 'standard'
   description: 'Default role'
   role_meta_data: <%= { :profile => { :create => true, :update => true }, :role => { :create => false }, :network_account => { :all => true}, :blog => { :create => true, :update => true } }.to_yaml.inspect %>
+  users: user_confirmed, user_not_confirmed, user_toke_expired

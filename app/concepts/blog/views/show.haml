@@ -1,37 +1,40 @@
-.blog-post
-  -#- if picture.exists?
-  .blog-picture
-    -#= header class: %w(post-image img-responsive centerblock)
-    = concept('post/cell/picture', model).(:header, class: %w(post-image img-responsive centerblock))
+.row
+  .blog-post
+    -#- if picture.exists?
+    .blog-picture
+      -#= header class: %w(post-image img-responsive centerblock)
+      = concept('post/cell/picture', model).(:header, class: %w(post-image img-responsive centerblock))
 
-  .blog-header.title-header
-    %h3.blog-post-title
-      %span= title
-    - if policy?(model, :edit_and_owner?) and !preview?
-      = link_to(edit_blog_path(model.id), class: %w(button edit blog-edit), role: :button) do
-        %i.fa.fa-pencil-square
-        %span= _('views.blog.show.edit')
+    .blog-header.title-header
+      %h3.blog-post-title
+        %span= title
+      - if policy?(model, :edit_and_owner?) and !preview?
+        = link_to(edit_blog_path(model.id), class: %w(button edit blog-edit), role: :button) do
+          %i.fa.fa-pencil-square
+          %span= _('views.blog.show.edit')
 
-  %p.blog-post-meta
-    %span.blog-post-meta-item
-      = _('views.blog.posted')
-      = published_on
-    %span.blog-post-meta-item
-      = _('views.blog.by')
-      %a{href: '#'}= author_name
-    %span.blog-post-meta-item
-      %i.fa.fa-eye.fa-fw
-      &nbsp;
-      = views_count
-    %span.blog-post-meta-item
-      %i.fa.fa-comments.fa-fw
-      &nbsp;
-      = comments_count
+    %p.blog-post-meta
+      %span.blog-post-meta-item
+        = _('views.blog.posted')
+        = published_on
+      %span.blog-post-meta-item
+        = _('views.blog.by')
+        %a{href: '#'}= author_name
+      %span.blog-post-meta-item
+        %i.fa.fa-eye.fa-fw
+        &nbsp;
+        = views_count
+      %span.blog-post-meta-item
+        %i.fa.fa-comments.fa-fw
+        &nbsp;
+        = comments_count
 
-  = abstract? ? article_summary : article
+    -# FIXME: create summary
+    = abstract? ? article_summary : article
+    -#= article
 
-  - if abstract?
-    .read-more
-      = link_to(blog_path(model), class: %w(button blog-read-more), role: :button) do
-        %i.fa.fa-chevron-circle-right
-        %span= _('views.blog.read_more')
+    - if abstract?
+      .read-more
+        = link_to(blog_path(model), class: %w(button blog-read-more), role: :button) do
+          %i.fa.fa-chevron-circle-right
+          %span= _('views.blog.read_more')

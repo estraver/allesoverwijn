@@ -9,7 +9,7 @@
     .well
       %h4= _('session.registered_member')
       %p= _('session.login')
-      = simple_form_for @form, url: session_path, html: {class: 'form-horizontal'},
+      = simple_form_for @form, as: :user, url: session_path, method: :post, html: {class: 'form-horizontal'},
           wrapper: :horizontal_form,
                         wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes,
                                             radio_buttons: :horizontal_radio_and_checkboxes,

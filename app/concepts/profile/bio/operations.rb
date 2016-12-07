@@ -1,11 +1,10 @@
 require_dependency 'profile/operations'
-require_dependency 'representable/json'
+require 'representable/json'
 
 class Profile < ActiveRecord::Base
   module Bio
     class Create < Profile::Create
-      include Model, Responder, Representer, Trailblazer::Operation::Policy
-      include Representer::Deserializer::Hash
+      include Model, Trailblazer::Operation::Policy
 
       model Profile, :create
       policy Profile::Policy, :create?
@@ -28,20 +27,26 @@ class Profile < ActiveRecord::Base
         property :bio
 
         validation :default do
-          # validates :bio, presence: true, allow_blank: false
-          key(:bio).required
+          required(:bio).filled
         end
       end
 
       def process(params)
-        validate(params[:profile]) do |f|
-          f.save
+        validate(params[:profile]) do | contract |
+          contract.save
         end
       end
 
       class JSON < self
+        # include Representer
+        extend Representer::DSL
+        include Representer::Rendering, Responder
+
         representer do
           property :bio
+
+          property :success, getter: ->(user_options:, **) { user_options[:success] }
+
         end
       end
     end

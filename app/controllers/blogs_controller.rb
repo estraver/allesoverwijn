@@ -1,5 +1,5 @@
 require_dependency 'blog/operations'
-require_dependency 'transfer/operations'
+# require_dependency 'transfer/operations'
 
 class BlogsController < ApplicationController
   respond_to :html, :json, :js
@@ -14,7 +14,7 @@ class BlogsController < ApplicationController
 
   def edit
     # FIXME: Put category collection in operation
-    @collection = TopCategoryCollection.new(Category).().twinnize(current_user: tyrant.current_user)
+    # @collection = TopCategoryCollection.new(Category).().twinnize(current_user: tyrant.current_user)
     form Blog::Update
   end
 
@@ -61,7 +61,7 @@ class BlogsController < ApplicationController
   end
 
   def upload
-    respond Blog::Upload do | op, format |
+    respond Post::Upload do | op, format |
       format.json { render_json op, 'post.picture.upload' }
       format.html
     end

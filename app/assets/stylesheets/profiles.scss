@@ -39,7 +39,7 @@
     color: #fe635f;
   }
 
-  @include upload('profile');
+  @include upload('profile-picture');
 
   .profile-label {
     text-align: center;

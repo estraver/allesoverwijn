@@ -1,16 +1,13 @@
+require 'attachment/profile_attachment'
+
 class Profile::Cell < Cell::Concept
   class Photo < Cell::Concept
-    extend Paperdragon::Model::Reader
-    processable_reader :photo
-    property :photo_meta_data
+    extend Uber::Delegates
+    include Cell::ImageCell
 
-    def thumb
-      image_tag photo[:thumb].url if photo.exists?
-    end
+    delegates :model, :photo_meta_data
 
-    def profile_picture
-      img = photo.exists? ? photo[:profile_picture].url : image_url('/assets/unknown.jpg')
-      image_tag img, :class => %w(profile-img img-responsive centerblock)
-    end
+    attachment :photo, ProfileAttachment
+
   end
 end

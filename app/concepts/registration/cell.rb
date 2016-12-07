@@ -4,7 +4,7 @@ class Registration::Cell < Cell::Concept
   end
 
   class Form < Cell::Concept
-    # include ::Cell::SimpleFormForCell
+    # include ::Widget::SimpleFormForCell
 
   end
 end

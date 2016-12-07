@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
       property :last_sign_in_at
     end
 
-    def process(user)
-      assign_user! user
+    def process(params)
+      # assign_user! user
       sign_in!
       contract.save
     end
@@ -25,11 +25,11 @@ class User < ActiveRecord::Base
       contract.current_sign_in_at = DateTime.now
     end
 
-    def assign_user!(user)
-      contract.sign_in_count = user.sign_in_count
-      contract.last_sign_in_at = user.last_sign_in_at
-      contract.current_sign_in_at  = user.current_sign_in_at
-    end
+    # def assign_user!(user)
+    #   contract.sign_in_count = user.sign_in_count
+    #   contract.last_sign_in_at = user.last_sign_in_at
+    #   contract.current_sign_in_at  = user.current_sign_in_at
+    # end
   end
 
   class Show < Trailblazer::Operation
@@ -60,6 +60,38 @@ class User < ActiveRecord::Base
     end
 
     private
+
+  end
+
+  class Mailer < Trailblazer::Operation
+    include Model
+
+    model User, :find
+
+    contract do
+      property :email
+      property :email_template, virtual: true
+      property :mailer, virtual: true
+      property :deliver_method, virtual: true, default: 'later'
+
+      validation :default do
+        required(:email_template).filled
+        required(:mailer).filled
+        required(:deliver_method).filled(included_in?: %w(later now))
+      end
+    end
+
+    def process(params)
+      validate(params) do
+        send!
+      end
+    end
+
+    private
+
+    def send!
+      contract.mailer.send("#{contract.email_template}", contract.model).send("deliver_#{contract.deliver_method}")
+    end
 
   end
 end

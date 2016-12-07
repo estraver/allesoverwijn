@@ -1,11 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-#one:
-#  value: MyString
-#  post_content_id:
-#  property_type_id:
-#
-#two:
-#  value: MyString
-#  post_content_id:
-#  property_type_id:
+property_welcome_published:
+  name: published
+  value: true
+  post_content: welcome_content
+
+property_first_published:
+  name: published
+  value: true
+  post_content: first_content
+
+property_published_on_3_months_ago:
+  name: published_on
+  value: <%= 3.months.ago %>
+  post_content: welcome_content
+
+property_published_on_1_week_ago:
+  name: published_on
+  value: <%= 1.week.ago %>
+  post_content: first_content
+
+property_publish_on_next_week:
+  name: published_on
+  value: <%= 1.week.from_now %>

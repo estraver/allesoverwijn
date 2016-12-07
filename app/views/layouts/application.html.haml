@@ -16,7 +16,7 @@
       - else
         %section
           .header-bg= image_tag 'header.png'
-      %main{role: 'main', data: {'appearing-on': "#{Time.now}", controller: page_controller_name, action: page_action_name}, class: page_class}
+      %main{role: 'main', data: {'appearing-on': "#{Time.now}", controller: page_controller_name, action: page_action_name}, class: controller.controller_name + ' ' + controller.action_name}
         = render 'layouts/messages'
         - if content_for?(:title)
           .page-header

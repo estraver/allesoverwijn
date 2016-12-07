@@ -1,0 +1,71 @@
+en:
+  views:
+    profile:
+      edit:
+        info: Edit Profile
+        contact: Contact details
+        bio: Bio
+        favorites: Favorites
+        friends: Friends
+        header: Profile
+      show:
+        header: Profile
+        info: Info
+        edit: Edit Profile
+        contact: Contact
+        bio: Bio
+        activities: Activities
+        friends: Friends
+      contact:
+        first_name: First Name
+        last_name: Last Name
+        gender: Gender
+        date_of_birth: Date of Birth
+        birth_place: Place of Birth
+        home: Home
+        country: Country
+      bio:
+        bio: Bio
+  profile:
+    name:
+      title: Name
+      save: Save
+    general:
+      title: General
+      save: Save
+    network_accounts:
+      title: Network Accounts
+      save: Save
+    network_account:
+      label: Account
+      add: Add Account
+    bio:
+      save: Save
+      update:
+        success: Bio saved successful
+    aboutyou: About You
+    contacts:
+      update:
+        success: Contact details saved successful
+
+  simple_form:
+    labels:
+      profile:
+        date_of_birth: Date of Birth
+        birth_place: Place of Birth
+        general:
+          name: Name
+        home: Home
+        gender: Gender
+        bio: Bio
+        name: Name
+    placeholders:
+      profile:
+        first_name: Your first name...
+        middle_name: ...
+        last_name: Your last name...
+    options:
+      profile:
+        gender:
+          male: Male
+          female: Female

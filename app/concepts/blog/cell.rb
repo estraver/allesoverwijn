@@ -31,15 +31,16 @@ class Blog::Cell < Cell::Concept
     inherit_views Blog::Cell
 
     property :published
-    property :current_user
+    # property :current_user
 
     def show
-      render :list
+      concept('blog/cell', collection: model.published, operation: model, abstract: true)
+      # render :list
     end
   end
 
   class Show < Cell::Concept
-    inherit_views Blog::Cell
+    # inherit_views Blog::Widget
 
     def show
       concept('blog/cell', model, operation: @options[:operation], preview: @options[:preview], abstract: @options[:abstract])

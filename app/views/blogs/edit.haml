@@ -1,3 +1,6 @@
+- widgets = %w(picture)
+- widget_params = { picture: {title: _('blog.settings.picture.menu')}}
+
 = simple_form_for(@form, as: :blog, url: blog_path(@model), remote: true, data: {type: :json}, class: 'content-wrapper') do |f|
   %section
     .profile-header.title-header
@@ -14,63 +17,64 @@
         = post.input :title, wrapper: :horizontal_form
         = post.input :article, label: false, as: :summernote
     .col-md-3.sidebar
-      .sidebar-wrapper
-        %ul.nav.sidebar-nav
-          %li.sidebar-brand
-            %a{href: '#'}= _('blog.settings')
-          %li.dropdown.keep-open
-            %a{href: '#', data: {toggle: :dropdown}}
-              %i.fa.fa-file-picture-o.fa-fw
-              = _('blog.settings.picture.menu')
-            .dropdown-menu{role: :menu}
-              .blog-picture
-                .blog-picture-edit
-                  %a{href: '#', data: {upload: true, 'upload-field': 'image[file]', url: upload_picture_blog_path(@model), image: {field: 'picture'}, sizes: JSON.unparse([{header:'1170x660#'},{sidebar: '128x128#'}])}}
-                    .progress
-                      .progress-bar.progress-bar-striped.active{role: :progressbar, aria: {valuemin: 0, valuemax: 100, valuenow: 0}} 0%
-                    .girder
-                      %i.fa.fa-camera-retro.fa-lg
-                      .edit= _('blog.settings.picture.edit')
-                    =concept('post/cell/picture', @model).(:sidebar, class: %w(post-picture img-responsive centerblock), blank_image: '/assets/empty-post-picture.png')
-                = f.simple_fields_for :post do | post |
-                  = post.input :picture_meta_data, as: :hidden
-          %li.dropdown.keep-open
-            %a{href: '#', data: {toggle: :dropdown}}
-              %i.fa.fa-list-ul.fa-fw
-              = _('blog.settings.category')
-            .dropdown-menu{role: :menu}
-              = link_to(new_categories_path, class: %w(button edit categories-edit), role: :button, remote: true) do
-                %i.fa.fa-list-ul
-                %span= _('blog.settings.categories.new')
-              = f.simple_fields_for :post do | post |
-                = post.input :category_ids, collection: @collection, required: false, as: :check_boxes_tree, children: :child_categories, checked: @model.post.categories.map(&:id)
-          %li.dropdown.keep-open
-            %a{href: '#', data: {toggle: :dropdown}}
-              %i.fa.fa-tags.fa-fw
-              = _('blog.settings.tags')
-            .dropdown-menu{role: :menu}
-              = f.simple_fields_for :post do | post |
-                = post.input_field :tags, as: :tags, collection: @operation.contract.post.tags, value_metod:  :name
-          %li.dropdown.keep-open
-            %a{href: '#', data: {toggle: :dropdown}}
-              %i.fa.fa-map-marker.fa-fw
-              = _('blog.settings.location')
-            .dropdown-menu{role: :menu}
-          %li.dropdown.keep-open
-            %a{href: '#', data: {toggle: :dropdown}}
-              %i.fa.fa-calendar.fa-fw
-              = _('blog.settings.published_on')
-            #published_on.dropdown-menu{role: :menu}
-              = f.collection_radio_buttons :post_schedule, [['auto', _('blog.schedule.auto')], ['manual', _('blog.schedule.manual')]], :first, :last, item_wrapper_tag: :div, item_wrapper_class: 'radio'
-              = f.simple_fields_for :post do | post |
-                = post.input :published_on, as: :hidden
-              %div{data: {provide: :datepicker, 'date-format': 'yyyy-mm-dd'}}
-          %li.dropdown.keep-open
-            %a.dropdown-toggle{href: '#', data: {toggle: :dropdown}}
-              %i.fa.fa-cogs.fa-fw
-              = _('blog.settings.properties')
-            .dropdown-menu{role: :menu}
-              .header= _('blog.settings.properties.comments')
-              = f.simple_fields_for :post do | post |
-                = post.collection_radio_buttons :comments, [['on', _('blog.properties.comments.allowed')], ['off', _('blog.properties.comments.not_allowed')], ['off_and_hide', _('blog.properties.comments.not_allowed_and_hide')]], :first, :last, item_wrapper_tag: :div, item_wrapper_class: 'radio'
-              -#=check_box_tag :allowed
+      = concept('post/cell/sidebar/edit/index', @model, context: {title: _('blog.settings.title'), widgets: widgets, form: @form, params: widget_params})
+      -#.sidebar-wrapper
+      -#  %ul.nav.sidebar-nav
+      -#    %li.sidebar-brand
+      -#      %a{href: '#'}= _('blog.settings.title')
+      -#    %li.dropdown.keep-open
+      -#      %a{href: '#', data: {toggle: :dropdown}}
+      -#        %i.fa.fa-file-picture-o.fa-fw
+      -#        = _('blog.settings.picture.menu')
+      -#      .dropdown-menu{role: :menu}
+      -#        .blog-picture
+      -#          .blog-picture-edit
+      -#            %a{href: '#', data: {upload: true, 'upload-field': 'picture[file]', url: upload_picture_blog_path(@model), image: {field: 'picture', thumb: 'sidebar'}}}
+      -#              .progress
+      -#                .progress-bar.progress-bar-striped.active{role: :progressbar, aria: {valuemin: 0, valuemax: 100, valuenow: 0}} 0%
+      -#              .girder
+      -#                %i.fa.fa-camera-retro.fa-lg
+      -#                .edit= _('blog.settings.picture.edit')
+      -#              =concept('post/cell/picture', @model).(:sidebar, class: %w(post-picture img-responsive centerblock), blank_image: 'picture-attachment.png')
+      -#          = f.simple_fields_for :post do | post |
+      -#            = post.input :picture_meta_data, as: :hidden
+      -#    %li.dropdown.keep-open
+      -#      %a{href: '#', data: {toggle: :dropdown}}
+      -#        %i.fa.fa-list-ul.fa-fw
+      -#        = _('blog.settings.category')
+      -#      .dropdown-menu{role: :menu}
+      -#        = link_to(new_categories_path, class: %w(button edit categories-edit), role: :button, remote: true) do
+      -#          %i.fa.fa-list-ul
+      -#          %span= _('blog.settings.categories.new')
+      -#        = f.simple_fields_for :post do | post |
+      -#          = post.input :category_ids, collection: TopCategoryCollection.new(Category, current_user: tyrant.current_user).(), required: false, as: :check_boxes_tree, children: :child_categories, checked: @model.post.categories.map(&:id)
+      -#    %li.dropdown.keep-open
+      -#      %a{href: '#', data: {toggle: :dropdown}}
+      -#        %i.fa.fa-tags.fa-fw
+      -#        = _('blog.settings.tags')
+      -#      .dropdown-menu{role: :menu}
+      -#        = f.simple_fields_for :post do | post |
+      -#          = post.input_field :tags, as: :tags, collection: @operation.contract.post.tags, value_metod:  :name
+      -#    %li.dropdown.keep-open
+      -#      %a{href: '#', data: {toggle: :dropdown}}
+      -#        %i.fa.fa-map-marker.fa-fw
+      -#        = _('blog.settings.location')
+      -#      .dropdown-menu{role: :menu}
+      -#    %li.dropdown.keep-open
+      -#      %a{href: '#', data: {toggle: :dropdown}}
+      -#        %i.fa.fa-calendar.fa-fw
+      -#        = _('blog.settings.published_on')
+      -#      #published_on.dropdown-menu{role: :menu}
+      -#        = f.collection_radio_buttons :scheduling, [['auto', _('blog.schedule.auto')], ['manual', _('blog.schedule.manual')]], :first, :last, item_wrapper_tag: :div, item_wrapper_class: 'radio'
+      -#        = f.simple_fields_for :post do | post |
+      -#          = post.input :published_on, as: :hidden
+      -#        %div{data: {provide: :datepicker, 'date-format': 'yyyy-mm-dd'}}
+      -#    %li.dropdown.keep-open
+      -#      %a.dropdown-toggle{href: '#', data: {toggle: :dropdown}}
+      -#        %i.fa.fa-cogs.fa-fw
+      -#        = _('blog.settings.properties.title')
+      -#      .dropdown-menu{role: :menu}
+      -#        .header= _('blog.settings.properties.comments.title')
+      -#        = f.simple_fields_for :post do | post |
+      -#          = post.collection_radio_buttons :comments, [['on', _('blog.settings.properties.comments.allowed')], ['off', _('blog.settings.properties.comments.not_allowed')], ['off_and_hide', _('blog.settings.properties.comments.not_allowed_and_hide')]], :first, :last, item_wrapper_tag: :div, item_wrapper_class: 'radio'
+      -#        -#=check_box_tag :allowed

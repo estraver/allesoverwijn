@@ -5,6 +5,6 @@
   - account_type = network_account.account_type
 .form-group
   =hidden_field_tag 'profile[network_accounts][][id]', id
-  =label_tag 'network_account', _('profile.network_account'), class: %w(string required col-sm-2 control-label)
+  =label_tag 'network_account', _('profile.network_account.label'), class: %w(string required col-sm-2 control-label)
   .col-sm-4= select_tag 'profile[network_accounts][][account_type]', options_for_select(account_type_options, account_type), class: %w(string required form-control), data: {icon: 'fa fa-'}
   .col-sm-6= text_field_tag 'profile[network_accounts][][account]', account, class: %w(string required form-control)

@@ -32,13 +32,11 @@ namespace :locale do |args|
       else
         puts "key: #{key.join('.')}= #{v}"
         tk = TranslationKey.find_or_create_by(key: key.join('.'))
-        if v.is_a?(Array)
-          tk.translations.find_or_create_by(locale: locale).text = v.to_yaml
-        else
-          tk.translations.find_or_create_by(locale: locale).text = v
-        end
+        tt = tk.translations.find_or_create_by(locale: locale)
 
-        tk.save!
+        tt.text = v.is_a?(Array) ? v.to_yaml : v
+
+        tk.new_record? ? tk.save! : tt.save!
       end
 
       key.pop

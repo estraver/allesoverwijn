@@ -9,9 +9,9 @@ class NetworkAccount < ActiveRecord::Base
     contract do
       collection :network_accounts,
                  populator: ->(fragment:, **) {
-                   network_account = network_accounts.find_by(id: fragment['id'])
+                   network_account = network_accounts.find_by(id: fragment[:id])
 
-                   if fragment['account'].empty?
+                   if network_account && fragment[:account].empty?
                      network_accounts.delete(network_account)
                      return skip!
                    end
@@ -22,13 +22,9 @@ class NetworkAccount < ActiveRecord::Base
         property :account_type, prepopulator: -> (*) { self.account_type = 0 }
 
         validation :default do
-          key(:account).required
-          key(:account_type).required
-          key(:account_type).inclusion?(NetworkAccount.account_types.keys)
+          required(:account).filled
+          required(:account_type).filled(included_in?: NetworkAccount.account_types.keys)
         end
-        # validates :account, presence: true, allow_blank: false
-        # validates :account_type, presence: true, allow_blank: false
-        # validates :account_type, inclusion: {in: NetworkAccount.account_types.keys }
       end
     end
 

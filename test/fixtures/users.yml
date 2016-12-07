@@ -5,3 +5,28 @@ admin:
   email: admin@allesoverwijn.nl
   name: Admin
   roles: admin
+
+user_confirmed:
+  email: confirmed@allesoverwijn.nl
+  name: Confirmed
+  roles: standard
+
+user_not_confirmed:
+  email: not_confirmed@allesoverwijn.nl
+  name: Not Confirmed
+  roles: standard
+
+user_token_expired:
+  email: token_expired@allesoverwijn.nl
+  name: Token Expired
+  roles: standard
+
+user_with_empty_profile:
+  email: empty_profile@allesoverwijn.nl
+  name: Empty Profile
+  roles: standard
+
+user_with_no_profile:
+  email: no_profile@allesoverwijn.nl
+  name: No Profile
+  roles: standard

@@ -9,16 +9,30 @@ module AbstractPost::Properties
   end
 
   module ClassMethods
-    def properties(*args)
-      properties = args
+    def properties(properties, options = {})
+      # properties = args
       class_eval do
         self._properties = properties
 
-        contract do
-          include Reform::Form::Coercion
-          property :post, inherit: true do
-            properties.each do |property|
+        # include Reform::Form::Coercion
+        if options.empty?
+          properties.each do |property|
+            if property.default.nil?
               property property.name, virtual: true, type: Kernel.const_get(property.type)
+            else
+              property property.name, virtual: true, type: Kernel.const_get(property.type), default: property.default
+            end
+          end
+        else
+          contract do
+            property options[:property], inherit: true do
+              properties.each do |property|
+                if property.default.nil?
+                  property property.name, virtual: true, type: Kernel.const_get(property.type)
+                else
+                  property property.name, virtual: true, type: Kernel.const_get(property.type), default: property.default
+                end
+              end
             end
           end
         end

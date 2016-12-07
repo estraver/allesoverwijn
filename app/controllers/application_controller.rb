@@ -40,8 +40,9 @@ class ApplicationController < ActionController::Base
   end
 
   def render_json(operation, message)
-    if operation.errors.size === 0
-      render json: {model: operation.to_json, success: _("#{message}.success")}
+    if operation.errors.empty?
+      render json: operation.to_json(user_options: { success: _("#{message}.success") })
+      # render json: {model: operation, success: _("#{message}.success")}
     else
       render json: {errors: operation.contract.errors, error: _("#{message}.failed")}, status: :unprocessable_entity
     end

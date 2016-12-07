@@ -2,11 +2,8 @@
 
 welcome:
   page: welcome_blog (Blog)
+  categories: cat_wine, cat_white_wine
 
-#one:
-#  features: false
-#  comment_allowed: false
-#
-#two:
-#  features: false
-#  comment_allowed: false
+first:
+  page: first_blog (Blog)
+  categories: cat_wine

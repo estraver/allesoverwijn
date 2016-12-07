@@ -9,21 +9,16 @@ class App.Upload
     @input.attr name: $target.data('upload-field')
 
     image_field = $target.data('image-field')
-    meta_data = @form.find(':input[name*=' + image_field + '_meta_data' + ']')
+    image_thumb = $target.data('image-thumb')
 
     @input.fileupload
       dataType: 'json'
       url: $target.data('url')
-      formData:  $.map $target.data('sizes'), (resize) ->
-        { name: '[sizes][' + Object.keys(resize)[0] + ']', value: resize[Object.keys(resize)[0]] }
       done: (e, data) ->
-        model = $.parseJSON(data.result.model)
         $target
-          .find('img').attr 'src', model.sidebar_url
+          .find('img').attr 'src', data.result[image_thumb + '_url']
         $target
           .find('.progress').hide()
-
-        meta_data.val JSON.stringify(model.image_meta_data)
 
       fail: (e, data) ->
         errors = try

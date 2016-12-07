@@ -1,5 +1,31 @@
 require 'uber/inheritable_attr'
 
+# collection do
+# where -> { joins(contents: :properties).where('properties.name = ? AND properties.value = ?', :published, true).distinct }
+# where ['properties.name = ? AND properties.value = ?', :published, true]
+# where do
+#   and do
+#     equals :name, :published
+#     equals :value, true
+#   end
+# end
+# where do
+#   joins :contents do
+#     joins: properties do
+#       and do
+#          name: :published
+#          value: true
+#       end
+#     end
+#   end
+#   distinct
+# end
+#
+# where :published
+# order :published_on
+
+# end
+
 module Recollect
   class Collection
     require 'recollect/builder'

@@ -1,7 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-#one:
-#  post_id:
-#
-#two:
-#  post_id:
+cat_druif: {}
+
+cat_wit:
+  parent_category: cat_druif
+
+cat_wine: {}
+
+cat_white_wine:
+  parent_category: cat_wine

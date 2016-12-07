@@ -1,124 +1,116 @@
-# require_dependency 'abstract_post/abstract_post'
-# require_dependency 'abstract_post/content_form'
-# require_dependency 'abstract_post/properties'
-require_dependency 'user_util/current_user'
-require_dependency 'post/published_collection'
+require 'user_util/current_user'
+require 'post/published_collection'
+require 'transfer/upload'
+require 'representable/json'
 
-module AbstractPost
-  class Post::Create < Trailblazer::Operation
-    include Callback#, Representer
-    include UserUtil::CurrentUser
-    # include AbstractPost::Properties
-    # include Representer::Deserializer::Hash
+class Post::Create < Trailblazer::Operation
+  include Callback, Dispatch
+  include UserUtil::CurrentUser
+  # include Representer::Deserializer::Hash
 
-    # builds -> (params) do
-    #   JSON if params[:format] =~ 'json'
-    # end
+  builds -> (params) do
+    JSON if params[:format] =~ 'json'
+  end
 
-    callback :before_save do
-      on_change :auto_schedule_post!, property: :post_schedule
-      on_change :categories_change!
-      on_change :content_change!
+  callback :before_save do
+    on_change :categories_change!
+  end
 
+  callback :after_save do
+  end
+
+  def process(params)
+    # Dirty trick to get te defined model of the operation
+    # model_name = self.class.class_name.to_s.downcase.to_sym
+    model_name = model.class.to_s.downcase.to_sym
+    validate(params[model_name]) do | contract |
+      dispatch!(:before_save)
+      contract.save
+      dispatch!(:after_save)
     end
-
-    private
-
-    def params!(params)
-      model_key = params.first[0]
-      params[model_key][:post].merge! post_contents: {}
-      %w(title article locale author).map do | prop |
-        params[model_key][:post][:post_contents].merge! Hash[prop.to_sym, params[model_key][:post][prop.to_sym] ]
-      end
-      params
-    end
-
-    # attr_reader :post
-
-    # def setup_model!(params)
-    #   res = super(params)
-    #   @post ||= AbstractPost::Entry.build(model, {current_user: current_user, properties: properties})
-    #   @post.sync # Sync defaults to model
-    #   # assign_content!(model.post, @post.post)
-    #   res
-    # end
-
-    # def contract!(*args)
-    #   contract_class.new(model, post: {title: @post.title, locale: @post.locale, author: @post.author, article: @post.article})
-    #
-    # end
-
-    def content_change!(contract, op)
-      # assign_content!(@post.post, contract.post)
-      # # @post.post.published = contract.post.published
-      # # @post.post.published_on = contract.post.published_on
-      #
-      # properties.each do | field |
-      #   @post.post.send("#{field.name}=".to_sym, contract.post.public_send(field.name.to_sym))
-      # end
-      #
-      # AbstractPost::Entry::ContentChange.new(@post).()
-      # @post.sync
-    end
-
-    def auto_schedule_post!(contract, op)
-      contract.post.published_on = Date.today if contract.post_schedule.eql? 'auto'
-    end
-
-    def categories_change!(contract, op)
-      ids = contract.post.categories.collect { | category | category.id.to_s }
-
-      # Add new category to categories unless it already exists
-      contract.post.category_ids.each do | category_id |
-        contract.post.categories << Category.find(category_id) unless ids.include?(category_id)
-      end
-
-      # Delete category not include in the list
-      contract.post.categories.each do | category |
-        contract.post.categories.delete(category) unless contract.post.category_ids.include?(category.id.to_s)
-      end
-    end
-
-    def assign_content!(target_content, base_content)
-      target_content.title = base_content.title
-      target_content.article = base_content.article
-      target_content.author = base_content.author
-      target_content.locale = base_content.locale
-    end
-
-    # class JSON < self
-    #   representer do
-    #     property :title
-    #     property :author
-    #     property :locale
-    #     property :article
-    #
-    #     collection :tags do
-    #       property :name
-    #     end
-    #
-    #     collection :categories do
-    #       property :id
-    #     end
-    #
-    #     # FIXME: deserialize picture_meta_data
-    #     # property :picture_meta_data #, deserializer: {writeable: false}
-    #
-    #     property :post_schedule, virtual: true
-    #     property :category_ids, virtual: true, default: []
-    #
-    #     # properties *PropertyType.find(Post)
-    #   end
-    # end
 
   end
 
-  class Post::Index < Trailblazer::Operation
-    include Collection
-    include Model
-    include UserUtil::CurrentUser
+  private
 
-    collection :published, collection: AbstractPost::PublishedCollection
+  def params!(params)
+    # Dirty trick to get te defined model of the operation
+    model_key = self.class.model_class.to_s.downcase.to_sym
+
+    if params.has_key? model_key
+
+      params[model_key][:post].merge! published_on: Date.today if params[model_key][:scheduling].eql? 'auto' and params[model_key][:post][:published].eql? 'true'
+
+      params[model_key][:post].merge! post_contents: []
+      post_content = {}
+      %w(title article locale author).each do | prop |
+        post_content[prop.to_sym] = params[model_key][:post][prop.to_sym]
+      end
+
+      post_content[:properties] = self.properties.select { | property | !params[model_key][:post][property.name].nil? }.map do | property |
+        { name: property.name.to_s, value: params[model_key][:post][property.name] }
+      end
+
+      post_content[:tags] = params[model_key][:post][:tags].map do | tag |
+        { tag: tag[:tag] }
+      end unless params[model_key][:post][:tags].nil?
+
+      params[model_key][:post][:post_contents].push post_content
+    end
+
+    params
   end
 
+  def categories_change!(twin, options)
+
+  end
+
+  class JSON < self
+    extend Representer::DSL
+    include Representer::Rendering, Responder
+    include Representable::JSON
+
+    representer do
+      property :title
+      property :author
+      property :locale
+      property :article
+
+      collection :tags do
+        property :name
+      end
+
+      collection :categories do
+        property :id
+      end
+
+      # FIXME: deserialize picture_meta_data
+      # property :picture_meta_data #, deserializer: {writeable: false}
+
+      property :post_schedule, virtual: true
+
+      # properties *PropertyType.find(Post)
+    end
+  end
+
+end
+
+
+class Post::Upload < Post::Create
+  extend Representer::DSL
+  include Representer::Rendering, Responder, Transfer::Upload, Model
+
+  model Post, :update
+  # policy Post::Policy, :owner?
+
+  image :picture, thumbs: [{name: :header, size: '1170x660#'}, {name: :sidebar, size: '128x128#'}], thumb_class: PostAttachment
+
+end
+
+class Post::Index < Trailblazer::Operation
+  include Collection
+  include Model
+  include UserUtil::CurrentUser
+
+  collection :published, collection: PublishedCollection
 end

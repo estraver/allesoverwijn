@@ -1,0 +1,14 @@
+en:
+  en: English
+  nl: Nederlands
+  fr: Français
+  favorites: Favorites
+  posts: Posts
+  wines: Wines
+  carousel_slide:
+    slide:
+      wineries: Wineries
+      wines: Wines
+      wine_producers: Producers
+    previous: Previous
+    next: Next

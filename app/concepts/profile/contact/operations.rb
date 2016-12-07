@@ -3,8 +3,7 @@ require_dependency 'profile/operations'
 class Profile < ActiveRecord::Base
   module Contact
     class Create < Profile::Create
-      include Model, Responder, Representer, Trailblazer::Operation::Policy
-      include Representer::Deserializer::Hash
+      include Model, Trailblazer::Operation::Policy
 
       model Profile, :create
       policy Profile::Policy, :create?
@@ -41,8 +40,6 @@ class Profile < ActiveRecord::Base
 
         validation :default do
           configure do
-            option :form
-
             config.messages_file = 'config/dry_error_messages.yml'
 
             def date_of_birth_ok?(date_of_birth)
@@ -54,35 +51,25 @@ class Profile < ActiveRecord::Base
             end
           end
 
-          # validates :first_name, presence: true, allow_blank: false
-          # validates :last_name, presence: true, allow_blank: false
-          key(:first_name).required
-          key(:last_name).required
-          key(:date_of_birth).filled(:date_of_birth_ok?)
-          # validate :date_of_birth_ok?
+          required(:first_name).filled
+          required(:last_name).filled
+          required(:date_of_birth).filled(:date_of_birth_ok?)
         end
 
         private
-
-        def date_of_birth_ok?
-          return if date_of_birth.blank?
-
-          begin
-            errors.add(:date_of_birth, _('profile.contact.no_valid_date_of_birth')) unless Date.parse(date_of_birth).to_s.eql? date_of_birth
-          rescue ArgumentError
-            errors.add(:date_of_birth, _('profile.contact.no_valid_date_of_birth'))
-          end
-
-        end
       end
 
       def process(params)
-        validate(params[:profile]) do | f |
-          f.save
+        validate(params[:profile]) do | contract |
+          contract.save
         end
       end
 
       class JSON < self
+        # include Representer
+        extend Representer::DSL
+        include Representer::Rendering, Responder
+
         representer do
           property :first_name
           property :middle_name
@@ -91,6 +78,9 @@ class Profile < ActiveRecord::Base
           property :home
           property :birth_place
           property :gender
+
+          property :success, getter: ->(user_options:, **) { user_options[:success] }
+
         end
       end
     end

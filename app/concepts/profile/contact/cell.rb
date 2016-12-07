@@ -13,7 +13,7 @@ class Profile::Cell < Cell::Concept
     private
 
     def profile_fields
-      %w(first_name last_name)
+      %w(first_name last_name gender date_of_birth birth_place home country)
     end
 
     def user_fields

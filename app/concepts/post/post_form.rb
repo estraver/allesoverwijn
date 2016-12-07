@@ -1,10 +1,6 @@
-require_dependency 'abstract_post/content_form'
-require_dependency 'abstract_post/properties'
+require 'post/content_form'
 
-module AbstractPost
-  class PostForm < Reform::Form
-    property :post, form: AbstractPost::ContentForm
-
-    property :auto_schedule, virtual: true
-  end
+class PostForm < Reform::Form
+  property :post, form: ContentForm, populate_if_empty: Post
+  property :scheduling, virtual: true
 end

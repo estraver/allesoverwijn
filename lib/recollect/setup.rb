@@ -1,5 +1,5 @@
 module Recollect::Collection::Setup
-  def initialize(model, params = nil)
+  def initialize(model, **params)
     @model = model
     @params = params
   end

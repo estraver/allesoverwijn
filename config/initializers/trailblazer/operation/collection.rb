@@ -23,13 +23,13 @@ module Trailblazer::Operation::Collection
       collection_class.class_eval(&block) if block_given?
 
       define_method(name) do
-        @models
+        @collection
       end
     end
   end
 
   module Setup
-    attr_reader :models
+    attr_reader :collection
     attr_reader :values
 
     def setup_params!(params)
@@ -41,7 +41,7 @@ module Trailblazer::Operation::Collection
     end
 
     def setup_model!(params)
-      @models ||= self.class.collection_class.new(model_class).(*@values)
+      @collection ||= self.class.collection_class.new(model_class).(*@values)
       super
     end
   end

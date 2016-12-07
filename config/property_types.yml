@@ -3,6 +3,7 @@
     -
       :name: :published
       :type: 'Types::Form::Bool'
+      :default: 'false'
     -
       :name: :published_on
       :type: 'Types::Date'

@@ -1,0 +1,46 @@
+.widget-box {
+  border: {
+    top: 4px solid $page-header-border-color;
+    //bottom: 1px solid $page-header-border-color;
+  }
+  margin: {
+    bottom: 2em;
+  }
+
+  .widget-title {
+    text-transform: uppercase;
+  }
+
+  li {
+
+    a {
+      text-transform: uppercase;
+      padding: {
+        top: 5px;
+        bottom: 5px;
+      }
+
+      &:before {
+        background: {
+          image: url('bullet2.gif')
+        }
+        content: ' ';
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        margin-right: 5px;
+      }
+
+      &:hover {
+        background: {
+          color: transparent;
+        }
+      }
+
+    }
+
+
+  }
+
+}
+

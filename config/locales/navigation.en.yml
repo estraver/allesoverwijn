@@ -1,0 +1,14 @@
+en:
+  navigation:
+    home: Home
+    about: About
+    wine: Wine
+    blog: Blog
+    account: Account
+    faq: FAQ
+    products: Products
+    sellers: Sellers
+    producers: Producers
+    profile: Profile
+    sign_out: Sign Out
+    toggle: Toggle

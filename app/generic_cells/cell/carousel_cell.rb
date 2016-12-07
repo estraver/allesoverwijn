@@ -16,7 +16,7 @@ module Cell
     end
 
     def container(carousel, &block)
-      content_tag(:div, class: [:carousel, :slide], id: carousel.name, data: {ride: 'carousel'}) do
+      content_tag(:div, class: [:carousel, :slide], id: carousel.name.to_s, data: {ride: 'carousel'}) do
         index(carousel) +
             content_tag(:div, class: 'carousel-inner', role: 'listbox', &block) +
             carousel.controls.map { |control| control(control) }.join.html_safe

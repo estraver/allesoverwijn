@@ -1,0 +1,11 @@
+en:
+  views:
+    users:
+      sidebar:
+        online: Online
+        member_since: Member since
+        photo:
+          edit: Edit photo
+        send_message: Send message
+    user:
+      email: E-mail

@@ -1,9 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-#one:
-#  name: MyString
-#  category_id:
-#
-#two:
-#  name: MyString
-#  category_id:
+cat_name_druif:
+  name: druif
+  locale: nl
+  category: cat_druif
+
+cat_name_grape:
+  name: grape
+  locale: en
+  category: cat_druif
+
+cat_name_druif_wit:
+  name: wit
+  locale: nl
+  category: cat_wit
+
+cat_name_grape_white:
+  name: white
+  locale: en
+  category: cat_wit
+
+cat_name_wine:
+  name: wine
+  locale: en
+  category: cat_wine
+
+cat_name_white_wine:
+  name: white wine
+  locale: en
+  category: cat_white_wine

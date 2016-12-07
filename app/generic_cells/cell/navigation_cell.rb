@@ -7,7 +7,7 @@ module Cell
     def navigate_to(link, &block)
       if block_given?
         content_tag(:li, class: 'nav-item dropdown') do
-          url_options = {data: {toggle: :dropdown, hover: :dropdown, delay: 1000, :'close-others' => true}}.merge link.url_options || {}
+          url_options = {data: {toggle: 'dropdown', hover: 'dropdown', delay: 1000, 'close-others': true}}.merge link.url_options || {}
           link_to(link.url, url_options) do
             content_tag(:span, link.humanize, class: link.icon) + content_tag(:i, '', class: [:fa, 'fa-angle-down'])
           end + content_tag(:ul, class: 'dropdown-menu', &block)

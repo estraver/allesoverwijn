@@ -22,7 +22,7 @@ module AbstractPost
 
       def build_property_types(config)
         config.keys.map do | model |
-          {model: model, properties: build_property_list(model, config).map { | property | Property.new(property[:name], property[:type]) }}
+          {model: model, properties: build_property_list(model, config).map { | property | Property.new(property[:name], property[:type], property[:default]) }}
         end
       end
 
@@ -35,11 +35,12 @@ module AbstractPost
     end
 
     class Property
-      attr_reader :name, :type
+      attr_reader :name, :type, :default
 
-      def initialize(name, type)
+      def initialize(name, type, default = nil)
         @name = name
         @type = type
+        @default = default
       end
 
     end
