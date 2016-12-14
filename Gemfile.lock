@@ -1,3 +1,14 @@
+GIT
+  remote: git://github.com/bewitchingme/tyrant.git
+  revision: dbd31570adc33f043660a5fe3b743c66875640a3
+  specs:
+    tyrant (0.0.3)
+      bcrypt
+      disposable (>= 0.1.11)
+      reform (~> 2.0)
+      trailblazer (~> 1.0)
+      warden (= 1.2.6)
+
 PATH
   remote: vendor/gems/gettext_i18n_rails
   specs:
@@ -332,12 +343,6 @@ GEM
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
-    tyrant (0.0.3)
-      bcrypt
-      disposable (>= 0.1.11)
-      reform (~> 2.0)
-      trailblazer (~> 1.0)
-      warden
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uber (0.0.15)
@@ -411,7 +416,7 @@ DEPENDENCIES
   trailblazer-cells
   trailblazer-rails
   turbolinks
-  tyrant (= 0.0.3)
+  tyrant!
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
   ya2yaml

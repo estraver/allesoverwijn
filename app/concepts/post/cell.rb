@@ -3,14 +3,14 @@
 # require 'category/most_used_category_collection'
 # require 'post/archive/archive_collection'
 #
-# class Post::Cell < Cell::Concept
+# class Post::NavigationLinkCell < NavigationLinkCell::Concept
 #   def show
 #     render
 #   end
 #
-#   class Author < Cell::Concept
+#   class Author < NavigationLinkCell::Concept
 #     inherit_views Post::Widget
-#     include Cell::ContentCell
+#     include NavigationLinkCell::ContentCell
 #
 #     def show
 #       render :author
@@ -18,7 +18,7 @@
 #
 #   end
 #
-#   class Preview < Cell::Concept
+#   class Preview < NavigationLinkCell::Concept
 #     inherit_views Post::Widget
 #
 #     def show
@@ -38,9 +38,9 @@
 #     end
 #   end
 #
-#   class Picture < Cell::Concept
+#   class Picture < NavigationLinkCell::Concept
 #     extend Uber::Delegates
-#     include Cell::ImageCell
+#     include NavigationLinkCell::ImageCell
 #
 #     delegates :model, :post
 #     delegates :post, :picture_meta_data
@@ -49,8 +49,8 @@
 #
 #   end
 #
-#   class Sidebar < Cell::Concept
-#     include Cell::ListCell
+#   class Sidebar < NavigationLinkCell::Concept
+#     include NavigationLinkCell::ListCell
 #     inherit_views Post::Widget
 #
 #     self.classes = %w(sidebar)

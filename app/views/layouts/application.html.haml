@@ -10,7 +10,8 @@
   %body{class: @preview ? :overlay : nil}
     .wrapper
       %header
-        = render 'layouts/navigation'
+        -#= render 'layouts/navigation'
+        = cell('navigation/navigation', NavigationLink, context: {current_user: tyrant.current_user}, layout: Navigation::LayoutCell )
       - if content_for? :section
         %section= yield :section
       - else

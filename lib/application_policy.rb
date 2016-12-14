@@ -3,14 +3,15 @@ require_dependency 'permission'
 class ApplicationPolicy
   alias_method :call, :send
 
-  def initialize(user_id, model)
-    @user_id, @model = user_id, model
+  def initialize(user, model)
+    @model = model
+    @user = user.is_a?(User) ? user : User.find(user)
     @concept = self.class.name.deconstantize.constantize.model_name.singular
   end
 
   def operation_allowed?(concept, operation)
-    user = User.find(@user_id)
-    permissions = user.roles.collect { |role| ::Permission::Authorisation.build(role) }
+    # user = User.find(@user_id)
+    permissions = @user.roles.collect { |role| ::Permission::Authorisation.build(role) }
     permissions.collect { | permission | permission.allow?(concept.to_sym, operation.to_sym) }.any?
   end
 
@@ -19,8 +20,8 @@ class ApplicationPolicy
   end
 
   def owner_of?(model)
-    return @user_id == model.id if User.name.eql? model.class.name
-    return @user_id == model.user_id if model.respond_to? :user_id
+    return @user.id == model.id if User.name.eql? model.class.name
+    return @user.id == model.user_id if model.respond_to? :user_id
     false
   end
 

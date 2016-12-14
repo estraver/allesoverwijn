@@ -1,7 +1,7 @@
 module Recollect::Collection::Array
   module Array
     extend Forwardable
-    def_delegators :@collection, :size, :first, :last
+    def_delegators :@collection, :size, :first, :last, :each_with_index
 
     def collect
       new_collection = []
@@ -10,6 +10,10 @@ module Recollect::Collection::Array
       end
       new_collection
     end
+
+    # def each_with_index
+    #
+    # end
 
     alias :map :collect
 

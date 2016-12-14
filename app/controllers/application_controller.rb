@@ -52,4 +52,16 @@ class ApplicationController < ActionController::Base
   def json_request?
     request.format.json?
   end
+
+  # FIXME: Reconsider when context and collection bug is repaired
+  def _cell(name, model=nil, options={}, constant=::Cell::ViewModel, &block)
+    options[:context] ||= {}
+    options[:context][:controller] = self
+
+    options[:context].merge! model[:context] if model.is_a?(Hash) and model.has_key?(:context)
+
+    constant.cell(name, model, options, &block)
+  end
+
+
 end

@@ -1,0 +1,2 @@
+- archives.map do |archive|
+  = list_item archive, url(archive), "#{month(archive)} #{Date.parse(archive[0]).year}"

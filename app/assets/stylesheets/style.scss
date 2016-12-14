@@ -24,7 +24,7 @@ img {
 
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create your own classes
-// to make views framework-neutral
+// to make view framework-neutral
 .column {
   @include make-md-column(6);
 }
@@ -151,7 +151,7 @@ body {
 
 // ******* Main
 // apply styles to HTML elements
-// to make views framework-neutral
+// to make view framework-neutral
 main {
   //@extend .container;
   @include container-fixed;

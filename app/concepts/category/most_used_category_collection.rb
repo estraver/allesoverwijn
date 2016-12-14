@@ -4,7 +4,7 @@ require 'recollect/array'
 
 class MostUsedCategoryCollection < Recollect::Collection
   include Derivative
-  include Cell
+  include Array
 
   scope -> { joins(:posts).group('categories.id').order('COUNT(posts.id) DESC').limit(10) }
   derivative :name do | current_user:, model:, ** |

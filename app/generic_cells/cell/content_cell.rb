@@ -14,8 +14,8 @@ module Cell
 
     private
 
-    attr_reader :operation
-    attr_reader :content
+    # attr_reader :operation
+    # attr_reader :content
 
     def author_name
       author.name
@@ -32,10 +32,16 @@ module Cell
     end
 
     # FIXME: Put in separate setup module
-    def setup!(model, options)
-      @operation = options.fetch(:operation)
-      @content ||= content_by_model_and_user(model.post, @operation.current_user)
-      super
+    # def setup!(model, options)
+    #   @operation = options.fetch(:operation)
+    #   @content ||= content_by_model_and_user(model.post, @operation.current_user)
+    #   super
+    # end
+
+    private
+
+    def content
+      @content ||= content_by_model_and_user(model.post, context[:current_user])
     end
 
   end

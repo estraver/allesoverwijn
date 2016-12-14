@@ -11,5 +11,6 @@
         %span.icon-bar
       = link_to _('navigation.home'), root_path, class: 'navbar-brand'
     #navbar-collapse.collapse.navbar-collapse
-      = concept('navigation_link/cell/navigation', NavigationLink)
-      = concept('user/cell/navigation', tyrant.current_user, tyrant: tyrant)
+      = yield
+      = cell('navigation/user')
+      -#= concept('user/cell/navigation', tyrant.current_user, tyrant: tyrant)

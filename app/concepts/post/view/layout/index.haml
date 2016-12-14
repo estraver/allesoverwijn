@@ -1,0 +1,7 @@
+%section.content-wrapper
+  .content.col-sm-8= yield
+  -#.sidebar.col-sm-3.col-sm-offset-1= cell(Post::Cell::Widget, collection: widgets)
+  .sidebar.col-sm-3.col-sm-offset-1
+    - widgets.each do | widget |
+      = cell(cell_name(widget), widget, layout: Post::Cell::Sidebar::WidgetLayout)
+

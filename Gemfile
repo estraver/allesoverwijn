@@ -10,7 +10,7 @@ gem 'sass-rails', '~> 5.0'
 # gem 'compass-rails', github: 'Compass/compass-rails', branch: 'master'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .coffee assets and views
+# Use CoffeeScript for .coffee assets and view
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
@@ -43,7 +43,7 @@ group :development do
 	gem 'quiet_assets'
 	gem 'rails_layout'
 
-  # Access an IRB console on exception pages or by using <%= console %> in views
+  # Access an IRB console on exception pages or by using <%= console %> in view
   gem 'web-console', '~> 2.0'
 end
 # Use ActiveModel has_secure_password
@@ -93,8 +93,8 @@ gem 'cells-haml'
 gem 'responders'
 gem 'roar'
 gem 'ya2yaml'
-gem 'tyrant', '0.0.3'
-#gem 'tyrant', github: 'bewitchingme/tyrant'
+#gem 'tyrant', '0.0.3'
+gem 'tyrant', github: 'bewitchingme/tyrant'
 gem 'paperdragon'
 gem 'jquery-fileupload-rails'
 gem 'select2-rails'

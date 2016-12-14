@@ -6,6 +6,8 @@ class BlogsController < ApplicationController
 
   def index
     collection Blog::Index
+    # render html: cell(Blog::NavigationLinkCell::Index, collection: @operation.published, current_user: tyrant.current_user, widgets: blog_widgets, layout: Post::NavigationLinkCell::Layout::Index)
+    render html: _cell(Blog::Cell::Index, collection: @operation.published, context: { current_user: tyrant.current_user, widgets: blog_widgets }, layout: Post::Cell::Layout::Index), layout: :default
   end
 
   def show
@@ -77,5 +79,10 @@ class BlogsController < ApplicationController
 
   end
 
+  private
+
+  def blog_widgets
+    [ { categories: {title: _('posts.sidebar.categories') } }, { archives: {title: _('posts.sidebar.archives'),  cell: 'post/cell/archive/widget' } } ]
+  end
 
 end

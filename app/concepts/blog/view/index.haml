@@ -8,7 +8,8 @@
     .blog-header.title-header
       %h3.blog-post-title
         %span= title
-      - if policy?(model, :edit_and_owner?) and !preview?
+      -#- if policy?(model, :edit_and_owner?) and !preview?
+      - if context[:current_user] and Blog::Policy.new(context[:current_user], model).edit_and_owner? and !preview?
         = link_to(edit_blog_path(model.id), class: %w(button edit blog-edit), role: :button) do
           %i.fa.fa-pencil-square
           %span= _('view.blog.show.edit')
@@ -30,11 +31,10 @@
         = comments_count
 
     -# FIXME: create summary
-    = abstract? ? article_summary : article
-    -#= article
+    -#= abstract? ? article_summary : article
+    = article_summary
 
-    - if abstract?
-      .read-more
-        = link_to(blog_path(model), class: %w(button blog-read-more), role: :button) do
-          %i.fa.fa-chevron-circle-right
-          %span= _('view.blog.read_more')
+    .read-more
+      = link_to(blog_path(model), class: %w(button blog-read-more), role: :button) do
+        %i.fa.fa-chevron-circle-right
+        %span= _('view.blog.read_more')
