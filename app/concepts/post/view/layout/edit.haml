@@ -1,0 +1,22 @@
+-#= simple_form_for(operation.contract, as: model.class.to_s.downcase, url: url_for(operation.model), remote: true, data: {type: :json}, class: 'content-wrapper') do | form |
+= form_tag operation.contract, method: (model.new_record? ? :post : :patch), remote: true, data: {type: :json}, class: 'content-wrapper simple_form', novalidate: 'novalidate' do
+  %section
+    .profile-header.title-header
+      %h3
+        %span= title
+        .form-actions.pull-right
+          = simple_fields_for operation.contract do | form |
+            = form.button :submit, _('post.save')
+            - if published?
+              = form.button :submit, _('post.retract'), formaction: 'retract'
+            - else
+              = form.button :submit, _('post.publish'), formaction: 'publish'
+            = form.button :button, _('post.preview'), formaction: 'preview', formtarget: '_blank', type: 'button'
+            = form.button :button, _('post.close'), formaction: 'close', type: 'button'
+  %section.border-between
+    .col-md-9.edit.well= yield
+    .col-md-3.sidebar
+      .sidebar-wrapper
+        %ul.nav.sidebar-nav
+          - widgets.each do | widget |
+            = cell("post/cell/sidebar/#{widget.to_s.singularize}", model)

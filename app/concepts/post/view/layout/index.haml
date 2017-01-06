@@ -1,7 +1,14 @@
+- index = yield
 %section.content-wrapper
-  .content.col-sm-8= yield
+  .content.col-sm-8
+    - if index.empty?
+      = cell(Post::Cell::Index::Empty, nil)
+    - else
+      = index
+      = pager model
   -#.sidebar.col-sm-3.col-sm-offset-1= cell(Post::Cell::Widget, collection: widgets)
   .sidebar.col-sm-3.col-sm-offset-1
     - widgets.each do | widget |
-      = cell(cell_name(widget), widget, layout: Post::Cell::Sidebar::WidgetLayout)
+      = cell("post/cell/sidebar/#{widget.to_s.singularize}", widget)
+
 

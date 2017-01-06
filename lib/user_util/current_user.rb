@@ -1,5 +1,3 @@
-# require 'user_util/user_util'
-
 module UserUtil
   module CurrentUser
     attr_reader :current_user
@@ -14,8 +12,11 @@ module UserUtil
     end
     include Setup
 
-    def find_current_user(user_id)
-      @current_user ||= User.find(user_id)
+    def find_current_user(user)
+      @current_user ||= begin
+        user if user.is_a? User or user.is_a? Guest
+        User.find(user_id)  if user.is_a? Fixnum
+      end
     end
   end
 end

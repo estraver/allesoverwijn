@@ -5,7 +5,7 @@ module Navigation
     self.classes = ['navbar-right']
 
     def user_links
-      if current_user
+      if current_user.is_a? User
         NavigationLink.build_links(
             {
                 account: {
@@ -44,9 +44,9 @@ module Navigation
     def user_languages
       NavigationLink.build_links({
                                      language: {
-                                         name: I18n.locale,
+                                         name: current_user.profile.language,
                                          url: '#',
-                                         icon: ['flag-icon', "flag-icon-#{I18n.locale}"],
+                                         icon: ['flag-icon', "flag-icon-#{current_user.profile.language}"],
                                          links: I18n.available_locales.map { |locale|
                                            {:"#{locale}" => {name: locale, url: url_for(:only_path => true, :locale => locale), icon: ['flag-icon', "flag-icon-#{locale}"]}}
                                          }.reduce({}) { |h,v| h.merge v }

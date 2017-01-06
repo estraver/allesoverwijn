@@ -25,5 +25,8 @@ module Allesoverwijn
 
     # dry validation with reform
     config.reform.validations = :dry
+
+    # add cells with assets
+    config.cells.with_assets = ['tabs/tabs_cell']
   end
 end

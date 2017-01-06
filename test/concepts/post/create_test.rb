@@ -14,7 +14,7 @@ class PostCreateTest < MiniTest::Spec
 
     contract PostForm
 
-    properties AbstractPost::PropertyType.find(Blog), property: :post
+    properties AbstractPost::PropertyType.find(Blog), property: :post_attributes
   end
 
   let (:current_user) { users(:admin) }
@@ -25,7 +25,7 @@ class PostCreateTest < MiniTest::Spec
 
   it 'Blog is created without properties' do
 
-    res, op = PostTestCreateOp.run(blog: {post: {title: 'Blog Test #1', locale: 'nl', author: { id: current_user.id }, article: blog_article}}, current_user: current_user.id)
+    res, op = PostTestCreateOp.run(blog: {post_attributes: {title: 'Blog Test #1', locale: 'nl', author: {id: current_user.id }, article: blog_article}}, current_user: current_user.id)
 
     res.must_equal true
     op.model.persisted?.must_equal true
@@ -34,7 +34,7 @@ class PostCreateTest < MiniTest::Spec
   end
 
   it 'Blog is created with valid properties' do
-    res, op = PostTestCreateOp.run(blog: {post: {title: 'Blog Test #1', locale: 'nl', author: { id: current_user.id }, article: blog_article, published: 'false', comments: 'allowed'}}, current_user: current_user.id)
+    res, op = PostTestCreateOp.run(blog: {post_attributes: {title: 'Blog Test #1', locale: 'nl', author: {id: current_user.id }, article: blog_article, published: 'false', comments: 'allowed'}}, current_user: current_user.id)
 
     res.must_equal true
     op.model.post.post_contents.first.properties.find_by_name('published').must_be_instance_of ::Property
@@ -42,7 +42,7 @@ class PostCreateTest < MiniTest::Spec
   end
 
   it 'Blog is created, but not published' do
-    res, op = PostTestCreateOp.run(blog: {post: {title: 'Blog Test #1', locale: 'nl', author: { id: current_user.id }, article: blog_article, published: 'false', comments: 'allowed'}, scheduling: 'auto'}, current_user: current_user.id)
+    res, op = PostTestCreateOp.run(blog: {post_attributes: {title: 'Blog Test #1', locale: 'nl', author: {id: current_user.id }, article: blog_article, published: 'false', comments: 'allowed'}, scheduling: 'auto'}, current_user: current_user.id)
 
     res.must_equal true
     op.model.post.post_contents.first.properties.find_by_name('published').value.must_equal 'false'
@@ -50,7 +50,7 @@ class PostCreateTest < MiniTest::Spec
   end
 
   it 'Blog is created and published today' do
-    res, op = PostTestCreateOp.run(blog: {post: {title: 'Blog Test #1', locale: 'nl', author: { id: current_user.id }, article: blog_article, published: 'true', comments: 'allowed'}, scheduling: 'auto'}, current_user: current_user.id)
+    res, op = PostTestCreateOp.run(blog: {post_attributes: {title: 'Blog Test #1', locale: 'nl', author: {id: current_user.id }, article: blog_article, published: 'true', comments: 'allowed'}, scheduling: 'auto'}, current_user: current_user.id)
 
     res.must_equal true
     op.model.post.post_contents.first.properties.find_by_name('published').value.must_equal 'true'
@@ -58,7 +58,7 @@ class PostCreateTest < MiniTest::Spec
   end
 
   it 'Blog is created and is to be published tomorrow' do
-    res, op = PostTestCreateOp.run(blog: {post: {title: 'Blog Test #1', locale: 'nl', author: { id: current_user.id }, article: blog_article, published: 'true', comments: 'allowed', published_on: Date.tomorrow.to_s}, scheduling: 'manual'}, current_user: current_user.id)
+    res, op = PostTestCreateOp.run(blog: {post_attributes: {title: 'Blog Test #1', locale: 'nl', author: {id: current_user.id }, article: blog_article, published: 'true', comments: 'allowed', published_on: Date.tomorrow.to_s}, scheduling: 'manual'}, current_user: current_user.id)
 
     res.must_equal true
     op.model.post.post_contents.first.properties.find_by_name('published').value.must_equal 'true'
@@ -66,7 +66,7 @@ class PostCreateTest < MiniTest::Spec
   end
 
   it 'Blog is created with a new tag' do
-    res, op = PostTestCreateOp.run(blog: {post: {title: 'Blog Test #1', locale: 'nl', author: { id: current_user.id }, article: blog_article, published: 'true', comments: 'allowed', published_on: Date.today.to_s, tags: [{tag: 'rood'}, {tag: 'wit'}]}, scheduling: 'manual'}, current_user: current_user.id)
+    res, op = PostTestCreateOp.run(blog: {post_attributes: {title: 'Blog Test #1', locale: 'nl', author: {id: current_user.id }, article: blog_article, published: 'true', comments: 'allowed', published_on: Date.today.to_s, tags: [{tag: 'rood'}, {tag: 'wit'}]}, scheduling: 'manual'}, current_user: current_user.id)
 
     res.must_equal true
     op.model.post.post_contents.first.tags.find_by_tag('wit').wont_be_nil
@@ -74,7 +74,7 @@ class PostCreateTest < MiniTest::Spec
   end
 
   it 'Blog is created with a existing tag' do
-    res, op = PostTestCreateOp.run(blog: {post: {title: 'Blog Test #1', locale: 'nl', author: { id: current_user.id }, article: blog_article, published: 'true', comments: 'allowed', published_on: Date.today.to_s, tags: [{tag: 'wijn'}]}, scheduling: 'manual'}, current_user: current_user.id)
+    res, op = PostTestCreateOp.run(blog: {post_attributes: {title: 'Blog Test #1', locale: 'nl', author: {id: current_user.id }, article: blog_article, published: 'true', comments: 'allowed', published_on: Date.today.to_s, tags: [{tag: 'wijn'}]}, scheduling: 'manual'}, current_user: current_user.id)
 
     res.must_equal true
     op.model.post.post_contents.first.tags.find_by_tag('wijn').wont_be_nil
@@ -82,7 +82,7 @@ class PostCreateTest < MiniTest::Spec
   end
 
   it 'Blog is created with a category' do
-    res, op = PostTestCreateOp.run(blog: {post: {title: 'Blog Test #1', locale: 'nl', author: { id: current_user.id }, article: blog_article, published: 'true', comments: 'allowed', published_on: Date.today.to_s, tags: [{tag: 'wijn'}], categories: [{id: cat_grape.id}, {id: cat_grape_white.id}]}, scheduling: 'manual'}, current_user: current_user.id)
+    res, op = PostTestCreateOp.run(blog: {post_attributes: {title: 'Blog Test #1', locale: 'nl', author: {id: current_user.id }, article: blog_article, published: 'true', comments: 'allowed', published_on: Date.today.to_s, tags: [{tag: 'wijn'}], categories: [{id: cat_grape.id}, {id: cat_grape_white.id}]}, scheduling: 'manual'}, current_user: current_user.id)
 
     res.must_equal true
     op.model.post.categories.find(cat_grape.id).wont_be_nil

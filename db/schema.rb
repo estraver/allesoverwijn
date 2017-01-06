@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160818054310) do
+ActiveRecord::Schema.define(version: 20161216123917) do
 
   create_table "address_profiles", force: :cascade do |t|
     t.integer  "address_id"
@@ -94,15 +94,13 @@ ActiveRecord::Schema.define(version: 20160818054310) do
   add_index "network_accounts", ["profile_id"], name: "index_network_accounts_on_profile_id"
 
   create_table "post_contents", force: :cascade do |t|
-    t.string   "title",                                  null: false
-    t.text     "article",                                null: false
-    t.boolean  "published",              default: false
-    t.date     "published_on"
+    t.string   "title",                null: false
+    t.text     "article",              null: false
     t.integer  "post_id"
     t.integer  "author_id"
-    t.string   "locale",       limit: 2,                 null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.string   "locale",     limit: 2, null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   add_index "post_contents", ["author_id"], name: "index_post_contents_on_author_id"

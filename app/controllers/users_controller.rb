@@ -6,12 +6,12 @@ class UsersController < ApplicationController
 
   def show
     op = present User::Show
-    redirect_to edit_user_profile_path(tyrant.current_user, op.model.profile) && return if op.new_profile?
-    redirect_to user_profile_path(tyrant.current_user, op.model.profile)
+    redirect_to edit_user_profile_path(current_user, op.model.profile) && return if op.new_profile?
+    redirect_to user_profile_path(current_user, op.model.profile)
   end
 
   def edit
     # op = present User::Show
-    redirect_to edit_user_profile_path(tyrant.current_user, tyrant.current_user.profile)
+    redirect_to edit_user_profile_path(current_user, current_user.profile)
   end
 end

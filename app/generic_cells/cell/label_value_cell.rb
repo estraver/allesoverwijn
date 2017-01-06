@@ -7,13 +7,12 @@ module Cell
     private
 
     def fields(fields, model, label='')
-      fields.map do | field |
-        content_tag(:div, class: ["#{self.class.base_class}", 'clearfix']) do
-          content_tag(:div, label(field, model, label), class: "#{self.class.base_class}-label") +
-            content_tag(:div, value(field, model), class: "#{self.class.base_class}-value")
-        end
-      end.join('').html_safe
-
+      content_tag(:dl, class: ["#{self.class.base_class}", 'dl-horizontal']) do
+        fields.map do | field |
+            [ content_tag(:dt, label(field, model, label), class: "#{self.class.base_class}-label"),
+              content_tag(:dd, value(field, model), class: "#{self.class.base_class}-value") ].join('')
+          end.join('').html_safe
+      end
     end
 
     def label(field, model, label='')

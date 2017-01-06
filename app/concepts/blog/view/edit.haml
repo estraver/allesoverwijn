@@ -1,0 +1,8 @@
+= simple_fields_for operation.contract do | form |
+  = form.simple_fields_for :post do | post |
+    = post.input :id, as: :hidden
+    = post.input :title, wrapper: :horizontal_form
+    = post.input :article, label: false, as: :summernote
+    = post.simple_fields_for :author do | author |
+      = author.input :id, as: :hidden
+    = post.input :locale, as: :hidden

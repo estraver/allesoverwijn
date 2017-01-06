@@ -5,36 +5,13 @@
       -#= header class: %w(post-image img-responsive centerblock)
       = concept('post/cell/picture', model).(:header, class: %w(post-image img-responsive centerblock))
 
-    .blog-header.title-header
-      %h3.blog-post-title
-        %span= title
-      -#- if policy?(model, :edit_and_owner?) and !preview?
-      - if context[:current_user] and Blog::Policy.new(context[:current_user], model).edit_and_owner? and !preview?
-        = link_to(edit_blog_path(model.id), class: %w(button edit blog-edit), role: :button) do
-          %i.fa.fa-pencil-square
-          %span= _('view.blog.show.edit')
+    = cell(Blog::Cell::Header, model)
 
-    %p.blog-post-meta
-      %span.blog-post-meta-item
-        = _('view.blog.posted')
-        = published_on
-      %span.blog-post-meta-item
-        = _('view.blog.by')
-        %a{href: '#'}= author_name
-      %span.blog-post-meta-item
-        %i.fa.fa-eye.fa-fw
-        &nbsp;
-        = views_count
-      %span.blog-post-meta-item
-        %i.fa.fa-comments.fa-fw
-        &nbsp;
-        = comments_count
+    = cell(Blog::Cell::Meta, model)
 
-    -# FIXME: create summary
-    -#= abstract? ? article_summary : article
     = article_summary
 
     .read-more
       = link_to(blog_path(model), class: %w(button blog-read-more), role: :button) do
         %i.fa.fa-chevron-circle-right
-        %span= _('view.blog.read_more')
+        %span= _('view.blogs.read_more')

@@ -50,8 +50,16 @@ module Recollect
       self
     end
 
-    def records
+    def collection
       @collection
+    end
+
+    def count
+      @collection.except(:limit, :offset).count
+    end
+
+    def model
+      @model
     end
 
     private

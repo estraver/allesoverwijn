@@ -1,0 +1,9 @@
+= simple_fields_for context[:operation].contract do | form |
+  - if published?
+    = form.simple_fields_for :post do | post |
+      = post.input :published_on, as: :datefield, readonly: true, placeholder: _('date.formats.placeholder'), input_html: { format: { order: _('date.order'), separator: _('date.formats.separator') } }
+  - else
+    = form.collection_radio_buttons :scheduling, [['auto', _('blog.schedule.auto')], ['manual', _('blog.schedule.manual')]], :first, :last, item_wrapper_tag: :div, item_wrapper_class: 'radio'
+    = form.simple_fields_for :post do | post |
+      = post.input :published_on, as: :hidden
+    %div{data: {provide: :datepicker, 'date-format': 'yyyy-mm-dd'}}

@@ -1,0 +1,9 @@
+.blog-post
+  .blog-picture
+    = concept('post/cell/picture', model).(:header, class: %w(post-image img-responsive centerblock))
+
+  = cell(Blog::Cell::Header, model)
+
+  = cell(Blog::Cell::Meta, model)
+
+  = article

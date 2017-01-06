@@ -1,33 +1,12 @@
 en:
-  views:
+  view:
     blog:
       show:
         edit: Edit
       posted: Posted
       by: By
+      posted: Posted
+    blogs:
       read_more: Read more
   blog:
     edit: Edit Blog
-    save: Save
-    publish: Publish
-    preview: Preview
-    close: Close
-  blog:
-    settings:
-      title: Settings
-      picture:
-        menu: Featured Picture
-      category: Category
-      categories:
-        new: New Category
-      tags: Tags
-      location: Location
-      published_on: Publishing
-      settings:
-        properties:
-          title: Properties
-          comments:
-            title: Comments
-            allowed: Allowed
-            not_allowed: Not allowed
-            not_allowed_and_hide: Not allowed and hide

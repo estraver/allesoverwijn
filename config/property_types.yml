@@ -6,7 +6,7 @@
       :default: 'false'
     -
       :name: :published_on
-      :type: 'Types::Date'
+      :type: 'Types::Form::DateTime'
     -
       :name: :comments
       :type: 'Types::Coercible::String'

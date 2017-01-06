@@ -5,19 +5,20 @@ class BlogsController < ApplicationController
   respond_to :html, :json, :js
 
   def index
+    # FIXME: Make render_collection method
     collection Blog::Index
-    # render html: cell(Blog::NavigationLinkCell::Index, collection: @operation.published, current_user: tyrant.current_user, widgets: blog_widgets, layout: Post::NavigationLinkCell::Layout::Index)
-    render html: _cell(Blog::Cell::Index, collection: @operation.published, context: { current_user: tyrant.current_user, widgets: blog_widgets }, layout: Post::Cell::Layout::Index), layout: :default
+    render html: _cell(Blog::Cell::Index, collection: @operation.published, context: { current_user: current_user, widgets: blog_widgets }, layout: Post::Cell::Layout::Index), layout: :default
+    # render html: cell(Post::Cell::Index::Empty, nil, context: { current_user: current_user, widgets: blog_widgets, model: Blog }, layout: Post::Cell::Layout::Index), layout: :default if @operation.published.empty?
   end
 
   def show
     present Blog::Show
+    render html: cell(Blog::Cell::Show, @model, context: { current_user: current_user, operation: @operation, preview: @preview, title: _('blog.show') }, layout: Post::Cell::Layout::Show), layout: :default
   end
 
   def edit
-    # FIXME: Put category collection in operation
-    # @collection = TopCategoryCollection.new(Category).().twinnize(current_user: tyrant.current_user)
     form Blog::Update
+    render html: cell(Blog::Cell::Edit, @model, context: {current_user: current_user, operation: @operation, widgets: blog_edit_widgets, title: _('blog.edit')}, layout: Post::Cell::Layout::Edit), layout: :default
   end
 
   def close
@@ -70,19 +71,25 @@ class BlogsController < ApplicationController
   end
 
   # Parse picture_meta_data
-  def process_params!(params)
-    super(params)
-    if params.has_key?(:blog) and params[:blog].has_key?(:post_attributes)
-      picture_meta_data =  params[:blog][:post_attributes].delete(:picture_meta_data)
-      params[:blog][:post_attributes].merge!(picture_meta_data: JSON.parse(picture_meta_data, {:symbolize_names => true}))
-    end
-
-  end
+  # def process_params!(params)
+  #   super(params)
+  #   if params.has_key?(:blog) and params[:blog].has_key?(:post_attributes)
+  #     picture_meta_data =  params[:blog][:post_attributes].delete(:picture_meta_data)
+  #     params[:blog][:post_attributes].merge!(picture_meta_data: JSON.parse(picture_meta_data, {:symbolize_names => true}))
+  #   end
+  #
+  # end
 
   private
 
   def blog_widgets
-    [ { categories: {title: _('posts.sidebar.categories') } }, { archives: {title: _('posts.sidebar.archives'),  cell: 'post/cell/archive/widget' } } ]
+    # [ :categories, :archives ]
+    %w(categories archives)
+  end
+
+  def blog_edit_widgets
+    # ['picture', ':categories', :'tags', ':publish', ':properties' ]
+    %w(picture categories tags publish properties)
   end
 
 end

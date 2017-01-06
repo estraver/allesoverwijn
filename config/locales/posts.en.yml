@@ -3,3 +3,26 @@ en:
     sidebar:
       archives: Archives
       categories: Categories
+  post:
+    save: Save
+    publish: Publish
+    retract: Retract
+    preview: Preview
+    close: Close
+    sidebar:
+      title: Settings
+      picture:
+        menu: Featured Picture
+      category: Category
+      categories:
+        new: New Category
+      tags: Tags
+      location: Location
+      published_on: Publishing
+      properties:
+        title: Properties
+        comments:
+          title: Comments
+          allowed: Allowed
+          not_allowed: Not allowed
+          not_allowed_and_hide: Not allowed and hide

@@ -10,11 +10,9 @@ module AbstractPost::Properties
 
   module ClassMethods
     def properties(properties, options = {})
-      # properties = args
       class_eval do
         self._properties = properties
 
-        # include Reform::Form::Coercion
         if options.empty?
           properties.each do |property|
             if property.default.nil?
@@ -38,6 +36,7 @@ module AbstractPost::Properties
         end
       end
     end
+
   end
 
   def properties

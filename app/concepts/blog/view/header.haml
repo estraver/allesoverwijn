@@ -1,0 +1,7 @@
+.blog-header.title-header
+  %h3.blog-post-title
+    %span= title
+  - if context[:current_user] and Blog::Policy.new(context[:current_user], model).edit_and_owner? and !preview?
+    = link_to(edit_blog_path(model.id), class: %w(button edit blog-edit), role: :button) do
+      %i.fa.fa-pencil-square
+      %span= _('view.blog.show.edit')

@@ -2,7 +2,7 @@ require_dependency 'session/operations'
 
 class SessionsController < ApplicationController
   before_action only: [:new, :create] do
-    redirect_to tyrant.current_user if tyrant.signed_in?
+    redirect_to current_user if tyrant.signed_in?
   end
 
   def new

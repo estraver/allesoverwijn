@@ -6,7 +6,7 @@ module Trailblazer::Operation::Collection
   def self.included(base)
     extend Uber::InheritableAttr
     base.inheritable_attr :collection_class
-    base.inheritable_attr :config
+    base.inheritable_attr :collection_config
     base.collection_class = Recollect::Collection.clone
 
     base.extend Collection
@@ -15,7 +15,7 @@ module Trailblazer::Operation::Collection
   module Collection
     def collection(name, options={}, &block)
       constant = options.delete(:collection)
-      self.config = options
+      self.collection_config = options
 
       return collection_class unless constant or block_given?
 
@@ -33,15 +33,13 @@ module Trailblazer::Operation::Collection
     attr_reader :values
 
     def setup_params!(params)
-      requested_params = self.class.config[:params] || {}
-      @values = requested_params.each do |param|
-        get_deep(*param.to_a)
-      end
+      requested_params = self.class.collection_config[:params] || {}
+      @values = requested_params.collect { | param | [param, params[param]] }
       super
     end
 
     def setup_model!(params)
-      @collection ||= self.class.collection_class.new(model_class).(*@values)
+      @collection ||= self.class.collection_class.new(model_class, params).(*@values)
       super
     end
   end

@@ -4,6 +4,7 @@ require 'post_util/close'
 require 'post/published_collection'
 require 'abstract_post/property_type'
 require 'abstract_post/properties'
+require 'recollect/policy_filter'
 
 class Blog < ActiveRecord::Base
   class Create < Post::Create
@@ -13,23 +14,16 @@ class Blog < ActiveRecord::Base
     include AbstractPost::Properties
     # include PostUtil::Comments, TODO:
 
+    builds do |options|
+      JSON if options[:format] =~ 'json'
+    end
+
     model Blog, :create
     policy Blog::Policy, :create?
 
     contract PostForm
 
     properties AbstractPost::PropertyType.find(Blog), property: :post
-
-    # def process(params)
-    #   validate(params[:blog]) do | contract |
-    #     dispatch!(:before_save)
-    #     contract.save
-    #   end
-    # end
-
-    def policy?(model, operation)
-      Blog::Policy.new(current_user.id, model).(operation)
-    end
 
     class Preview < self
       def process(params)
@@ -39,9 +33,20 @@ class Blog < ActiveRecord::Base
       end
     end
 
+    class JSON < self
+      extend Representer::DSL
+      include Representer::Rendering, Responder
+
+      representer PostRepresenter
+    end
+
   end
 
   class Update < Create
+    builds -> (params) do
+      JSON if params[:format] =~ 'json'
+    end
+
     action :update
 
     policy Blog::Policy, :edit_and_owner?
@@ -53,6 +58,10 @@ class Blog < ActiveRecord::Base
     class Preview < Create::Preview
       action :update
     end
+
+    class JSON < Create::JSON
+      action :update
+    end
   end
 
   class Show < Create
@@ -60,11 +69,17 @@ class Blog < ActiveRecord::Base
     policy Blog::Policy, :show?
   end
 
-  class Index < Post::Index
+  class Index < Trailblazer::Operation
+    include Collection
+    include Model
+
     model Blog
-    
-    def policy?(model, operation)
-      Blog::Policy.new(current_user.id, model).(operation)
+
+    collection :published, collection: PublishedCollection do
+      include Recollect::Collection::PolicyFilter
+      include UserUtil::CurrentUser
+
+      policy_filter Blog::Policy, :show?
     end
   end
 

@@ -1,8 +1,10 @@
+require 'reform/form/coercion'
 require 'abstract_post/user_post'
 require 'user/user_form'
 
 class ContentForm < Reform::Form
   include AbstractPost::UserPost
+  feature Coercion
 
   property :title, virtual: true
   property :author, virtual: true, form: UserForm, populate_if_empty: ->(fragment:, **) {
@@ -85,7 +87,7 @@ class ContentForm < Reform::Form
       config.messages_file = 'config/dry_error_messages.yml'
 
       def unique_title?(title)
-        PostContent.where.not(id: form.model.id).find_by(title: title, locale: form.locale).nil?
+        PostContent.where(title: title, locale: form.locale).where.not('post_id = ?', form.model.id).count.eql? 0
       end
     end
 
@@ -112,15 +114,20 @@ class ContentForm < Reform::Form
 
   def prepopulate!(options)
     user = User.find(options[:params][:current_user])
+    content = content_by_model_and_user(self.model, user)
 
     %w(title author locale article).each do |field|
-      self.send("#{field}=", value_by_model_and_user(self.model, field, user))
+      self.send("#{field}=", content.send("#{field}"))
     end
 
     self.tags ||= []
 
-    content_by_model_and_user(self.model, user).tags.each do | tag |
+    content.tags.each do | tag |
       self.tags << tag
+    end
+
+    content.properties.each do | property |
+      self.send("#{property.name}=", property.value) if self.respond_to?("#{property.name}=")
     end
 
   end

@@ -50,6 +50,11 @@ class Profile < ActiveRecord::Base
         end
       end
     end
+
+    class Show < Create
+      action :find
+      policy Profile::Policy, :show?
+    end
   end
 
 end

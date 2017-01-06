@@ -1,9 +1,11 @@
-require_dependency 'navigation_link'
-require_dependency 'carousel_slide'
-require_dependency 'abstract_post/property_type'
+require 'navigation_link'
+require 'carousel_slide'
+require 'abstract_post/property_type'
+require 'tabs/tabs'
 
 NavigationLink.setup!
 CarouselSlide.setup!
 AbstractPost::PropertyType.setup!
+Tabs::Tabs.setup!
 
 require 'tyrant/railtie'

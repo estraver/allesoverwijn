@@ -1,0 +1,21 @@
+@import 'bootstrap.scaffolding';
+
+//== Pagination
+//
+//##
+
+$pagination-color:                     $link-color !default;
+$pagination-bg:                        $theme-nav-bg !default;
+$pagination-border:                    $theme-nav-bg !default;
+
+$pagination-hover-color:               $link-hover-color !default;
+$pagination-hover-bg:                  transparent !default;
+$pagination-hover-border:              $theme-nav-bg !default;
+
+$pagination-active-color:              #fff !default;
+$pagination-active-bg:                 $brand-primary !default;
+$pagination-active-border:             $brand-primary !default;
+
+$pagination-disabled-color:            $gray-light !default;
+$pagination-disabled-bg:               $theme-nav-bg !default;
+$pagination-disabled-border:           $theme-nav-bg !default;

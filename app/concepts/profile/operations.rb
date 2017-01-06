@@ -14,4 +14,9 @@ class Profile < ActiveRecord::Base
   class Update < Create
     action :update
   end
+
+  class Show < Create
+    action :find
+    policy Profile::Policy, :show?
+  end
 end

@@ -1,0 +1,6 @@
+= link_to(new_categories_path, class: %w(button edit categories-edit), role: 'button', remote: true) do
+  %i.fa.fa-list-ul
+  %span= _('blog.settings.categories.new')
+= simple_fields_for context[:operation].contract do | form |
+  = form.simple_fields_for :post do | post |
+    = post.input :category_ids, collection: TopCategoryCollection.new(Category, current_user: context[:current_user]).(), required: false, as: :check_boxes_tree, children: :child_categories, checked: operation.contract.post.categories.map(&:id)

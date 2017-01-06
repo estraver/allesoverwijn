@@ -1,0 +1,3 @@
+= simple_fields_for context[:operation].contract do | form |
+  = form.simple_fields_for :post do | post |
+    = post.input_field :tags, as: :tags, collection: context[:operation].contract.post.tags, value_method: 'tag'

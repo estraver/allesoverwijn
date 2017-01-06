@@ -1,0 +1,4 @@
+.header= _('post.sidebar.properties.comments.title')
+= simple_fields_for context[:operation].contract do | form |
+  = form.simple_fields_for :post do | post |
+    = post.collection_radio_buttons :comments, [['on', _('post.sidebar.properties.comments.allowed')], ['off', _('post.sidebar.properties.comments.not_allowed')], ['off_and_hide', _('post.sidebar.properties.comments.not_allowed_and_hide')]], :first, :last, item_wrapper_tag: :div, item_wrapper_class: 'radio'

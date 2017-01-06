@@ -15,7 +15,7 @@ class PostCloseTest < MiniTest::Spec
 
     contract PostForm
 
-    properties AbstractPost::PropertyType.find(Blog), property: :post
+    properties AbstractPost::PropertyType.find(Blog), property: :post_attributes
 
   end
 
@@ -34,7 +34,7 @@ class PostCloseTest < MiniTest::Spec
     op = PostTestUpdateOp::Close.present(id: blog.id, current_user: current_user.id)
     op.contract.prepopulate!(params: {id: blog.id, current_user: current_user.id})
 
-    res, op = PostTestUpdateOp::Close.run(id: blog.id, blog: {post: {title: op.contract.post.title, locale: op.contract.post.locale, author: { id: op.contract.post.author.id }, article: op.contract.post.article, tags: op.contract.post.tags}}, current_user: current_user.id)
+    res, op = PostTestUpdateOp::Close.run(id: blog.id, blog: {post_attributes: {title: op.contract.post.title, locale: op.contract.post.locale, author: {id: op.contract.post.author.id }, article: op.contract.post.article, tags: op.contract.post.tags}}, current_user: current_user.id)
 
     res.must_equal true
   end
@@ -43,7 +43,7 @@ class PostCloseTest < MiniTest::Spec
     op = PostTestUpdateOp::Close.present(id: blog.id, current_user: current_user.id)
     op.contract.prepopulate!(params: {id: blog.id, current_user: current_user.id})
 
-    res, op = PostTestUpdateOp::Close.run(id: blog.id, blog: {post: {title: 'Welkom #2', locale: op.contract.post.locale, author: { id: op.contract.post.author.id }, article: op.contract.post.article, tags: op.contract.post.tags}}, current_user: current_user.id)
+    res, op = PostTestUpdateOp::Close.run(id: blog.id, blog: {post_attributes: {title: 'Welkom #2', locale: op.contract.post.locale, author: {id: op.contract.post.author.id }, article: op.contract.post.article, tags: op.contract.post.tags}}, current_user: current_user.id)
 
     res.must_equal false
   end
@@ -52,7 +52,7 @@ class PostCloseTest < MiniTest::Spec
     op = PostTestUpdateOp::Close.present(id: blog.id, current_user: current_user.id)
     op.contract.prepopulate!(params: {id: blog.id, current_user: current_user.id})
 
-    res, op = PostTestUpdateOp::Close.run(id: blog.id, blog: {post: {title: 'Welkom #2', locale: op.contract.post.locale, author: { id: op.contract.post.author.id }, article: op.contract.post.article, tags: op.contract.post.tags.push({tag: 'rood'})}}, current_user: current_user.id)
+    res, op = PostTestUpdateOp::Close.run(id: blog.id, blog: {post_attributes: {title: 'Welkom #2', locale: op.contract.post.locale, author: {id: op.contract.post.author.id }, article: op.contract.post.article, tags: op.contract.post.tags.push({tag: 'rood'})}}, current_user: current_user.id)
 
     res.must_equal false
   end
@@ -61,7 +61,7 @@ class PostCloseTest < MiniTest::Spec
     op = PostTestUpdateOp::Close.present(id: blog.id, current_user: current_user.id)
     op.contract.prepopulate!(params: {id: blog.id, current_user: current_user.id})
 
-    res, op = PostTestUpdateOp::Close.run(id: blog.id, confirmed: 'true', blog: {post: {title: 'Welkom #2', locale: op.contract.post.locale, author: { id: op.contract.post.author.id }, article: op.contract.post.article, tags: op.contract.post.tags}}, current_user: current_user.id)
+    res, op = PostTestUpdateOp::Close.run(id: blog.id, confirmed: 'true', blog: {post_attributes: {title: 'Welkom #2', locale: op.contract.post.locale, author: {id: op.contract.post.author.id }, article: op.contract.post.article, tags: op.contract.post.tags}}, current_user: current_user.id)
 
     res.must_equal true
   end

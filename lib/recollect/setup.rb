@@ -1,12 +1,13 @@
 module Recollect::Collection::Setup
-  def initialize(model, **params)
+  def initialize(model, params = nil)
     @model = model
     @params = params
   end
 
   def build_collection!(*args)
     collection = retrieve_collection!(*args)
-    setup_collection!(collection, *args)
+    collection = setup_collection!(collection, *args)
+    collection = filter_collection!(collection, *args)
     collection
   end
 
@@ -18,5 +19,10 @@ module Recollect::Collection::Setup
   end
 
   def setup_collection!(collection, *args)
+    collection
+  end
+
+  def filter_collection!(collection, *args)
+    collection
   end
 end

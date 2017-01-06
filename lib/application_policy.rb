@@ -1,11 +1,12 @@
-require_dependency 'permission'
+require 'permission'
+require 'user_util/guest'
 
 class ApplicationPolicy
   alias_method :call, :send
 
   def initialize(user, model)
     @model = model
-    @user = user.is_a?(User) ? user : User.find(user)
+    @user = user.is_a?(User) || user.eql?(UserUtil::Guest) ? user : User.find(user)
     @concept = self.class.name.deconstantize.constantize.model_name.singular
   end
 
@@ -33,9 +34,11 @@ class ApplicationPolicy
     operation_allowed? @concept, :update
   end
 
-  def edit?
-    update?
-  end
+  alias_method :edit?, :update?
+
+  # def edit?
+  #   update?
+  # end
 
   def edit_and_owner?
     edit? and owner?
@@ -43,6 +46,10 @@ class ApplicationPolicy
 
   def show?
     edit_and_owner? || operation_allowed?(@concept, :show)
+  end
+
+  def index?
+    edit_and_owner? || operation_allowed?(@concept, :index)
   end
 
 end

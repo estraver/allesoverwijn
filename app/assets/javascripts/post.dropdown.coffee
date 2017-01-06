@@ -3,6 +3,7 @@ class Post.Dropdown
     $(@dropdown + @keep_open).on
       'shown.bs.dropdown': ->
         @closeable = false
+        true
       'hide.bs.dropdown': ->
         @closeable
       click: (e) ->

@@ -1,0 +1,64 @@
+@import 'theme/colors';
+
+nav.nav-underline {
+  background: {
+    color: lighten($theme-bg, 2%);
+  }
+  ul.nav-pills {
+    li {
+      &.active {
+        a {
+          background: {
+            color: lighten($theme-bg, 2%);
+          }
+          color: $page-header-border-color;
+
+          //padding: 0.25em 0 0.5em;
+
+          &::after {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: {
+              color: $page-header-border-color;
+            }
+            height: 4px;
+            content: '';
+          }
+
+          span {
+            font-weight: 700;
+          }
+        }
+      }
+
+      a {
+        border: {
+          left: 2px solid $theme-bg;
+          radius: 0;
+        }
+
+        &:hover {
+          color: $page-header-border-color;
+          background: {
+            color: lighten($theme-bg, 2%);
+          };
+        }
+
+      }
+
+      &:last-of-type {
+        border: {
+          right: 2px solid $theme-bg;
+        }
+      }
+    }
+  }
+}
+
+.tab-content {
+  margin: {
+    top: 5px;
+  }
+}

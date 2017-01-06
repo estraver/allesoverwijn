@@ -19,7 +19,12 @@ module Profiles
     end
 
     def show
-      present Profile::Bio::Update
+      op = present(Profile::Bio::Show)
+      if request.xhr?
+        render html: cell(Profile::Bio::Cell::Show, op.model, context: {current_user: current_user, html_options: {}, url_options: {profile_id: op.model.id, user_id: op.model.user.id}})
+      else
+        render html: cell(Tabs::TabsCell, op.model, tabs: tabs, context: {current_user: current_user, section: Profile::Bio::Cell::Show, html_options: {class: 'nav-underline'}, url_options: {profile_id: op.model.id, user_id: op.model.user.id}, title: _('view.profile.show.header')}, layout: Profile::Cell::Layout::Show), layout: :default
+      end
     end
   end
 end

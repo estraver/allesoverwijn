@@ -1,4 +1,4 @@
-require_dependency 'profile/operations'
+# require 'profile/operations'
 
 class Profile < ActiveRecord::Base
   module Contact
@@ -85,5 +85,9 @@ class Profile < ActiveRecord::Base
       end
     end
 
+    class Show < Profile::Show
+      action :find
+      policy Profile::Policy, :show?
+    end
   end
 end

@@ -23,7 +23,13 @@ $total-size:  2 * $input2-size + $input4-size + 2.66em;
 
   .form-control-feedback {
     right: 8px;
-    top: -5px;
+    //top: -5px;
+  }
+
+  .help-block {
+    margin: {
+      top: 0;
+    }
   }
 
   &.has-error {

@@ -20,6 +20,7 @@
 //= require summernote
 //= require init
 //= require post
+//= require tabs
 //= require_self
 //= require_tree .
 

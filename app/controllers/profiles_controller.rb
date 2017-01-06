@@ -19,4 +19,8 @@ class ProfilesController < ApplicationController
     params.merge!(id: params[:profile_id])
   end
 
+  def tabs
+    Tabs::Tabs[:profile]
+  end
+
 end

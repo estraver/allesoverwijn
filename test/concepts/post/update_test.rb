@@ -12,7 +12,7 @@ class PostUpdateTest < MiniTest::Spec
 
     contract PostForm
 
-    properties AbstractPost::PropertyType.find(Blog), property: :post
+    properties AbstractPost::PropertyType.find(Blog), property: :post_attributes
   end
 
   class PostTestUpdateOp < PostTestCreateOp
@@ -27,7 +27,7 @@ class PostUpdateTest < MiniTest::Spec
     op = PostTestUpdateOp.present(id: blog.id, current_user: current_user.id)
     op.contract.prepopulate!(params: {id: blog.id, current_user: current_user.id})
 
-    res, op = PostTestUpdateOp.run(id: blog.id, blog: {post: {title: 'Blog Test #2', locale: 'nl', author: { id: op.contract.post.author.id }, article: op.contract.post.article, current_user: current_user.id}}, current_user: current_user.id)
+    res, op = PostTestUpdateOp.run(id: blog.id, blog: {post_attributes: {title: 'Blog Test #2', locale: 'nl', author: {id: op.contract.post.author.id }, article: op.contract.post.article, current_user: current_user.id}}, current_user: current_user.id)
 
     res.must_equal true
     op.model.persisted?.must_equal true
@@ -39,7 +39,7 @@ class PostUpdateTest < MiniTest::Spec
     op = PostTestUpdateOp.present(id: blog.id, current_user: current_user.id)
     op.contract.prepopulate!(params: {id: blog.id, current_user: current_user.id})
 
-    res, op = PostTestUpdateOp.run(id: blog.id, blog: {post: {title: 'Welcome', locale: 'en', author: { id: current_user.id }, article: blog_article}}, current_user: current_user.id)
+    res, op = PostTestUpdateOp.run(id: blog.id, blog: {post_attributes: {title: 'Welcome', locale: 'en', author: {id: current_user.id }, article: blog_article}}, current_user: current_user.id)
 
     res.must_equal true
     op.model.persisted?.must_equal true

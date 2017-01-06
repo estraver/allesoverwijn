@@ -1,0 +1,15 @@
+%p.blog-post-meta
+  %span.blog-post-meta-item
+    = _('view.blog.posted')
+    = published_on
+  %span.blog-post-meta-item
+    = _('view.blog.by')
+    %a{href: '#'}= author_name
+  %span.blog-post-meta-item
+    %i.fa.fa-eye.fa-fw
+    &nbsp;
+    = views_count
+  %span.blog-post-meta-item
+    %i.fa.fa-comments.fa-fw
+    &nbsp;
+    = comments_count

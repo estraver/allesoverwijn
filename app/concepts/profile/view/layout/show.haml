@@ -1,0 +1,14 @@
+%section.content-wrapper
+  #user-profile.row
+    .col-lg-9.col-md-8.col-sm-8
+      .main-box.clearfix
+        .profile-header.title-header
+          %h3
+            %span= context[:title]
+          - if Profile::Policy.new(context[:current_user], model).edit_and_owner?
+            = link_to(edit_user_path(user), class: %w(button edit edit-profile), role: :button) do
+              %i.fa.fa-pencil-square
+              %span= _('view.profile.show.edit')
+        .profile-body= yield
+
+    = cell(Profile::Cell::Sidebar, user)
