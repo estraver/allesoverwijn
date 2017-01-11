@@ -14,8 +14,8 @@ Rails.application.routes.draw do
         resource :favorites, only: [:edit, :update, :show]
         resource :friends, only: [:edit, :update, :show]
         resource :photo, only: [:create]
+        resource :network_accounts
       end
-      resource :network_accounts
     end
   end
   resources :blogs do

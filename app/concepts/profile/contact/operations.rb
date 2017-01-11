@@ -4,6 +4,7 @@ class Profile < ActiveRecord::Base
   module Contact
     class Create < Profile::Create
       include Model, Trailblazer::Operation::Policy
+      include Representer::Deserializer::Hash
 
       model Profile, :create
       policy Profile::Policy, :create?
@@ -44,6 +45,7 @@ class Profile < ActiveRecord::Base
 
             def date_of_birth_ok?(date_of_birth)
               begin
+                return true if date_of_birth.is_a?(Date)
                 Date.parse(date_of_birth).to_s.eql? date_of_birth
               rescue ArgumentError
                 false

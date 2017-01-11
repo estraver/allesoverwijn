@@ -57,8 +57,8 @@ module Tabs
         @panel.classify
       end
 
-      def url(options = {})
-        polymorphic_url @url, options.merge(only_path: true)
+      def url(options = {}, prefix = '')
+        polymorphic_url "#{prefix}#{@url}", options.merge(only_path: true)
       end
 
     end

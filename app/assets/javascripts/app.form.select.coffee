@@ -5,8 +5,6 @@ class App.Form.Select
       theme: 'bootstrap',
       minimumResultsForSearch: Infinity,
       templateResult: (el) ->
-        console.dir $(el)
-        console.dir $(el).data()
         return if !el.id
         $('<span><i class="' + $(el.element).data('icon') + '"></i>' + el.id + '</span>')
       templateSelection: (data, container) ->

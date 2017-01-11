@@ -1,7 +1,0 @@
-= render 'profiles/headers'
-
-= render layout: 'layouts/profiles' do
-  %section.profile_edit
-    .col-lg-3= concept('profile/cell/edit', @model, user: @user, section: 'bio')
-    .col-lg-9.change.well= render 'form'
-

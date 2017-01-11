@@ -27,6 +27,6 @@ module Allesoverwijn
     config.reform.validations = :dry
 
     # add cells with assets
-    config.cells.with_assets = ['tabs/tabs_cell']
+    config.cells.with_assets = ['tabs/tabs_cell', 'profile/network_account/cell/add']
   end
 end

@@ -1,2 +1,5 @@
-= fields profile_fields, model, 'contact'
-= fields user_fields, model.user
+.col-sm-6
+  = fields profile_fields, model, 'contact'
+  = fields user_fields, model.user
+.col-sm-6.profile-social
+  = cell(Profile::NetworkAccount::Cell::Show, collection: network_accounts, layout: Profile::NetworkAccount::Cell::Layout)

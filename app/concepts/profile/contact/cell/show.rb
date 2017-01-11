@@ -4,6 +4,7 @@ module Profile::Contact
         include ::Cell::LabelValueCell
 
         property :profile
+        property :network_accounts
 
         self.base_class = 'profile-user-details'
 

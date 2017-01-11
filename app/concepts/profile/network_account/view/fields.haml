@@ -1,8 +1,3 @@
-- account = id = account_type = nil
-- unless local_assigns[:network_account].nil?
-  - account= network_account.account
-  - id = network_account.id
-  - account_type = network_account.account_type
 .form-group
   =hidden_field_tag 'profile[network_accounts][][id]', id
   =label_tag 'network_account', _('profile.network_account.label'), class: %w(string required col-sm-2 control-label)

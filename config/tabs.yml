@@ -4,9 +4,9 @@
       :name: profile-contact
       :title: profile.contact
       :url: user_profile_contact
-      :panel: Profile::Contact::Cell::Show
+      :panel: Profile::Contact
     -
       :name: profile-bio
       :title: profile.bio
       :url: user_profile_bio
-      :panel: Profile::Bio::Cell::Show
+      :panel: Profile::Bio

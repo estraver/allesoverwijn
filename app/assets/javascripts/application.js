@@ -21,6 +21,7 @@
 //= require init
 //= require post
 //= require tabs
+//= require network_account_add
 //= require_self
 //= require_tree .
 

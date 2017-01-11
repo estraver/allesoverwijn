@@ -3,7 +3,7 @@ class NetworkAccount < ActiveRecord::Base
     include Model
     include Trailblazer::Operation::Policy
 
-    model Profile, :find
+    model Profile, :update
     policy NetworkAccount::Policy, :owner?
 
     contract do
@@ -39,5 +39,17 @@ class NetworkAccount < ActiveRecord::Base
     end
   end
 
+  class Show < Trailblazer::Operation
+    include Model, Trailblazer::Operation::Policy
 
+    model Profile, :find
+    policy Profile::Policy, :show?
+
+    contract do
+      collection :network_account do
+        property :account
+        property :account_type
+      end
+    end
+  end
 end
