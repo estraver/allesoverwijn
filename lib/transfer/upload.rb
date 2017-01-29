@@ -20,6 +20,7 @@ module Transfer
 
           contract do
             property :file, virtual: true
+            property :retained, virtual: true
 
             extend Paperdragon::Model::Writer
             processable_writer :"#{name}", thumb_class
@@ -67,12 +68,22 @@ module Transfer
                 image[thumb[:name].to_sym].url
               end
             end
+
+            property :retained, exec_context: :decorator
+
+            define_method(:retained) do
+              image = thumb_class.new represented.send("#{name}_meta_data")
+
+              Dragonfly::Serializer.json_b64_encode(image)
+            end
           end
 
           define_method(:process) do |params|
             validate(params[name]) do | contract |
               upload_image!(params[:sizes] || thumbs)
-              contract.save
+              # FIXME: Create autosave option
+              contract.sync
+              # contract.save
             end
           end
 

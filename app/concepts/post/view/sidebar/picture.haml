@@ -1,11 +1,14 @@
 .blog-picture
   .blog-picture-edit
-    %a{href: '#', data: {upload: true, 'upload-field': 'picture[file]', url: upload_picture_blog_path(model), image: {field: 'picture', thumb: 'sidebar'}}}
+    %a{href: '#', data: {upload: true, 'upload-field': 'picture[file]', 'retained-field': 'picture[retained]', url: upload_picture_blog_path(model), image: {field: 'picture', thumb: 'sidebar'}}}
       .progress
         .progress-bar.progress-bar-striped.active{role: :progressbar, aria: {valuemin: 0, valuemax: 100, valuenow: 0}} 0%
       .girder
         %i.fa.fa-camera-retro.fa-lg
         .edit= _('blog.settings.picture.edit')
       =concept('post/cell/picture', model).(:sidebar, class: %w(post-picture img-responsive centerblock), blank_image: 'picture-attachment.png')
+  = simple_fields_for context[:operation].contract do | form |
+    = form.simple_fields_for :post do | post |
+      = post.input :retained_picture, as: :hidden
   -#= f.simple_fields_for :post do | post |
   -#  = post.input :picture_meta_data, as: :hidden

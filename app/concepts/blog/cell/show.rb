@@ -3,7 +3,7 @@ module Blog::Cell
     include Cell::ContentCell
 
     def preview?
-      options[:preview] || false
+      context[:preview] || false
     end
 
   end

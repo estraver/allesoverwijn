@@ -4,7 +4,7 @@ require 'post/post_representer'
 require 'transfer/upload'
 # require 'representable/json'
 
-class Post::Create < Trailblazer::Operation
+class Post::Base < Trailblazer::Operation
   include Callback, Dispatch
   include UserUtil::CurrentUser
 
@@ -37,6 +37,8 @@ class Post::Create < Trailblazer::Operation
     # Dirty trick to get te defined model of the operation
     model_key = self.class.model_class.to_s.downcase.to_sym
 
+    # model_key = model.class.to_s.downcase.to_sym
+
     if params.has_key? model_key
 
       params[model_key][:post_attributes].merge! published_on: Date.today if params[model_key][:scheduling].eql? 'auto' and params[model_key][:post_attributes][:published].eql? 'true'
@@ -51,11 +53,19 @@ class Post::Create < Trailblazer::Operation
         { name: property.name.to_s, value: params[model_key][:post_attributes][property.name] }
       end
 
-      post_content[:tags] = params[model_key][:post_attributes][:tags].map do | tag |
-        { tag: tag[:tag] }
-      end unless params[model_key][:post_attributes][:tags].nil?
+      unless params[model_key][:post_attributes][:tags_attributes].nil?
+        params[model_key][:post_attributes][:tags_attributes] = Hash[params[model_key][:post_attributes][:tags_attributes].each_with_index.map { |tag,index| [index, tag] }]
+
+      end
+      # post_content[:tags_attributes] = params[model_key][:post_attributes][:tags_attributes].map do | tag |
+      #   { tag: tag[:tag] }
+      # end unless params[model_key][:post_attributes][:tags_attributes].nil?
+
+      post_content[:tags_attributes] = params[model_key][:post_attributes][:tags_attributes] unless params[model_key][:post_attributes][:tags_attributes].nil?
 
       params[model_key][:post_attributes][:post_contents].push post_content
+
+      params[model_key][:post_attributes][:picture_meta_data] = {}
     end
 
     params
@@ -76,7 +86,7 @@ class Post::Create < Trailblazer::Operation
 end
 
 
-class Post::Upload < Post::Create
+class Post::Upload < Post::Base
   extend Representer::DSL
   include Representer::Rendering, Responder, Transfer::Upload, Model
 

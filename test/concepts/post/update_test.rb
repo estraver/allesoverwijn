@@ -4,7 +4,7 @@ require 'abstract_post/property_type'
 require 'abstract_post/properties'
 
 class PostUpdateTest < MiniTest::Spec
-  class PostTestCreateOp < Post::Create
+  class PostTestCreateOp < Post::Base
     include Model
     include AbstractPost::Properties
 
@@ -15,7 +15,7 @@ class PostUpdateTest < MiniTest::Spec
     properties AbstractPost::PropertyType.find(Blog), property: :post_attributes
   end
 
-  class PostTestUpdateOp < PostTestCreateOp
+  class PostTestCloseOp < PostTestCreateOp
     action :update
   end
 
@@ -24,10 +24,10 @@ class PostUpdateTest < MiniTest::Spec
   let (:blog) { blogs(:welcome_blog) }
 
   it 'Blog title is updated, no translation' do
-    op = PostTestUpdateOp.present(id: blog.id, current_user: current_user.id)
+    op = PostTestCloseOp.present(id: blog.id, current_user: current_user.id)
     op.contract.prepopulate!(params: {id: blog.id, current_user: current_user.id})
 
-    res, op = PostTestUpdateOp.run(id: blog.id, blog: {post_attributes: {title: 'Blog Test #2', locale: 'nl', author: {id: op.contract.post.author.id }, article: op.contract.post.article, current_user: current_user.id}}, current_user: current_user.id)
+    res, op = PostTestCloseOp.run(id: blog.id, blog: {post_attributes: {title: 'Blog Test #2', locale: 'nl', author: {id: op.contract.post.author.id }, article: op.contract.post.article, current_user: current_user.id}}, current_user: current_user.id)
 
     res.must_equal true
     op.model.persisted?.must_equal true
@@ -36,10 +36,10 @@ class PostUpdateTest < MiniTest::Spec
   end
 
   it 'Blog is updated with a new translation' do
-    op = PostTestUpdateOp.present(id: blog.id, current_user: current_user.id)
+    op = PostTestCloseOp.present(id: blog.id, current_user: current_user.id)
     op.contract.prepopulate!(params: {id: blog.id, current_user: current_user.id})
 
-    res, op = PostTestUpdateOp.run(id: blog.id, blog: {post_attributes: {title: 'Welcome', locale: 'en', author: {id: current_user.id }, article: blog_article}}, current_user: current_user.id)
+    res, op = PostTestCloseOp.run(id: blog.id, blog: {post_attributes: {title: 'Welcome', locale: 'en', author: {id: current_user.id }, article: blog_article}}, current_user: current_user.id)
 
     res.must_equal true
     op.model.persisted?.must_equal true

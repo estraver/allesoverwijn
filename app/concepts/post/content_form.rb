@@ -7,15 +7,25 @@ class ContentForm < Reform::Form
   feature Coercion
 
   property :title, virtual: true
-  property :author, virtual: true, form: UserForm, populate_if_empty: ->(fragment:, **) {
-    User.find_by(fragment[:id]) || User.new
+  property :author, virtual: true, form: UserForm, populator: ->(model:, **) {
+    model || self.author = User.new
   }
   property :locale, virtual: true
   property :article, virtual: true
 
-  collection :tags, virtual: true
+  collection :tags, virtual: true, populator: ->(fragment:, **) {
+      item = tags.find { | tag | tag.tag == fragment[:tag] }
+      item ? item : tags.append(Tag.find_by_tag(fragment[:tag]) || Tag.new)
+  } do
+    property :tag
+  end
 
   property :page
+
+  property :retained_picture, virtual: true
+  property :picture_meta_data, populator: ->(fragment:, **) {
+    self.picture_meta_data = Dragonfly::Serializer.json_b64_decode(self.retained_picture)['metadata'].deep_symbolize_keys unless self.retained_picture.empty?
+  }
 
   collection :post_contents,
     populator: ->(fragment:, **) {
@@ -24,8 +34,8 @@ class ContentForm < Reform::Form
     } do
 
     property :title
-    property :author, form: UserForm, populate_if_empty: ->(fragment:, **) {
-      User.find_by(fragment[:id]) || User.new
+    property :author, form: UserForm, populator: ->(model:, **) {
+      model || self.author = User.new
     }
     property :locale
     property :article
@@ -65,9 +75,6 @@ class ContentForm < Reform::Form
       required(:id).filled(:category_exists?)
     end
   end
-
-  # FIXME: deserialize picture_meta_data
-  property :picture_meta_data #, deserializer: {writeable: false}
 
   validation :default do
     required(:title).filled
@@ -120,19 +127,11 @@ class ContentForm < Reform::Form
       self.send("#{field}=", content.send("#{field}"))
     end
 
-    self.tags ||= []
-
-    content.tags.each do | tag |
-      self.tags << tag
-    end
+    self.tags = content.tags.to_a
 
     content.properties.each do | property |
       self.send("#{property.name}=", property.value) if self.respond_to?("#{property.name}=")
     end
 
   end
-
-  private
-
-
 end

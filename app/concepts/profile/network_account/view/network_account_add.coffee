@@ -38,5 +38,5 @@ class Profile.NetworkAccount
     @form.replaceWith $response
     new App.Form.Select($response.find('select.form-control'));
 
-$(document).on 'turbolinks:load', ->
+$(document).on 'app:init', ->
   new Profile.NetworkAccount('a.add-relation.network-account')

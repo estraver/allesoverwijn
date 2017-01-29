@@ -22,9 +22,9 @@ class BlogsController < ApplicationController
   end
 
   def close
-    close_class = params.key?(:id) ? Blog::Update::Close : Blog::Create::Close
+    # close_class = params.key?(:id) ? Blog::Update::Close : Blog::Create::Close
 
-    respond close_class do |op, format|
+    respond Blog::Close do |op, format|
       if op.valid?
         format.json {
           return render json: { status: :redirect, location: url_for(op.model) }
@@ -44,11 +44,11 @@ class BlogsController < ApplicationController
   end
 
   def preview
-    preview_class = params.key?(:id) ? Blog::Update::Preview : Blog::Create::Preview
+    # preview_class = params.key?(:id) ? Blog::Update::Preview : Blog::Create::Preview
 
-    run preview_class do | op |
+    run Blog::Preview do | op |
       @preview = true
-      render :show
+      render html: cell(Blog::Cell::Show, @model, context: { current_user: current_user, operation: @operation, preview: @preview, title: _('blog.show') }, layout: Post::Cell::Layout::Show), layout: :default
     end
 
   end
@@ -64,7 +64,7 @@ class BlogsController < ApplicationController
   end
 
   def upload
-    respond Post::Upload do | op, format |
+    respond Blog::Upload do | op, format |
       format.json { render_json op, 'post.picture.upload' }
       format.html
     end

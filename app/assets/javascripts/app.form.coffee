@@ -64,5 +64,5 @@ class App.Form
     input.trigger event, data
     event.result != false
 
-$(document).on 'turbolinks:load', ->
+$(document).on 'app:init', ->
   new App.Form('form[data-remote]')

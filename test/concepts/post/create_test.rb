@@ -6,7 +6,7 @@ require 'abstract_post/properties'
 class PostCreateTest < MiniTest::Spec
   # Because Post is een abstract concept, we need to use a specific model for testing with Post
   # For testing purposes we create a specific operation with Blog as a model
-  class PostTestCreateOp < Post::Create
+  class PostTestCreateOp < Post::Base
     include Model
     include AbstractPost::Properties
 
@@ -14,7 +14,7 @@ class PostCreateTest < MiniTest::Spec
 
     contract PostForm
 
-    properties AbstractPost::PropertyType.find(Blog), property: :post_attributes
+    properties AbstractPost::PropertyType.find(Blog), property: :post
   end
 
   let (:current_user) { users(:admin) }

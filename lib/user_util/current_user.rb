@@ -15,7 +15,7 @@ module UserUtil
     def find_current_user(user)
       @current_user ||= begin
         user if user.is_a? User or user.is_a? Guest
-        User.find(user_id)  if user.is_a? Fixnum
+        User.find(user)  if user.is_a? Fixnum
       end
     end
   end

@@ -7,10 +7,9 @@ require 'abstract_post/properties'
 require 'recollect/policy_filter'
 
 class Blog < ActiveRecord::Base
-  class Create < Post::Create
-    include Model#, Policy
+  class Create < Post::Base
+    include Model
     include Trailblazer::Operation::Policy
-    include PostUtil::Close
     include AbstractPost::Properties
     # include PostUtil::Comments, TODO:
 
@@ -24,14 +23,6 @@ class Blog < ActiveRecord::Base
     contract PostForm
 
     properties AbstractPost::PropertyType.find(Blog), property: :post
-
-    class Preview < self
-      def process(params)
-        contract.send(:deserialize, params[:blog])
-        dispatch!(:before_save)
-        self
-      end
-    end
 
     class JSON < self
       extend Representer::DSL
@@ -51,15 +42,7 @@ class Blog < ActiveRecord::Base
 
     policy Blog::Policy, :edit_and_owner?
 
-    class Close < Create::Close
-      action :update
-    end
-
-    class Preview < Create::Preview
-      action :update
-    end
-
-    class JSON < Create::JSON
+    class JSON < self
       action :update
     end
   end
@@ -83,41 +66,46 @@ class Blog < ActiveRecord::Base
     end
   end
 
-  # class Upload < Transfer::Upload
-  #   include Representer
-  #
-  #   contract do
-  #     processable_writer :image, PostAttachment
-  #   end
-  #
-  #   representer do
-  #     include Representable::JSON
-  #
-  #     property :image_meta_data
-  #     property :header_url, exec_context: :decorator
-  #     property :sidebar_url, exec_context: :decorator
-  #     property :original_url, exec_context: :decorator
-  #
-  #     private
-  #
-  #     def url_for(style)
-  #       image = PostAttachment.new represented.image_meta_data
-  #       image[style].url
-  #     end
-  #
-  #     def header_url
-  #       url_for(:header)
-  #     end
-  #
-  #     def sidebar_url
-  #       url_for(:sidebar)
-  #     end
-  #
-  #     def original_url
-  #       url_for(:original)
-  #     end
-  #   end
-  #
-  # end
+  class Preview < Post::Base
+    include Callback, Dispatch
+    include AbstractPost::Properties
+
+    contract PostForm
+    properties AbstractPost::PropertyType.find(Blog), property: :post
+
+    def process(params)
+      contract.send(:deserialize, params[:blog])
+      contract.sync
+      dispatch!(:before_save)
+      self
+    end
+
+    def model!(params)
+      params.has_key?(:id) ? Blog.find(params[:id]) : Blog.new
+    end
+
+  end
+
+  class Close < Post::Base
+    include Callback, Dispatch, Model
+    include AbstractPost::Properties
+    include PostUtil::Close
+
+    model Blog
+    contract PostForm
+    properties AbstractPost::PropertyType.find(Blog), property: :post
+
+    def model!(params)
+      params.has_key?(:id) ? Blog.find(params[:id]) : Blog.new
+    end
+
+  end
+
+  class Upload < Post::Upload
+
+    def model!(params)
+      Blog.find(params[:id]).post
+    end
+  end
 
 end

@@ -2,7 +2,7 @@ class Post.Close
   constructor: (@form) ->
     @closeBtn = $(@form).find('button[formaction=close]')
 
-    $(document).off 'click', @form + ' button[formaction=close]'
+#    $(document).off 'click', @form + ' button[formaction=close]'
     $(document).on 'click', @form + ' button[formaction=close]', $.proxy(@onClick, @)
 
 
@@ -35,5 +35,5 @@ class Post.Close
           new App.Flash('error', 'Please reload the page and try again').render()
 #          FIXME: Default messages in message class
 
-$(document).on 'page:change', ->
+$(document).on 'app:init', ->
   new Post.Close('form')

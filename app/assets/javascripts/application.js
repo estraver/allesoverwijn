@@ -18,10 +18,8 @@
 //= require jquery-fileupload/basic
 //= require select2
 //= require summernote
-//= require init
+//= require app.main
 //= require post
-//= require tabs
-//= require network_account_add
 //= require_self
 //= require_tree .
 

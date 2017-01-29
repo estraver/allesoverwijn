@@ -28,7 +28,12 @@ module Cell
     end
 
     def published_on
-      I18n.l(Date.parse(content.properties.find_by(name: :published_on).value))
+      # I18n.l(Date.parse(content.properties.find_by(name: :published_on).value))
+      property = content.properties.find do | property |
+        property.name.eql? 'published_on'
+      end
+
+      I18n.l(Date.parse(property.value))
     end
 
     # FIXME: Put in separate setup module

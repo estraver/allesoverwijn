@@ -1,6 +1,11 @@
-class UserForm < Reform::Form
+require 'reform/form/coercion'
+require 'reform/form/dry'
 
-  property :id
+class UserForm < Reform::Form
+  feature Reform::Form::Dry
+  feature Coercion
+
+  property :id, type:  Types::Form::Int
   property :email
   property :name
   property :sign_in_count

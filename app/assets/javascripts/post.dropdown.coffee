@@ -10,5 +10,5 @@ class Post.Dropdown
         @closeable = $(e.target).is('a[data-toggle=dropdown]')
         true
 
-$(document).on 'page:change', ->
+$(document).on 'app:init', ->
   new Post.Dropdown('li.dropdown')
