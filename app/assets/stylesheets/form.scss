@@ -87,6 +87,14 @@ $total-size:  2 * $input2-size + $input4-size + 2.66em;
         width: $input4-size;
       }
     }
+
+    input[readonly] {
+      &.datefield {
+        background: {
+          color: $theme-bg;
+        }
+      }
+    }
   }
 
   .select2-container--bootstrap {
@@ -245,4 +253,11 @@ $total-size:  2 * $input2-size + $input4-size + 2.66em;
     }
   }
 
+}
+
+.form-dialog {
+  .glyphicon-remove.form-control-feedback {
+    top: 60px;
+    right: 30px;
+  }
 }

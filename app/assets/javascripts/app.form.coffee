@@ -10,6 +10,7 @@ class App.Form
     $(@form_selector)
 
   handle_error: (evt, xhr, status, error) ->
+    $form = $(evt.target)
     errors = try
       # Populate errorText with the comment errors
       $.parseJSON(xhr.responseText);
@@ -17,21 +18,23 @@ class App.Form
       # If the responseText is not valid JSON (like if a 500 exception was thrown), populate errors with a generic error message.
       {error: "Please reload the page and try again"}
 
-    @set_form_errors attr, errText for own attr, errText of errors.errors
+    @set_form_errors $form ,attr, errText for own attr, errText of errors.errors
 
-    @flash 'error', errors.error
+    @flash $form, 'error', errors.error
 
   handle_success: (evt, response, status) ->
-    @flash 'success', response.success if response.success && status == 'success'
+    $form = $(evt.target)
+    @flash $form, 'success', response.success if response.success && status == 'success'
+    @fire($form, 'form:success', response)
 
   handle_complete: (evt) ->
     @toggle_spinner($(evt.target))
 
   handle_before: (evt) ->
     return if $(evt.target).is('a.add-relation')
-    form = $(evt.target)
-    @toggle_spinner(form)
-    @clear_form_errors(form)
+    $form = $(evt.target)
+    @toggle_spinner($form)
+    @clear_form_errors($form)
     @clear_flash()
 
   clear_form_errors: ($form) ->
@@ -39,8 +42,8 @@ class App.Form
     $form.find('span.form-control-feedback').remove()
     $form.find('span.help-block').remove()
 
-  set_form_errors: (attr, errText) ->
-    $input = @input(attr)
+  set_form_errors: ($form, attr, errText) ->
+    $input = @input($form, attr)
     $input.parents('div.form-group').addClass('has-error')
     if @fire($input, 'form:error', {error: errText})
       $("<span>").addClass('glyphicon glyphicon-remove form-control-feedback').appendTo $input.parent()
@@ -49,20 +52,22 @@ class App.Form
   toggle_spinner: ($form) ->
     $form.find('.fa-spinner').toggleClass 'invisible'
 
-  flash: (type, message) ->
-    new App.Flash(type, message).render()
+  flash: ($form, type, message) ->
+    $placeholder = $form.find('.alert-message')
+
+    new App.Flash(type, message).render($placeholder)
 
   clear_flash: ->
     App.Flash.clear()
 
-  input: (attr) ->
+  input: ($form, attr) ->
     attr = attr.replace(/(.*)\.(.*)/,'[\$1_attributes][\$2]')
-    @form().find(":input[name*='" + attr + "']")
+    $form.find(":input[name*='" + attr + "']")
 
   fire: (input, name, data) ->
     event = $.Event(name);
     input.trigger event, data
     event.result != false
 
-$(document).on 'app:init', ->
+$(document).ready ->
   new App.Form('form[data-remote]')

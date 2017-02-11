@@ -55,8 +55,13 @@ class Post::Base < Trailblazer::Operation
 
       unless params[model_key][:post_attributes][:tags_attributes].nil?
         params[model_key][:post_attributes][:tags_attributes] = Hash[params[model_key][:post_attributes][:tags_attributes].each_with_index.map { |tag,index| [index, tag] }]
-
       end
+
+      unless params[model_key][:post_attributes][:categories_attributes].nil?
+        params[model_key][:post_attributes][:categories_attributes] = Hash[params[model_key][:post_attributes][:categories_attributes].each_with_index.map { |category,index| [index, category] }]
+      end
+
+
       # post_content[:tags_attributes] = params[model_key][:post_attributes][:tags_attributes].map do | tag |
       #   { tag: tag[:tag] }
       # end unless params[model_key][:post_attributes][:tags_attributes].nil?

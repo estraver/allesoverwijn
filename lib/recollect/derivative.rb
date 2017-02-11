@@ -18,12 +18,13 @@ module Recollect::Collection::Derivative
   end
 
   module Setup
-    def initialize(model, **params)
-      super(model, **params)
+    def initialize(model, params = nil)
+      super(model, params)
+      args = params.is_a?(ActionController::Parameters) ? params.to_unsafe_h : params
       self.class.derivatives.each do | name, block |
         model.send(:define_method, name) do
           # block.binding = self
-          block.call(model: self, **params)
+          block.call(model: self, **args)
         end
         # mod = Module.new
         # mod.send(:define_method, name) do

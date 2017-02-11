@@ -8,7 +8,9 @@ class CheckBoxesTreeInput < RadioButtonsTreeInput
   end
 
   def name
-    "#{object_name}[#{attribute_name}][]"
+    namespace = @options[:association].nil? ? '' : "[#{@options[:association]}_attributes][]"
+
+    "#{object_name}#{namespace}[#{attribute_name}]"
   end
 
   def class_style

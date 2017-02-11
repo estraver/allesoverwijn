@@ -22,5 +22,5 @@ class Post.Preview
 #      w.document.write(data)
 #      w.document.close()
 
-$(document).on 'app:init', ->
+$(document).ready ->
   new Post.Preview('form')

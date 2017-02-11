@@ -1,0 +1,10 @@
+.well
+  = simple_form_for(operation.contract, url: categories_path, remote: true, data: {type: :json}, class: 'content-wrapper') do
+    - simple_fields_for operation.contract do | f |
+      .alert-message
+      = f.input :name
+      .form-group
+        =label_tag 'locale', _('category.form.locale'), class: %w(string required control-label)
+        =select_tag 'category[locale]', options_for_select(category_locale_options, locale), class: %w(string required form-control)
+
+      = f.input :parent_category_id, collection: TopCategoryCollection.new(Category, current_user: context[:current_user]).(), as: :radio_buttons_tree, value_method: :id, children: :child_categories

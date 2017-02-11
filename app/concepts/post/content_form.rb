@@ -7,15 +7,17 @@ class ContentForm < Reform::Form
   feature Coercion
 
   property :title, virtual: true
-  property :author, virtual: true, form: UserForm, populator: ->(model:, **) {
-    model || self.author = User.new
+  property :author, virtual: true, form: UserForm, populator: ->(fragment:, model:, **) {
+    return model if model
+    self.author = User.find(fragment[:id])
   }
+
   property :locale, virtual: true
   property :article, virtual: true
 
-  collection :tags, virtual: true, populator: ->(fragment:, **) {
+  collection :tags, virtual: true, default: [], populator: ->(fragment:, **) {
       item = tags.find { | tag | tag.tag == fragment[:tag] }
-      item ? item : tags.append(Tag.find_by_tag(fragment[:tag]) || Tag.new)
+      item ? item : tags.append(Tag.find_by_tag(fragment[:tag]))
   } do
     property :tag
   end
@@ -35,7 +37,8 @@ class ContentForm < Reform::Form
 
     property :title
     property :author, form: UserForm, populator: ->(model:, **) {
-      model || self.author = User.new
+      return model if model
+      self.author = User.new
     }
     property :locale
     property :article

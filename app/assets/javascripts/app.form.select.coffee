@@ -10,5 +10,5 @@ class App.Form.Select
       templateSelection: (data, container) ->
         $('<span><i class="' + $(data.element).data('icon') + '"></i>' + data.text + '</span>')
 
-$(document).on 'turbolinks:load', ->
+$(document).ready ->
   new App.Form.Select('select.form-control:not([data-role])')

@@ -24,27 +24,49 @@ $sidebar-bg-color: lighten($yellow-green, 10%);
             color: $sidebar-bg-color;
           }
         }
+
+        div.dropdown-menu {
+          position: relative;
+          width: 100%;
+          margin: 0;
+          padding: {
+            left: 40px;
+            top: 0;
+            bottom: 10px;
+            right: 0;
+          }
+          border-radius: 0;
+          border: none;
+          background-color: $sidebar-bg-color;
+          box-shadow: none;
+
+          .bootstrap-tagsinput {
+            width: 95%;
+          }
+        }
+
+        .dropdown.option {
+          a.dropdown-toggle {
+            float: right;
+          }
+
+          ul.dropdown-menu {
+            margin-top: 20px;
+
+            li {
+              &:hover {
+                background: {
+                  color: $theme-link-text;
+                }
+              }
+            }
+          }
+        }
       }
 
-      .dropdown-menu {
-        position: relative;
-        width: 100%;
-        margin: 0;
-        padding: {
-          left: 40px;
-          top: 0;
-          bottom: 10px;
-          right: 0;
-        }
-        border-radius: 0;
-        border: none;
-        background-color: $sidebar-bg-color;
-        box-shadow: none;
 
-        .bootstrap-tagsinput {
-          width: 95%;
-        }
-      }
+
+
     }
   }
 }

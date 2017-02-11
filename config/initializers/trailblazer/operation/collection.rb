@@ -39,7 +39,7 @@ module Trailblazer::Operation::Collection
     end
 
     def setup_model!(params)
-      @collection ||= self.class.collection_class.new(model_class, params).(*@values)
+      @collection ||= self.class.collection_class.new(model_class, params.to_unsafe_h).(*@values)
       super
     end
   end

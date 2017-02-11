@@ -25,5 +25,5 @@ class App.Form.Summernote
     false
 
 
-$(document).on 'turbolinks:load', ->
+$(document).ready ->
   new App.Form.Summernote('[data-provider="summernote"]')

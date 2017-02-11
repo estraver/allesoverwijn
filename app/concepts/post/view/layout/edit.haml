@@ -1,4 +1,3 @@
--#= simple_form_for(operation.contract, as: model.class.to_s.downcase, url: url_for(operation.model), remote: true, data: {type: :json}, class: 'content-wrapper') do | form |
 = form_tag operation.contract, method: (model.new_record? ? :post : :patch), remote: true, data: {type: :json}, class: 'content-wrapper simple_form', novalidate: 'novalidate' do
   %section
     .profile-header.title-header
@@ -14,7 +13,9 @@
             = form.button :button, _('post.preview'), formaction: 'preview', formtarget: '_blank', type: 'button'
             = form.button :button, _('post.close'), formaction: 'close', type: 'button'
   %section.border-between
-    .col-md-9.edit.well= yield
+    .col-md-9.edit.well
+      .alert-message
+      = yield
     .col-md-3.sidebar
       .sidebar-wrapper
         %ul.nav.sidebar-nav

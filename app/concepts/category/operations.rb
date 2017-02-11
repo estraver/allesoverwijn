@@ -1,7 +1,4 @@
-require_dependency 'user_util/current_user'
-require_dependency 'recollect/twin'
-# require_dependency 'abstract_category/abstract_category'
-require_dependency 'category/category_form'
+require 'user_util/current_user'
 
 class Category < ActiveRecord::Base
   class Create < Trailblazer::Operation
@@ -9,7 +6,6 @@ class Category < ActiveRecord::Base
     include UserUtil::CurrentUser
 
     model Category, :create
-    # policy Category::Policy, :create? TODO
 
     contract CategoryForm
 
@@ -110,7 +106,7 @@ class Category < ActiveRecord::Base
     model Category
 
     collection :all do
-      include Recollect::Collection::Twin
+      # include Recollect::Collection::Twin
 
       scope -> { :all }
       # twin AbstractCategory::Entry

@@ -42,7 +42,7 @@ class Blog < ActiveRecord::Base
 
     policy Blog::Policy, :edit_and_owner?
 
-    class JSON < self
+    class JSON < Create::JSON
       action :update
     end
   end
@@ -69,6 +69,9 @@ class Blog < ActiveRecord::Base
   class Preview < Post::Base
     include Callback, Dispatch
     include AbstractPost::Properties
+    include Model
+
+    model Blog
 
     contract PostForm
     properties AbstractPost::PropertyType.find(Blog), property: :post

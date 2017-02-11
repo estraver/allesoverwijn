@@ -25,5 +25,5 @@ class App.Main
 
   @dialog: () ->
 
-$(document).on 'turbolinks:load', ->
+$(document).ready ->
   app = App.Main.init()

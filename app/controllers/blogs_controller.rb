@@ -1,4 +1,4 @@
-require_dependency 'blog/operations'
+# require_dependency 'blog/operations'
 # require_dependency 'transfer/operations'
 
 class BlogsController < ApplicationController
@@ -22,8 +22,6 @@ class BlogsController < ApplicationController
   end
 
   def close
-    # close_class = params.key?(:id) ? Blog::Update::Close : Blog::Create::Close
-
     respond Blog::Close do |op, format|
       if op.valid?
         format.json {
@@ -44,8 +42,6 @@ class BlogsController < ApplicationController
   end
 
   def preview
-    # preview_class = params.key?(:id) ? Blog::Update::Preview : Blog::Create::Preview
-
     run Blog::Preview do | op |
       @preview = true
       render html: cell(Blog::Cell::Show, @model, context: { current_user: current_user, operation: @operation, preview: @preview, title: _('blog.show') }, layout: Post::Cell::Layout::Show), layout: :default
@@ -70,25 +66,18 @@ class BlogsController < ApplicationController
     end
   end
 
-  # Parse picture_meta_data
-  # def process_params!(params)
-  #   super(params)
-  #   if params.has_key?(:blog) and params[:blog].has_key?(:post_attributes)
-  #     picture_meta_data =  params[:blog][:post_attributes].delete(:picture_meta_data)
-  #     params[:blog][:post_attributes].merge!(picture_meta_data: JSON.parse(picture_meta_data, {:symbolize_names => true}))
-  #   end
-  #
-  # end
+  def sidebar
+    present Blog::Update
+    render html: cell("post/cell/sidebar/#{params[:widget].to_s.singularize}".camelize.constantize, @model, context: { current_user: current_user, operation: @operation })
+  end
 
   private
 
   def blog_widgets
-    # [ :categories, :archives ]
     %w(categories archives)
   end
 
   def blog_edit_widgets
-    # ['picture', ':categories', :'tags', ':publish', ':properties' ]
     %w(picture categories tags publish properties)
   end
 

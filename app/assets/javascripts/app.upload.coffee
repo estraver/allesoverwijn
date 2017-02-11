@@ -56,5 +56,5 @@ class App.Upload
     @input.click()
 
 
-$(document).on 'app:init', ->
+$(document).ready ->
   new App.Upload('a[data-upload]')

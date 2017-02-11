@@ -32,6 +32,12 @@ class App.Dialog
     @dialog.modal('show')
 
 
+  onCancel: (evt) ->
+    @cancelFn.call(this, evt)
+
+  onConfirm: (evt) ->
+    @confirmFn.call(this, evt)
+
   create_confirm_dialog: (classes) ->
     $dialog= $(@templates.dialog)
     $dialog.find('.modal-dialog').addClass(classes.join(' '))

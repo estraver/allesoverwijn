@@ -11,7 +11,8 @@ module AbstractCategory::UserCategory
   end
 
   def value_by_model_and_user(category, field, user)
-    category_by_user(category, user).send(field)
+    cat = category_by_user(category, user)
+    cat.nil? ? nil : cat.send(field)
   end
 
   def locale_for_user(user)

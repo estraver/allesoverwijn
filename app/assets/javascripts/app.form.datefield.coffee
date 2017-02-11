@@ -43,5 +43,5 @@ class App.Form.Datefield
     $("<span>").addClass('help-block').html(data.error.join(', ')).appendTo @datefield().parent()
     false
 
-$(document).on 'app:init', ->
+$(document).ready ->
   new App.Form.Datefield('datefield')

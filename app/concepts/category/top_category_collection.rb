@@ -3,7 +3,7 @@ require 'recollect/derivative'
 require 'recollect/array'
 
 class TopCategoryCollection < Recollect::Collection
-  include Derivative, Array
+  include Derivative, Cell, Array
 
   scope -> { where('parent_category_id IS NULL') }
   derivative :name do | current_user:, model:, ** |

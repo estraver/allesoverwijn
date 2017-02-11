@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'home#index'
+
   resources :users, only: [:show, :edit, :update, :index] do
     resource :confirmation, only: [:show]
     resources :profiles, only: [:show, :edit] do
@@ -18,10 +19,11 @@ Rails.application.routes.draw do
       end
     end
   end
+
   resources :blogs do
     patch :publish, on: :member
     post :upload, on: :member, as: :upload_picture
-    get :close, :preview, on: :member
+    get :close, :preview, :sidebar, on: :member
   end
 
   resource :categories, only: [:new, :create]

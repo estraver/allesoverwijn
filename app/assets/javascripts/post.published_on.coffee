@@ -19,5 +19,5 @@ class Post.PublishedOn
 
 #  @input.val @date_picker.datepicker('getFormattedDate')
 
-$(document).on 'page:change', ->
+$(document).ready ->
   new Post.PublishedOn('#published_on')

@@ -18,7 +18,7 @@ module Post::Cell
       private
 
       def archives
-        ArchiveCollection.new(Property).()
+        ArchiveCollection.new(::Property).()
       end
 
       # TODO:

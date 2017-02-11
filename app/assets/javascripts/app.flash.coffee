@@ -12,11 +12,21 @@ class App.Flash
 
   constructor: (@type, @msg) ->
 
-  render: ->
-    @create_msg_box().append($('<span>').addClass('message').text(@msg)).prependTo $(@placeholder)
+  render: (placeholder = $(@placeholder)) ->
+    placeholder = $(@placeholder) if $.isEmptyObject(placeholder)
+    $msgbox = @create_msg_box().append($('<span>').addClass('message').text(@msg)).prependTo($(placeholder))
+
+    $msgbox.addClass('in')
+
+    window.setTimeout ->
+      $msgbox.one 'transitionend webkitTransitionEnd oTransitionEnd', ->
+        $(this).remove()
+
+      $msgbox.removeClass('in')
+    , 6000
 
   create_msg_box: ->
-    msgbox = $('<div>').addClass('alert fade in ' + @flash_class[@type]).attr { 'data-alert': @type, role: 'alert' }
+    msgbox = $('<div>').addClass('alert fade ' + @flash_class[@type]).attr { 'data-alert': @type, role: 'alert' }
     icon = $('<span>').addClass('glyphicon ' + @flash_icon[@type])
     sr = $('<span>').addClass('sr-only').text if @type == 'error' then 'Error:' else 'Info:'
     closebtn = $('<button>').addClass('close').attr({type: 'button', 'data-dismiss': 'alert', 'aria-hidden': true }).html '&times;'

@@ -35,5 +35,5 @@ class Post.Close
           new App.Flash('error', 'Please reload the page and try again').render()
 #          FIXME: Default messages in message class
 
-$(document).on 'app:init', ->
+$(document).ready ->
   new Post.Close('form')
