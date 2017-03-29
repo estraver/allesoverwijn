@@ -15,9 +15,9 @@ class ContentForm < Reform::Form
   property :locale, virtual: true
   property :article, virtual: true
 
-  collection :tags, virtual: true, default: [], populator: ->(fragment:, **) {
-      item = tags.find { | tag | tag.tag == fragment[:tag] }
-      item ? item : tags.append(Tag.find_by_tag(fragment[:tag]))
+  collection :tags, virtual: true, default: [], field: :hash, populator: ->(fragment:, **) {
+    item = tags.find { | tag | tag.tag == fragment[:tag] }
+    item ? item : tags.append(Tag.find_by_tag(fragment[:tag]) || OpenStruct.new)
   } do
     property :tag
   end
@@ -36,9 +36,9 @@ class ContentForm < Reform::Form
     } do
 
     property :title
-    property :author, form: UserForm, populator: ->(model:, **) {
+    property :author, form: UserForm, populator: ->(model:, fragment:, **) {
       return model if model
-      self.author = User.new
+      self.author = User.find(fragment[:id])
     }
     property :locale
     property :article
@@ -97,7 +97,11 @@ class ContentForm < Reform::Form
       config.messages_file = 'config/dry_error_messages.yml'
 
       def unique_title?(title)
-        PostContent.where(title: title, locale: form.locale).where.not('post_id = ?', form.model.id).count.eql? 0
+        if form.model.id.nil?
+          PostContent.where(title: title, locale: form.locale).count.eql? 0
+        else
+          PostContent.where(title: title, locale: form.locale).where.not('post_id = ?', form.model.id).count
+        end
       end
     end
 
@@ -126,15 +130,20 @@ class ContentForm < Reform::Form
     user = User.find(options[:params][:current_user])
     content = content_by_model_and_user(self.model, user)
 
-    %w(title author locale article).each do |field|
-      self.send("#{field}=", content.send("#{field}"))
+    unless content.nil?
+      %w(title author locale article).each do |field|
+        self.send("#{field}=", content.send("#{field}"))
+      end
+
+      self.tags = content.tags.to_a
+
+      content.properties.each do | property |
+        self.send("#{property.name}=", property.value) if self.respond_to?("#{property.name}=")
+      end
     end
 
-    self.tags = content.tags.to_a
-
-    content.properties.each do | property |
-      self.send("#{property.name}=", property.value) if self.respond_to?("#{property.name}=")
-    end
+    self.send('author=', user) if self.model.new_record?
+    self.send('locale=', locale_for_user(user)) if self.model.new_record?
 
   end
 end

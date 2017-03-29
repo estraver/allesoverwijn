@@ -7,8 +7,12 @@ module Post::Cell
     include Cell::ImageCell
 
     delegates :model, :post
-    delegates :post, :picture_meta_data
+    # delegates :post, :picture_meta_data
 
     attachment :picture, PostAttachment
+
+    def picture_meta_data
+      post.picture_meta_data unless post.nil?
+    end
   end
 end

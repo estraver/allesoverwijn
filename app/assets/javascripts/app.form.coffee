@@ -25,6 +25,10 @@ class App.Form
   handle_success: (evt, response, status) ->
     $form = $(evt.target)
     @flash $form, 'success', response.success if response.success && status == 'success'
+    @set_form_ids $form, response
+    if $form.attr('method') == 'post'
+      $form.attr 'method', 'patch'
+      $form.attr 'url', $form.attr('url') + '/' + repsonse.id
     @fire($form, 'form:success', response)
 
   handle_complete: (evt) ->
@@ -48,6 +52,18 @@ class App.Form
     if @fire($input, 'form:error', {error: errText})
       $("<span>").addClass('glyphicon glyphicon-remove form-control-feedback').appendTo $input.parent()
       $("<span>").addClass('help-block').html(errText.join(', ')).appendTo $input.parent()
+
+  set_form_ids: ($form, response) ->
+    $(input).val(@get_value_from_response(input, response)) for input in $form.find(':input[name*=id]')
+
+  get_value_from_response: (input, response) ->
+    name = $(input).attr('name').replace(/_attributes/g, '').replace(/]/g,'').replace(/\[/g, '.')
+    list = name.split('.').splice 1
+    value = response
+    for key in list
+      do (key) ->
+        value=value[key] if value != undefined
+    value
 
   toggle_spinner: ($form) ->
     $form.find('.fa-spinner').toggleClass 'invisible'

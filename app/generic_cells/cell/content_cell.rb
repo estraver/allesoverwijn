@@ -14,9 +14,6 @@ module Cell
 
     private
 
-    # attr_reader :operation
-    # attr_reader :content
-
     def author_name
       author.name
     end
@@ -33,7 +30,7 @@ module Cell
         property.name.eql? 'published_on'
       end
 
-      I18n.l(Date.parse(property.value))
+      I18n.l(property.value.empty? ? Date.today : Date.parse(property.value))
     end
 
     # FIXME: Put in separate setup module

@@ -4,9 +4,10 @@ module Post::Cell
       include ::Cell::Builder
 
       builds do |model, options|
-        if options[:context][:operation].class.to_s.demodulize.eql? 'Update'
+        mod = options[:context][:operation].class.to_s.demodulize
+        if mod.eql?('Update') || mod.eql?('Create')
           Edit
-        else options[:context][:operation].class.to_s.demodulize.eql? 'Show'
+        else mod.eql? 'Show'
           Show
         end
       end

@@ -3,9 +3,9 @@
     %span.glyphicon.glyphicon-option-vertical
   %ul.dropdown-menu.dropdown-menu-right
     %li
-      = link_to('#', class: %w(edit categories-edit), data: {dialog: 'auto', 'dialog-url': new_categories_path, 'dialog-confirmed': url_for(['sidebar', model, widget: 'category']), 'dialog-title': _('category.new')}) do
+      = link_to('#', class: %w(edit categories-edit), data: {dialog: 'auto', 'dialog-url': new_categories_path, 'dialog-confirmed': 'sidebar?category', 'dialog-title': _('category.new')}) do
         %span= _('blog.settings.categories.new')
 
 = simple_fields_for context[:operation].contract do | form |
   = form.simple_fields_for :post do | post |
-    = post.input :id, collection: TopCategoryCollection.new(Category, current_user: context[:current_user]).(), required: false, as: :check_boxes_tree, children: :child_categories, checked: operation.contract.post.categories.map(&:id), association: :categories
+    = post.input :id, collection: TopCategoryCollection.new(Category, current_user: context[:current_user]).(), required: false, as: :check_boxes_tree, children: :child_categories, checked: operation.contract.post.categories.map(&:id), association: :categories, wrapper_html: {class: 'categories'}

@@ -24,10 +24,31 @@ class PostUpdateTest < MiniTest::Spec
   let (:blog) { blogs(:welcome_blog) }
 
   it 'Blog title is updated, no translation' do
-    op = PostTestUpdateOp.present(id: blog.id, current_user: current_user.id)
-    op.contract.prepopulate!(params: {id: blog.id, current_user: current_user.id})
+    params = ActionController::Parameters.new(
+        id: blog.id,
+        current_user: current_user
+    )
 
-    res, op = PostTestUpdateOp.run(id: blog.id, blog: {post_attributes: {title: 'Blog Test #2', locale: 'nl', author: {id: op.contract.post.author.id }, article: op.contract.post.article, current_user: current_user.id}}, current_user: current_user.id)
+    op = PostTestUpdateOp.present(params)
+    op.contract.prepopulate!(params: params)
+
+    params = ActionController::Parameters.new(
+        id: blog.id,
+        blog: {
+            post_attributes: {
+                title: 'Blog Test #2',
+                locale: 'nl',
+                author_attributes: {
+                    id: op.contract.post.author.id.to_s
+                },
+                article: op.contract.post.article,
+                retained_picture: ''
+            }
+        },
+        current_user: current_user
+    )
+
+    res, op = PostTestUpdateOp.run(params)
 
     res.must_equal true
     op.model.persisted?.must_equal true
@@ -36,12 +57,34 @@ class PostUpdateTest < MiniTest::Spec
   end
 
   it 'Blog is updated with a new translation' do
-    op = PostTestUpdateOp.present(id: blog.id, current_user: current_user.id)
-    op.contract.prepopulate!(params: {id: blog.id, current_user: current_user.id})
+    params = ActionController::Parameters.new(
+        id: blog.id,
+        current_user: current_user
+    )
 
-    res, op = PostTestUpdateOp.run(id: blog.id, blog: {post_attributes: {title: 'Welcome', locale: 'en', author: {id: current_user.id }, article: blog_article}}, current_user: current_user.id)
+    op = PostTestUpdateOp.present(params)
+    op.contract.prepopulate!(params: params)
+
+    params = ActionController::Parameters.new(
+        id: blog.id,
+        blog: {
+            post_attributes: {
+                title: 'Welcome',
+                locale: 'en',
+                author_attributes: {
+                    id: current_user.id.to_s
+                },
+                article: blog_article,
+                retained_picture: ''
+            }
+        },
+        current_user: current_user
+    )
+
+    res, op = PostTestUpdateOp.run(params)
 
     res.must_equal true
+
     op.model.persisted?.must_equal true
     op.model.post.post_contents.size.must_equal 2
   end

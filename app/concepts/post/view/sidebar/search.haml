@@ -1,0 +1,6 @@
+= simple_fields_for :search do | form |
+  .input-group.stylish-input-group.col-md-12
+    = form.input_field :search, as: :search, class: %w(search-query form-control)
+    .input-group-btn
+      %button.btn.btn-default{type: 'submit'}
+        %span.glyphicon.glyphicon-search

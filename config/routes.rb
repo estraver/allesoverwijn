@@ -21,9 +21,20 @@ Rails.application.routes.draw do
   end
 
   resources :blogs do
-    patch :publish, on: :member
-    post :upload, on: :member, as: :upload_picture
-    get :close, :preview, :sidebar, on: :member
+    member do
+      post :upload_picture
+      patch :publish
+      get :close, :preview, :sidebar
+    end
+
+    new do
+      post :publish #, :upload_picture
+    end
+
+    collection do
+      get :close, :preview, :sidebar
+      post :upload_picture
+    end
   end
 
   resource :categories, only: [:new, :create]

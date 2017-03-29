@@ -1,6 +1,6 @@
 .blog-picture
   .blog-picture-edit
-    %a{href: '#', data: {upload: true, 'upload-field': 'picture[file]', 'retained-field': 'picture[retained]', url: upload_picture_blog_path(model), image: {field: 'picture', thumb: 'sidebar'}}}
+    %a{href: '#', data: {upload: true, 'upload-field': 'picture[file]', 'retained-field': 'picture[retained]', url: url_for(action: 'upload_picture'), image: {field: 'picture', thumb: 'sidebar'}}}
       .progress
         .progress-bar.progress-bar-striped.active{role: :progressbar, aria: {valuemin: 0, valuemax: 100, valuenow: 0}} 0%
       .girder

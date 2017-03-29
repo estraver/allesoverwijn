@@ -28,7 +28,9 @@ class Blog < ActiveRecord::Base
       extend Representer::DSL
       include Representer::Rendering, Responder
 
-      representer PostRepresenter
+      representer PostRepresenter do
+        property :id
+      end
     end
 
   end
@@ -99,7 +101,7 @@ class Blog < ActiveRecord::Base
     properties AbstractPost::PropertyType.find(Blog), property: :post
 
     def model!(params)
-      params.has_key?(:id) ? Blog.find(params[:id]) : Blog.new
+      params.has_key?(:id)? Blog.find(params[:id]) : Blog.new
     end
 
   end
@@ -107,7 +109,8 @@ class Blog < ActiveRecord::Base
   class Upload < Post::Upload
 
     def model!(params)
-      Blog.find(params[:id]).post
+      params.has_key?(:id)? Blog.find(params[:id]).post : Post.new
+      # Blog.find(params[:id]).post
     end
   end
 

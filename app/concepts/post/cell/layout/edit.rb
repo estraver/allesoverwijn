@@ -17,7 +17,8 @@ module Post::Cell
       end
 
       def published?
-        operation.contract.post.published
+        !operation.contract.post.nil? && operation.contract.post.published
+        # operation.contract.post.published
       end
 
     end

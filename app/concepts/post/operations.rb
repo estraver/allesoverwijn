@@ -61,16 +61,15 @@ class Post::Base < Trailblazer::Operation
         params[model_key][:post_attributes][:categories_attributes] = Hash[params[model_key][:post_attributes][:categories_attributes].each_with_index.map { |category,index| [index, category] }]
       end
 
-
-      # post_content[:tags_attributes] = params[model_key][:post_attributes][:tags_attributes].map do | tag |
-      #   { tag: tag[:tag] }
-      # end unless params[model_key][:post_attributes][:tags_attributes].nil?
-
       post_content[:tags_attributes] = params[model_key][:post_attributes][:tags_attributes] unless params[model_key][:post_attributes][:tags_attributes].nil?
 
       params[model_key][:post_attributes][:post_contents].push post_content
 
       params[model_key][:post_attributes][:picture_meta_data] = {}
+    else
+      params[model_key] = {}
+      params[model_key][:post_attributes]= {}
+      params[model_key][:post_attributes].merge! post_contents: []
     end
 
     params

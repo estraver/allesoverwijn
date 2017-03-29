@@ -4,13 +4,12 @@
     %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
     %title= content_for?(:title) ?  "#{yield(:title)} |  Alles over wijn" : 'Alles over wijn'
     %meta{:name => 'description', content: "#{content_for?(:description) ? yield(:description) : 'Allesoverwijn'}"}
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': true
-    = javascript_include_tag 'application', 'data-turbolinks-track': true, type: 'text/javascript'
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application', type: 'text/javascript'
     = csrf_meta_tags
   %body{class: @preview ? :overlay : nil}
     .wrapper
       %header
-        -#= render 'layouts/navigation'
         = cell('navigation/navigation', NavigationLink, context: {current_user: current_user}, layout: Navigation::LayoutCell )
       - if content_for? :section
         %section= yield :section

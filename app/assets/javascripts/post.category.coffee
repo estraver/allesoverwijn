@@ -3,7 +3,7 @@ class Post.Category
     $(document).on 'dialog:confirmed', @link, $.proxy(@onConfirmed, @)
 
   onConfirmed: (evt) ->
-    url = $(@link).data('dialog-confirmed')
+    url = $('form').attr('url') + '/' + $(@link).data('dialog-confirmed')
 
     $.ajax
       url: url
@@ -11,8 +11,8 @@ class Post.Category
       dataType: 'html'
       context: @
     .done (data) ->
-      $categories = $(data).find('div.blog_post_category_ids')
-      $('div.blog_post_category_ids').replaceWith($categories)
+      $categories = $(data).find('div.categories')
+      $('div.categories').replaceWith($categories)
       true
 #      $(@link).parents('li.dropdown').replaceWith($(data))
 #      $(@link).toggleClass 'open'

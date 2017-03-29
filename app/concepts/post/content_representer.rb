@@ -5,6 +5,7 @@ class ContentRepresenter < Representable::Decorator
   include Representable::JSON
   include AbstractPost::UserPost
 
+  property :id
   property :title, getter: ->(represented:,user_options:,decorator:, **) {
     # Rails.logger.info self.inspect
     decorator.value_by_model_and_user(represented, :title, user_options[:current_user])
@@ -31,6 +32,7 @@ class ContentRepresenter < Representable::Decorator
   property :page
 
   collection :post_contents do
+    property :id
     property :title
     property :author
     property :locale

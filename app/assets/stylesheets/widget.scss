@@ -1,10 +1,16 @@
 .widget-box {
-  border: {
-    top: 4px solid $page-header-border-color;
-    //bottom: 1px solid $page-header-border-color;
-  }
   margin: {
     bottom: 2em;
+  }
+
+  h4 {
+    border: {
+      top: 4px solid $page-header-border-color;
+      //bottom: 1px solid $page-header-border-color;
+    }
+    padding: {
+      top: 5px;
+    }
   }
 
   .widget-title {

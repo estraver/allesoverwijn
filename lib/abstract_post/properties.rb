@@ -18,7 +18,7 @@ module AbstractPost::Properties
             if property.default.nil?
               property property.name, virtual: true, type: Kernel.const_get(property.type)
             else
-              property property.name, virtual: true, type: Kernel.const_get(property.type), default: property.default
+              property property.name, virtual: true, type: Kernel.const_get(property.type), default: -> { property.default }
             end
           end
         else
@@ -28,7 +28,7 @@ module AbstractPost::Properties
                 if property.default.nil?
                   property property.name, virtual: true, type: Kernel.const_get(property.type)
                 else
-                  property property.name, virtual: true, type: Kernel.const_get(property.type), default: property.default
+                  property property.name, virtual: true, type: Kernel.const_get(property.type), default: -> { property.default }
                 end
               end
             end

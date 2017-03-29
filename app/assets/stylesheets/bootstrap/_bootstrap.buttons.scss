@@ -1,16 +1,16 @@
 @import 'bootstrap.colors';
+@import 'compass/css3/filter';
 
-//== Buttons
 //
 //## For each of Bootstrap's buttons, define text, background and border color.
 
 $btn-font-weight:                normal;
 
-$btn-default-color:              contrast($brand-primary, black, white);
+$btn-default-color:              $theme-text;
 $btn-default-bg:                 $brand-primary;
 $btn-default-border:             darken($btn-default-bg, 5%);
 
-$btn-primary-color:              contrast($brand-primary, black, white);
+$btn-primary-color:              $theme-text;
 $btn-primary-bg:                 $brand-primary;
 $btn-primary-border:             darken($btn-primary-bg, 5%);
 

@@ -14,7 +14,12 @@ module Post::Cell
       end
 
       def published?
-        context[:operation].contract.post.published and context[:operation].contract.post.published_on < Date.today
+        post = context[:operation].contract.post
+        unless post.nil? || post.published_on.nil?
+          post.published and post.published_on < Date.today
+        else
+          false
+        end
       end
     end
   end
